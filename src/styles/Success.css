@@ -1,0 +1,39 @@
+.Success {
+  margin: 20% 10%;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.Success h1 {
+  font-weight: 400;
+}
+
+.Success p {
+  padding: 5px;
+  font-weight: 150;
+}
+
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+.Success button {
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 700px) {
+  .Success {
+    margin: 10%;
+  }
+}

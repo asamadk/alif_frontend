@@ -1,0 +1,58 @@
+.topbar {
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  height: 35px;
+}
+.topbar__left {
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+.topbar__left .MuiSvgIcon-root,
+.topbar__right .MuiSvgIcon-root {
+  font-size: 18px;
+}
+
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+.topbar__contactInfo {
+  display: flex;
+  align-items: center;
+}
+.topbar__contactInfo > p,
+.topbar__timing > p {
+  font-size: 12px;
+  padding-left: 5px;
+}
+
+.topbar__timing {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+.topbar__right {
+  display: flex;
+  align-items: center;
+}
+.topbar__right > ul {
+  display: flex;
+  list-style: none;
+}
+.topbar__right > ul > li > a {
+  text-decoration: none;
+  color: white;
+}
+.topbar__right > ul > li {
+  padding-left: 5px;
+}

@@ -1,0 +1,83 @@
+.shirts_btn button {
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  /* position: relative;
+  left: 30%; */
+}
+.shirts_btn {
+  max-width: 40%;
+  margin: 0px auto;
+}
+
+.Product__Shirts__Select{
+  padding: 10px 25px;
+  margin: 10px;
+  left: 35%;
+  position: relative;
+  border-radius: 20px;
+
+}
+
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+/* .Product__Shirts__Select option{
+  padding: 10px 30px;
+} */
+
+.resetButton {
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  /* margin: 20px 5px; */
+  padding: 10px 20px;
+  margin: 10px;
+  left: 35%;
+  position: relative;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 700px) {
+  .Product__Shirts__Container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    position: relative;
+    left: 10%;
+    margin: 50px 0px;
+  }
+  .shirts_btn {
+    max-width: 20%;
+    margin: 0px auto;
+    text-align: center;
+  }
+
+  .Product__Shirts__Select{
+    padding: 10px 25px;
+    margin: 10px;
+    left: 12%;
+    position: relative;
+  }
+
+  .resetButton{
+    background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  left: 12%;
+    position: relative;
+  }
+}

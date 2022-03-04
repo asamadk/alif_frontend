@@ -1,0 +1,70 @@
+.Contact__Mail {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  padding: 10px 0px;
+  margin: 30px 20px;
+}
+
+.Contact__Mail h2 {
+  font-weight: 300;
+  padding: 10px 0px;
+}
+
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+.Contact__Mail input {
+  display: block;
+  margin: 10px 10px;
+  padding: 10px;
+  width: 90%;
+  border: 0.5px grey solid;
+}
+
+.Contact {
+  text-align: center;
+  margin: 10px;
+}
+
+.Contact button {
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+}
+
+.Contact__Mail_Body input {
+  display: block;
+  margin: 10px 10px;
+  padding: 10px;
+  width: 90%;
+  border: 0.5px grey solid;
+  height: auto;
+}
+
+.Contact__Mail p {
+  padding: 5px;
+  font-weight: 300;
+  text-align: start;
+  padding: 5px 30%;
+}
+
+@media screen and (min-width: 700px) {
+  .Contact__Mail {
+    max-width: 25%;
+    position: relative;
+    left: 35%;
+  }
+  .Contact {
+    margin: 5% 10%;
+  }
+}

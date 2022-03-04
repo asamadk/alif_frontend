@@ -1,0 +1,53 @@
+.Address__Container {
+  /* border: 1px red solid; */
+  text-align: start;
+  margin: 20px 10px;
+}
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+.Address__Container h3 {
+  margin: 10px 0px;
+  font-weight: 350;
+  padding: 0px 20px;
+}
+
+.Address__Container p {
+  margin: 5px 0px;
+  text-align: start;
+  padding: 0px 20px;
+  font-weight: 200;
+  font-size: small;
+}
+
+.Address__Container button {
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 700px) {
+  .Address {
+    /* border: 1px red solid; */
+    width: 80%;
+    position: relative;
+    left: 10%;
+  }
+
+  .Address__Container {
+    /* border: 1px red solid; */
+    max-width: 300px;
+    margin: auto;
+    margin-top: 30px;
+  }
+}

@@ -1,0 +1,61 @@
+.Footer {
+  display: block;
+  margin: 10% 0px;
+  padding: 20px;
+  text-align: start;
+}
+
+.Footer h3 {
+  font-weight: 300;
+}
+
+.Footer li {
+  font-weight: 200;
+  font-size: small;
+}
+
+button{
+  transition-duration: 0.5s;
+}
+
+button:hover{
+  background-color: black;
+  color: wheat;
+  cursor: pointer;
+}
+
+.Footer ul {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.Footer__col1,
+.Footer__col2,
+.Footer__col3 {
+  margin: 10px;
+}
+
+.Footer h4 {
+  font-weight: 300;
+  text-align: center;
+}
+
+@media screen and (min-width: 700px) {
+  .Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 10%;
+    bottom: 0;
+    margin-bottom: 0px;
+    border-top: 2px whitesmoke solid;
+  }
+
+  .Footer__col1,
+  .Footer__col2,
+  .Footer__col3 {
+    width: 30%;
+    max-width: 300px;
+  }
+}
