@@ -16,7 +16,7 @@
 .Product__Shirts__Select{
   padding: 10px 25px;
   margin: 10px;
-  left: 35%;
+  left: 15%;
   position: relative;
   border-radius: 20px;
 
@@ -43,7 +43,7 @@ button:hover{
   /* margin: 20px 5px; */
   padding: 10px 20px;
   margin: 10px;
-  left: 35%;
+  left: 15%;
   position: relative;
   border-radius: 20px;
 }

@@ -61,9 +61,21 @@ const Register = () => {
             }else{
                 setShow(false);
                 setErr(true);
+                setTimeout(() => {
+                    setErr(false);
+                },2000);
                 setErrDesc(res.data.errorMap.error);
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            if(err.response && err.response.data.errorMap){
+                setErrDesc(err.response.data.errorMap.Error);
+                setErr(true);
+                setTimeout(() => {
+                    setErr(false);
+                },2000);
+            }
+            console.log(err.response)
+        });
 
     }
 

@@ -7,6 +7,12 @@ button{
   transition-duration: 0.5s;
 }
 
+label{
+  font-size: smaller;
+  font-weight: 200;
+  
+}
+
 button:hover{
   background-color: black;
   color: wheat;
@@ -25,6 +31,13 @@ button:hover{
   padding: 0px 20px;
   font-weight: 200;
   font-size: small;
+}
+
+.Address__Container input{
+  padding: 10px;
+  width : 95%;
+  margin: 5px;
+  border: .5px grey solid;
 }
 
 .Address__Container button {

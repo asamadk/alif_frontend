@@ -10,6 +10,19 @@
   margin-top: 20px;
 }
 
+.Profile label{
+  margin-left: 25%;
+}
+
+.Profile input{
+  padding: 8px;
+  border: 0.5px gray solid;
+  display: block;
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 10px;
+}
+
 .Profile p {
   margin: 5px;
   font-weight: 300;

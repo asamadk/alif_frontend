@@ -5,8 +5,10 @@ import { useParams } from "react-router-dom";
 import * as Constants from '../Helper/Constants'
 import axios from 'axios';
 import Collapse from '@mui/material/Collapse';
+import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import * as URL from '../Helper/endpoints'
+import Product from '../components/Product';
 
 
 function ProductDetails(){
@@ -19,9 +21,11 @@ function ProductDetails(){
     const [logged,setLogged] = useState(false);
     const [token,setToken] = useState('');
     const [addedToCart,setAddedToCart] = useState(false);
+    const [loading,setLoading] = React.useState(false);
 
-    console.log('Logged status',logged)
+
     useEffect(() => {
+        setLoading(true);
         if(localStorage.getItem(Constants.TOKEN) != null){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
@@ -40,6 +44,7 @@ function ProductDetails(){
                     setShow(true);
                     setErrorMsg('No product found');
                 }
+                setLoading(false);
             }).catch(err => {
                 setShow(true);
                 setErrorMsg('No product found');
@@ -54,6 +59,9 @@ function ProductDetails(){
             axios.post(URL.ADD_PRODUCT_TO_CART+id)
                 .then(res => {
                     setAddedToCart(true);
+                    setTimeout(() => {
+                        setAddedToCart(false);
+                    },1500);
                     setErrorMsg('Product added to cart')
                 }).catch(err => {
                     console.log(err); 
@@ -62,8 +70,40 @@ function ProductDetails(){
             history.push('/login');
         }
     }
+
+    const handleWishlist = () => {
+        if(logged){
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            axios.post(URL.ADD_USER_WISHLIST+id)
+            .then(res => {
+                setAddedToCart(true);
+                setTimeout(() => {
+                    setAddedToCart(false);
+                },1500);
+                setErrorMsg('Product added to wishlist');
+            }).catch(err => {
+                console.log(err);
+            })
+        }else{
+            history.push('/login');
+        }
+    }
+
     return (
         <div className="ProductDetails">
+            {loading && (
+          <CircularProgress
+            size={34}
+            sx={{
+              color: '#e60023',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          />
+        )}
             <Collapse in={show}>
                 <Alert severity="error">{errorMsg}</Alert>
             </Collapse>
@@ -93,7 +133,7 @@ function ProductDetails(){
                     </div>
                     <div className="ProductDetails__Description_S_add">
                         <button onClick={handleCart}>Add to cart</button>
-                        <button>Add to wishlist</button>
+                        <button onClick={handleWishlist}>Add to wishlist</button>
                     </div>
                     <a href="">Size chart</a>
                 </div>  
@@ -106,67 +146,42 @@ function ProductDetails(){
             </div>
             <h3>Simillar products</h3>
            <div className="ProductDetails__Similar">
-                {/* <h1>Simillar products</h1> */}
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
-                <div className="ProductDetails__Similar_Products">
-                    <img src="https://picsum.photos/300/400"></img>
-                    <h2>$1200</h2>
-                    <button>S</button>
-                    <button>M</button>
-                    <button>L</button>
-                    <div className="addtocart">
-                    <button>Add to Cart</button>
-                    </div>
-                </div>
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
+                <Product
+                name={'Name'} 
+                btn={Constants.VIEW_MORE}
+                unique={'AFS'}
+                price={'PRice'}
+                />
            </div>
         </div>
     )

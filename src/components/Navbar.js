@@ -19,16 +19,17 @@ const Navbar = () => {
     if(localStorage.getItem(Constants.TOKEN) != null){
         setLogged(true);
       }
-  }, []);
+  }, [logged,open]);
   
   //reload every time we login
   const logoutHandler = () => {
     localStorage.removeItem(Constants.TOKEN);
-    window.location.reload();
+    window.location.replace('/login');
+    // history.push('/login')
   }
 
   const handleLoginStatus = () => {
-    setOpen(!open); 
+    setOpen(!open);
   }
 
   return (
@@ -50,9 +51,9 @@ const Navbar = () => {
           {/* <li>
             <Link to="/sweatshirts">Sweatshirts</Link>
           </li> */}
-          <li>
+          {/* <li>
             <Link to="/accessories">Accessories</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/contact">contact us</Link>
           </li>
@@ -86,8 +87,6 @@ const Navbar = () => {
               <div>
               <Link to="/profile">Profile</Link>
               <Link to="/orders">Orders</Link>
-              <Link to="/coupons">Coupons</Link>
-              <Link to="/contact">Contact Us</Link>
               <Link to="/address">Address</Link>
               <Link to='' onClick={logoutHandler}>Logout</Link>
               </div>  : 

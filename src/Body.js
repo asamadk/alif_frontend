@@ -18,6 +18,9 @@ import Profile from "./pages/Profile";
 import Address from "./pages/Address";
 import * as Constants from './Helper/Constants';
 import Logout from "./components/Logout";
+import Status from "./pages/status";
+import ResetPassword from "./pages/ResetPassword";
+import PaymentOptions from "./pages/PaymentOptions";
 
 const Body = () => {
   return (
@@ -26,11 +29,23 @@ const Body = () => {
         <Route exact path="/">
           {localStorage.getItem(Constants.TOKEN) != null ? <HomePage /> : <Login/>}
         </Route>
+        <Route exact path="/alif_frontend">
+          <HomePage/>
+        </Route>
         <Route exact path="/home">
           <HomePage/>
         </Route>
         <Route exact path="/about">
           <About />
+        </Route>
+        <Route exact path="/status">
+          <Status />
+        </Route>
+        <Route exact path="/reset">
+          <ResetPassword/>
+        </Route>
+        <Route exact path="/paymentOptions">
+          <PaymentOptions/>
         </Route>
         <Route exact path="/products">
           <Products />
@@ -62,7 +77,7 @@ const Body = () => {
         <Route exact path="/product/details/:id">
           <ProductDetails />
         </Route>
-        <Route exact path="/coupons">
+        <Route exact path="/coupons/:cartId">
           <Coupons />
         </Route>
         <Route exact path="/confirm">

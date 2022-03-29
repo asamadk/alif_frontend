@@ -1,0 +1,71 @@
+.payment-mode-list{
+    padding: 30px 15px;
+    margin: 15px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0.2, 0.1, 0.1, 0.1);
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-detail-input{
+    padding: 10px;
+    margin: 20px 10px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.dialog-detail-button{
+    margin-right: 35%;
+}
+
+.payment-mode-list:hover{
+    cursor: pointer;
+}
+
+/* .payment-mode-list p{
+    margin-top: 10px;
+} */
+
+.payment-mode-container{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    /* border: 1px red solid; */
+}
+
+.payment-mode-container h1{
+    margin: 20px;
+    margin-bottom: 80px;
+}
+
+.payment-mode-container button{
+    padding: 10px 20px;
+    margin: 0%;
+}
+
+.payment-detais-class{
+    text-align: center;
+    margin: 30px 0px;
+}
+
+.payment-detais-class p{
+    margin: 15px;
+    font-weight: 200;
+}
+
+.payment-mode-list-button{
+    background-color: black;
+    color: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .payment-mode-list{
+        width: 60%;
+        margin-left: 20%;
+    }
+
+    .payment-mode-container{
+        padding: 50px,0px;
+    }
+}

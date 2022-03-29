@@ -35,6 +35,15 @@ button:hover{
   color: black;
   font-size: smaller;
 }
+button{
+  background-color: #e60023;
+  color: white;
+  border: 0px;
+  margin: 20px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  margin-left: auto;
+}
 
 .Coupons_container a:hover {
   color: #e60023;

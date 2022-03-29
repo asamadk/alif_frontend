@@ -82,7 +82,7 @@ button:hover{
 }
 
 .ProductDetails__Similar {
-  width: 100%;
+  width: 90%;
   display: flex;
   overflow-x: scroll;
 }
