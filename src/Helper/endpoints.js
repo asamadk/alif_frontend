@@ -36,6 +36,8 @@ export const RESET_PASSWORD = BASE_URL+'resetPassword?email=';
 export const CHANGE_PASSWORD = BASE_URL+'changePassword?token=';
 
 export const GET_ALL_ORDERS = BASE_URL+'user/orders';
+export const GET_ORDER = BASE_URL+'user/order/';
+
 export const INIT_PAYMENT = BASE_URL+'user/payment';
 export const GET_PAYMENT_OPTIONS = BASE_URL+'user/payment/options?token=';
 export const PROCESS_PAYMENT = BASE_URL+'user/payment/process?token=';

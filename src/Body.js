@@ -21,6 +21,7 @@ import Logout from "./components/Logout";
 import Status from "./pages/status";
 import ResetPassword from "./pages/ResetPassword";
 import PaymentOptions from "./pages/PaymentOptions";
+import OrderDetails from "./pages/OrderDetail";
 
 const Body = () => {
   return (
@@ -46,6 +47,9 @@ const Body = () => {
         </Route>
         <Route exact path="/paymentOptions">
           <PaymentOptions/>
+        </Route>
+        <Route exact path="/order/detail/:id">
+          <OrderDetails/>
         </Route>
         <Route exact path="/products">
           <Products />

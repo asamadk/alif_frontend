@@ -47,6 +47,11 @@ function Orders(){
         })
     },[])
 
+
+    const handleOrderDetail = (orderId) => {
+        history.push('/order/detail/'+orderId);
+    }
+
     return(
         <div className="Orders">
             {loading && (
@@ -72,7 +77,7 @@ function Orders(){
                 <div key={order.orderId} className="Orders__SingleOrder">
                     <CheckCircleIcon/> Delivered
                     <p>On {new Date(order.orderDate).toDateString()}</p>
-                    <button>details</button>
+                    {/* <button onClick={() => {handleOrderDetail(order.orderId)}}>details</button> */}
                     <button>Exchange/Return</button>
                     {order.productModelList.map(product => {
                         return(

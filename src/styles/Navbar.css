@@ -17,6 +17,27 @@ button{
   transition-duration: 0.5s;
 }
 
+
+.settings-detail-dialog{
+  /* border: 1px red solid; */
+  padding: 0px 20px;
+  position: absolute;
+  left: 0%;
+  top: 15%;
+  background-color: white;
+  z-index: 100;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.settings-detail-dialog li{
+  color: white;
+  margin: 10px 5px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-weight: 300;
+  /* padding: 20px; */
+}
+
 button:hover{
   background-color: black;
   color: wheat;
