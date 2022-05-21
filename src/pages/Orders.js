@@ -47,6 +47,11 @@ function Orders(){
         })
     },[])
 
+
+    const handleOrderDetail = (orderId) => {
+        history.push('/order/detail/'+orderId);
+    }
+
     return(
         <div className="Orders">
             {loading && (
@@ -72,14 +77,17 @@ function Orders(){
                 <div key={order.orderId} className="Orders__SingleOrder">
                     <CheckCircleIcon/> Delivered
                     <p>On {new Date(order.orderDate).toDateString()}</p>
-                    <button>details</button>
+                    {/* <button onClick={() => {handleOrderDetail(order.orderId)}}>details</button> */}
                     <button>Exchange/Return</button>
                     {order.productModelList.map(product => {
                         return(
                             <div className="Orders__Products">
                             <img src="https://picsum.photos/200/200"></img>
+                            <div className="Orders__Products_name_size">
                                 <h3>{product.product_name} </h3>
-                                {/* <p>Size: </p> */}
+                                <p>Size: M</p>
+                                <p className="product_desc">{product.product_small_Desc}</p>
+                            </div>
                                 {/* <button>M</button> */}
                             </div>
                         )

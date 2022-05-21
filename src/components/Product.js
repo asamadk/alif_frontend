@@ -70,13 +70,13 @@ function Product(props){
                 <Alert severity="success">{errorMsg}</Alert>
             </Collapse>
             <img src="https://picsum.photos/300/400" alt=""></img>
-            <h2>{'Rs '+props.price}</h2>
             <p>{props.name}</p>
-            <div className="product__size">
+            <h2>{'Rs '+props.price}</h2>
+            {/* <div className="product__size">
             <button>M</button>
             <button>S</button>
             <button>L</button>
-            </div>
+            </div> */}
             
             <div className="addtocart">
                 <button onClick={handleCart}>Add to Cart</button>

@@ -113,12 +113,10 @@ function ProductDetails(){
             <div className="ProductDetails__Product">
                 <div className="image">
                 <div className="ProductDetails__Image_Main">
-                    <img src="https://picsum.photos/300/400" alt='' ></img>
-                </div>
-                <div className="ProductDetails__Image_Sec">
-                    <img src="https://picsum.photos/200/200" alt=''></img>
-                    <img src="https://picsum.photos/200/200" alt=''></img>
-                    <img src="https://picsum.photos/200/200" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt='' ></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
                 </div>
                 </div>
                 <div className="desc">
@@ -126,25 +124,45 @@ function ProductDetails(){
                     <h1>{product?.product_name}</h1>
                     {/* create get size options api */}
                     <h3>{'Rs '+product?.product_real_price}</h3>
+                    <div className='divider'></div>
                     <div className="ProductDetails__Description_S_size">
                         <button>S</button>
                         <button>M</button>
                         <button>L</button>
                     </div>
-                    <div className="ProductDetails__Description_S_add">
+                    <div className='ProductDetails__size_container'>
+                    <a href="">Create your size in just 30 seconds.</a>
+                    <button>Get size</button>
+                    </div>
+                    {/* <div className='divider'></div> */}
+
+                    {/* <div className="ProductDetails__Description_S_add">
+                        <button onClick={handleCart}>Add to cart</button>
+                        <button onClick={handleWishlist}>Add to wishlist</button>
+                    </div> */}
+                </div>  
+                {/* <div className="ProductDetails__Description_L">
+                    <h3>Product Details</h3>
+                    <p>{product?.product_long_Desc}</p>
+                </div> */}
+                <div className='checks'>
+                    {Constants.checkMarks.map(checkMark => {return(<li>{checkMark.bullet}</li>)})}
+                </div>
+                <div className='about_product'>
+                    <h1>Nothing spells sophistication better than this luxurious white shirt.</h1>
+                </div>
+                <div className='divider'></div>
+                <div className='product_garantee'>
+                    <h1>We Guarantee A Great Fit</h1>
+                    <p>94% of customers love their fit the first time. Enjoy shopping risk free with our lifetime alterations, remakes or refunds until you’re completely satisfied.</p>
+                </div>
+                <div className="ProductDetails__Description_S_add">
                         <button onClick={handleCart}>Add to cart</button>
                         <button onClick={handleWishlist}>Add to wishlist</button>
                     </div>
-                    <a href="">Size chart</a>
-                </div>  
-                <div className="ProductDetails__Description_L">
-                    <h3>Product Details</h3>
-                    <p>{product?.product_long_Desc}</p>
                 </div>
-                </div>
-                
             </div>
-            <h3>Simillar products</h3>
+            <h3>Similar products</h3>
            <div className="ProductDetails__Similar">
                 <Product
                 name={'Name'} 
