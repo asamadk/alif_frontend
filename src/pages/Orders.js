@@ -83,8 +83,11 @@ function Orders(){
                         return(
                             <div className="Orders__Products">
                             <img src="https://picsum.photos/200/200"></img>
+                            <div className="Orders__Products_name_size">
                                 <h3>{product.product_name} </h3>
-                                {/* <p>Size: </p> */}
+                                <p>Size: M</p>
+                                <p className="product_desc">{product.product_small_Desc}</p>
+                            </div>
                                 {/* <button>M</button> */}
                             </div>
                         )

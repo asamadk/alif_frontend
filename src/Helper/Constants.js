@@ -18,3 +18,19 @@ export const DEBIT_CARD_PAYMENT = "DEBIT_CARD";
 export const UPI_PAYMENT = "UPI";
 export const PAYTM_BALANCE = "BALANCE";
 export const NET_BANKING = "NET_BANKING";
+
+
+export const checkMarks = [
+    {
+       bullet: 'Get 3 interest-free payments of ₹ 830 with'
+       },
+    {
+       bullet: 'Estimated Shipping by May 21, 2022'
+       }, 
+    {
+       bullet: 'Free Shipping within India.'
+       }, 
+    {  bullet: 'Exchange or return within 45 days.'
+       }
+
+]

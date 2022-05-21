@@ -4,10 +4,13 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import * as Constants from '../Helper/Constants'
 import axios from 'axios';
+import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import * as URL from '../Helper/endpoints'
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
 import Product from '../components/Product';
 
 
@@ -17,12 +20,16 @@ function ProductDetails(){
 
     const [product,setProductDetails] = useState(null);
     const [show,setShow] = useState(false);
+    const [showDetails,setShowDetails] = useState(false);
     const [errorMsg,setErrorMsg] = useState('');
     const [logged,setLogged] = useState(false);
     const [token,setToken] = useState('');
     const [addedToCart,setAddedToCart] = useState(false);
     const [loading,setLoading] = React.useState(false);
-
+    const [leftDrawer, setLeftDrawer] = React.useState({
+        left: false,
+        right: false,
+      });
 
     useEffect(() => {
         setLoading(true);
@@ -89,6 +96,119 @@ function ProductDetails(){
         }
     }
 
+    const handleMenuOpen = (value) => {
+        setShowDetails(value)
+    }
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setLeftDrawer({ ...leftDrawer, [anchor]: open });
+      };
+
+      //chutiya hiba
+    const list = (anchor) => (
+        <Box
+          sx={{ width:  600 }}
+          role="presentation"
+          onClick={toggleDrawer(anchor, false)}
+          onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <h1>Your size</h1>
+            <div className='custom_size_nav'>
+                <h3>I'm New</h3>
+                <h3>I've Shopped Before</h3>
+            </div>
+            <div className='divider'></div> 
+            <div className='product_elm_name'>
+                <p>Select Body Type</p>
+                <p>guide</p>
+            </div>
+            <div className='product_elm_images'>
+                <div className='image_box'>
+                    <img src='/Athletic.svg'></img>
+                    <p>Athletic</p>
+                </div>
+                <div className='image_box'>
+                    <img src='/Average.svg'></img>
+                    <p>Slight Belly</p>
+                </div>
+                <div className='image_box'>
+                    <img src='/Healthy.svg'></img>
+                    <p>Significant Belly</p>
+                </div>
+            </div>
+            <div className='product_elm_name'>
+                <p>Select Shirt Size</p>
+                <p>guide</p>
+            </div>
+            <div className="ProductDetails__Description_S_size_num">
+                        <button>36</button>
+                        <button>38</button>
+                        <button>40</button>
+                        <button>42</button>
+                        <button>44</button>
+            </div>
+            <div className='product_elm_name'>
+                <p>Select Shoulder Type</p>
+                <p>guide</p>
+            </div>
+            <div className='product_elm_images'>
+                <div className='image_box'>
+                    <img src='/not-sloping.svg'></img>
+                    <p>Average</p>
+                </div>
+                <div className='image_box'>
+                    <img src='/sloping.svg'></img>
+                    <p>Sloping</p>
+                </div>
+            </div>
+            <div className='product_elm_name'>
+                <p>Select Height</p>
+                <p>guide</p>
+            </div>
+            <div className="ProductDetails__Description_S_size_num">
+                        <button>36</button>
+                        <button>38</button>
+                        <button>40</button>
+                        <button>42</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+                        <button>44</button>
+            </div>
+            <div className='product_elm_name'>
+                <p>Select Preferred Fit</p>
+                <p>guide</p>
+            </div>
+            <div className='product_elm_images'>
+                <div className='image_box'>
+                    <img src='/super-slim.svg'></img>
+                    <p>Super Slim</p>
+                </div>
+                <div className='image_box'>
+                    <img src='/structured.svg'></img>
+                    <p>Structured</p>
+                </div>
+                <div className='image_box'>
+                    <img src='/relaxed.svg'></img>
+                    <p>Relaxed</p>
+                </div>
+            </div>
+          <List>
+          </List>
+        </Box>
+      );
+
     return (
         <div className="ProductDetails">
             {loading && (
@@ -113,12 +233,10 @@ function ProductDetails(){
             <div className="ProductDetails__Product">
                 <div className="image">
                 <div className="ProductDetails__Image_Main">
-                    <img src="https://picsum.photos/300/400" alt='' ></img>
-                </div>
-                <div className="ProductDetails__Image_Sec">
-                    <img src="https://picsum.photos/200/200" alt=''></img>
-                    <img src="https://picsum.photos/200/200" alt=''></img>
-                    <img src="https://picsum.photos/200/200" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt='' ></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img>
                 </div>
                 </div>
                 <div className="desc">
@@ -126,25 +244,53 @@ function ProductDetails(){
                     <h1>{product?.product_name}</h1>
                     {/* create get size options api */}
                     <h3>{'Rs '+product?.product_real_price}</h3>
+                    <div className='divider'></div>
                     <div className="ProductDetails__Description_S_size">
                         <button>S</button>
                         <button>M</button>
                         <button>L</button>
                     </div>
-                    <div className="ProductDetails__Description_S_add">
+                    <div className='ProductDetails__size_container'>
+                    <a href="">Create your size in just 30 seconds.</a>
+                    <button onClick={() => {handleMenuOpen(true)}} >Get size</button>
+                    </div>
+                    {/* <div className='divider'></div> */}
+
+                    {/* <div className="ProductDetails__Description_S_add">
+                        <button onClick={handleCart}>Add to cart</button>
+                        <button onClick={handleWishlist}>Add to wishlist</button>
+                    </div> */}
+                </div>  
+                {/* <div className="ProductDetails__Description_L">
+                    <h3>Product Details</h3>
+                    <p>{product?.product_long_Desc}</p>
+                </div> */}
+                <div className='checks'>
+                    {Constants.checkMarks.map(checkMark => {return(<li>{checkMark.bullet}</li>)})}
+                </div>
+                <div className='about_product'>
+                    <h1>Nothing spells sophistication better than this luxurious white shirt.</h1>
+                </div>
+                <div className='divider'></div>
+                <div className='product_garantee'>
+                    <h1>We Guarantee A Great Fit</h1>
+                    <p>94% of customers love their fit the first time. Enjoy shopping risk free with our lifetime alterations, remakes or refunds until you’re completely satisfied.</p>
+                </div>
+                <div className="ProductDetails__Description_S_add">
                         <button onClick={handleCart}>Add to cart</button>
                         <button onClick={handleWishlist}>Add to wishlist</button>
                     </div>
-                    <a href="">Size chart</a>
-                </div>  
-                <div className="ProductDetails__Description_L">
-                    <h3>Product Details</h3>
-                    <p>{product?.product_long_Desc}</p>
                 </div>
-                </div>
-                
             </div>
-            <h3>Simillar products</h3>
+            {['right'].map((anchor) => (
+            <React.Fragment key={anchor}>
+                <Drawer anchor={anchor} open={showDetails} onClose={() => handleMenuOpen(false)}>
+                    {list(anchor)}
+                </Drawer>
+            </React.Fragment>
+            ))}
+
+            <h3>Similar products</h3>
            <div className="ProductDetails__Similar">
                 <Product
                 name={'Name'} 
