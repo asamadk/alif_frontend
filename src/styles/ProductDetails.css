@@ -59,7 +59,8 @@
 
   .divider{
     color: #231f2099;
-    border-bottom: 0.5px #231f2099 solid;
+    /* border-bottom: 0.5px #231f2099 solid; */
+    border-top: 1.5px solid #eaeaec;
     margin: 20px 0px;
   }
 
@@ -216,6 +217,24 @@ button:hover{
     border-radius: 400px;
     border: solid 1px #000000;
     background-color: #f5f5f5;
+    display: flex;
+    column-gap: 0px;
+}
+
+.ProductDetails__Description_S_size_num button{
+  background-color: white;
+  color: #231f20cc;
+  border: 1.8px#231f20cc solid;
+  padding: 5px 8px;
+  border-radius: 100%;
+  margin: 5px;
+  height: 50px;
+  width: 50px;
+  font-size: 18px;
+}
+
+.ProductDetails__Description_S_size_num{
+  margin: 0% 5% ;
 }
 
 .product_garantee{
@@ -233,6 +252,64 @@ button:hover{
   text-align: start;
 }
 
+.custom_size_nav{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.custom_size_nav h3{
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: #231f2066;
+  align-items: center;
+  line-height: 3;
+}
+
+.product_elm_name{
+  /* border: 1px red solid; */
+  width: 60%;
+  margin-left:20% ;
+  margin: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  /* margin-bottom: 16px; */
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1;
+  /* letter-spacing: -.3px; */
+  color: #231f2099;
+  text-align: left;
+}
+
+.custom_size_nav a:hover {
+  color: #231f20;
+  transition: 0.3s ease;
+}
+
+.image_box{
+  /* border: 1px #f5f5f5 solid;
+  height: 20vh; */
+    width: 100%;
+    margin: 5% 5% ;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -.28px;
+    text-align: center;
+    color: #231f20cc;
+    padding: 18px 18px 15px 17px;
+    border: solid 1px rgba(35,31,32,.1);
+    border-radius: 3px;
+}
+
+.product_elm_images{
+  display: flex;
+}
 
 @media only screen and (min-width: 700px) {
   body {

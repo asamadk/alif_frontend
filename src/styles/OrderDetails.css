@@ -1,9 +1,264 @@
+.sidebar{
+    display: none;
+}
+.order_details_account{
+    display: none;
+}
+.all_orders_container{
+    background-color: #f5f5f5;
+    width: 90%;
+    height: auto;
+    /* margin-right: 20%; */
+    padding-bottom: 20px;
+}
+
+.all_orders_container_single{
+    background-color: white;
+    width: 95%;
+    height: auto;
+    margin: 20px ;
+    /* box-shadow:  1px 4px 0 rgb(0 0 0 / 10%); */
+    padding: 5px;
+    /* display: flex; */
+    margin-left: 2.5%;
+   
+}
+
+.sidebar_and_orders{
+    display: flex;
+    justify-content: space-around;
+}
+
+.all_orders_container h3{
+    /* margin: 5px 15px; */
+    height: 24px;
+    /* font-family: Whitney; */
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    /* margin-bottom: 20px; */
+}
+.all_orders_container p{
+    font-weight: 200;
+    margin: 20px;
+    /* margin-top: -15px; */
+}
+
+.all_orders_container_single_inner{
+    background-color: #f5f5f5;
+    width: 95%;
+    height: 10vh;
+    margin: 15px ;
+    display: flex;
+}
+
+.all_orders_container_image{
+    position: relative;
+    left: 22%;
+    margin-top: 10%;
+    /* font-family: Whitney; */
+    /* align-items: center; */
+    /* right: -50%; */
+}
+
+.all_orders_container_image h3{
+    margin: 10px;
+    margin-left: 50px;
+}
+
+.all_orders_container_image p{
+    margin: 5px;
+    margin-left: 70px;
+    font-weight: 500;
+}
+
+.Order_items_price{
+    width: 95%;
+    height: auto;
+    margin-left: 2.5%;
+    background: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.oder_item_price_name h3{
+    margin: 15px;
+    font-size: 14px;
+}
+.oder_item_price_price h3{
+    margin: 15px;
+    font-size: 14px;
+}
+
+.order_payment_option{
+    width: 95%;
+    padding: 5px;
+    background: white;
+    margin-top: 11px;
+    margin-left: 2.5%;
+}
+
+p{
+    font-size: 13px;
+}
+
+
+
 @media screen and (min-width: 700px) {
+    .order_details_account{
+        padding: 0% 20%;
+        display: block;
+    }
+
+    .sidebar {
+        display: block;
+        font-size: 10px;
+        padding-left: 20%;
+        border-right: 1px #eaeaec solid;
+        padding-right: 70px;
+    }
+
+    .sidebar h1{
+        font-size: 15px;
+        text-align: start;
+        cursor: pointer;
+    }
+
+    .divider_small{
+        border-bottom: 1px #eaeaec solid;
+        margin: 20px 0px;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .all_orders_container{
+        background-color: #f5f5f5;
+        width: 40%;
+        height: auto;
+        margin-right: 20%;
+        padding-bottom: 20px;
+    }
+
+    .all_orders_container_single{
+        background-color: white;
+        width: 95%;
+        height: auto;
+        margin: 20px ;
+        /* box-shadow:  1px 4px 0 rgb(0 0 0 / 10%); */
+        padding: 5px;
+        /* display: flex; */
+    }
+
+    .sidebar_and_orders{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .all_orders_container h3{
+        margin: 5px 15px;
+        height: 24px;
+        /* font-family: Whitney; */
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        /* margin-bottom: 20px; */
+    }
+    .all_orders_container p{
+        font-weight: 200;
+        margin: 20px;
+        /* margin-top: -15px; */
+    }
+
+    .all_orders_container_single_inner{
+        background-color: #f5f5f5;
+        width: 95%;
+        height: 10vh;
+        margin: 15px ;
+        display: flex;
+    }
+
+    .all_orders_container_image{
+        position: relative;
+        left: 37%;
+        margin-top: 10%;
+        /* font-family: Whitney; */
+        /* align-items: center; */
+        /* right: -50%; */
+    }
+
+    .all_orders_container_image h3{
+        margin: 10px;
+        margin-left: 50px;
+    }
+
+    .all_orders_container_image p{
+        margin: 5px;
+        margin-left: 70px;
+        font-weight: 500;
+    }
+
+    .Order_items_price{
+        width: 95%;
+        height: auto;
+        margin-left: 2.5%;
+        background: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .oder_item_price_name h3{
+        margin: 15px;
+        font-size: 14px;
+    }
+    .oder_item_price_price h3{
+        margin: 15px;
+        font-size: 14px;
+    }
+
+    .order_payment_option{
+        width: 95%;
+        padding: 5px;
+        background: white;
+        margin-top: 11px;
+        margin-left: 2.5%;
+    }
+
+    p{
+        font-size: 13px;
+    }
+
+    /* .payment_icon{
+        margin-top: 10px;
+    } */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* 
+
     .order_details_account{
         padding: 0% 20%;
     }
     .Right_divider{
-        /* border-right: 1px grey solid; */
         color: #231f2099;
         border-right: 0.5px #231f2099 solid;
         margin: 0px 20px;
@@ -11,11 +266,6 @@
 
 
     .sidebar {
-        /* vertical-align: top; */
-        /* display: none; */
-        /* border-right: 1px solid #231f2099; */
-        /* box-shadow-right: 1px 1px 5px #888; */
-        /* padding: 0 56% 0 0; */
         font-size: 10px;
         padding-left: 20%;
     }
@@ -36,7 +286,6 @@
     .all_orders_container{
         background-color: #f5f5f5;
         width: 50%;
-        /* height: 60vh; */
         margin-right: 20%;
     }
 
@@ -49,7 +298,6 @@
 
     .sidebar_and_orders{
         display: flex;
-        /* align-items: center; */
         justify-content: space-around;
     }
 
@@ -70,6 +318,4 @@
         height: 10vh;
         margin: 15px ;
         display: flex;
-        /* margin-left: 5%; */
-    }
-}
+    } */

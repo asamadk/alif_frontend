@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import "../styles/Product.css"
 
 function Product(props){
@@ -64,21 +65,49 @@ function Product(props){
         }
     }
 
+    const handleWishlistProduct = (id) => {
+        console.log('AHFS',id);
+        if(logged){
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            axios.post(URL.ADD_USER_WISHLIST+id)
+            .then(res => {
+                setAddedToCart(true);
+                setTimeout(() => {
+                    setAddedToCart(false);
+                },1500);
+                setErrorMsg('Product added to wishlist');
+            }).catch(err => {
+                console.log(err);
+            })
+        }else{
+            history.push('/login');
+        }
+    }
+
+    const handleOpenProduct = (id) => {
+        history.push('/product/details/'+props.unique);
+    }
+
     return(
         <div key={props.unique} className="product">
             <Collapse in={addedToCart}>
                 <Alert severity="success">{errorMsg}</Alert>
             </Collapse>
-            <img src="https://picsum.photos/300/400" alt=""></img>
+            <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/400" alt=""></img>
+            <div className="product_price_and_icon">
+                <h2>{'₹ '+props.price}</h2>
+                <div onClick={() => handleWishlistProduct(props.unique)}>
+                    <FavoriteBorderIcon style={{cursor:'pointer'}} on/>
+                </div>
+            </div>
             <p>{props.name}</p>
-            <h2>{'Rs '+props.price}</h2>
             {/* <div className="product__size">
             <button>M</button>
             <button>S</button>
             <button>L</button>
             </div> */}
             
-            <div className="addtocart">
+            {/* <div className="addtocart">
                 <button onClick={handleCart}>Add to Cart</button>
                 {
                     Constants.VIEW_MORE === props.btn ? 
@@ -89,7 +118,7 @@ function Product(props){
                 }
                 
                 
-            </div>
+            </div> */}
         </div>
     )
 }
