@@ -31,9 +31,11 @@ function OrderDetails(){
             setLoading(false);
             console.log(res.data);
           }).catch(err => {
+            setLoading(false);
                 console.log(err)
           })
     },[])
+
     return(
         <>
            {loading && <CircularProgress
@@ -49,9 +51,46 @@ function OrderDetails(){
           />}
           <Collapse in={show}>
                 <Alert severity={severity}>{errorMsg}</Alert>
-            </Collapse>
-
+          </Collapse>
             <h1>Order Details</h1>
+            <div className="order_details_account">
+              <h3>Account</h3>
+              <p>Abdul Samad Kirmani</p>
+            <div className='divider'></div>
+            {/* <div className='Right_divider'></div> */}
+            </div>
+            <div className="sidebar_and_orders">
+              <div className="sidebar">
+                <h1>Overview</h1>
+                <div className='divider_small'></div>
+                <h1>Orders</h1>
+                <h1>orders and return</h1>
+                <div className='divider_small'></div>
+                <h1>Credits</h1>
+                <h1>coupons</h1>
+                <h1>Alif Credit</h1>
+                <h1>Alif Cash</h1>
+                <div className='divider_small'></div>
+                <h1>ACCOUNT</h1>
+                <h1>Profile</h1>
+                <h1>Saved Cash</h1>
+                <h1>Addresses</h1>
+                <h1>Alif insider</h1>
+              </div>
+              <div className="all_orders_container">
+                <div className="all_orders_container_single">
+                  <h2>Cancelled</h2>
+                  <p>On Sat, 10 Jul 2021 as per your request.</p>
+                  <div className="all_orders_container_single_inner">
+                    <div><img src="https://picsum.photos/80/90" alt=''></img></div>
+                    <div>
+                      <h2>Red Shirts</h2>
+                      <p>sixe: M</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </>
     )
 }
