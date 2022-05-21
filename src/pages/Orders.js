@@ -77,8 +77,8 @@ function Orders(){
                 <div key={order.orderId} className="Orders__SingleOrder">
                     <CheckCircleIcon/> Delivered
                     <p>On {new Date(order.orderDate).toDateString()}</p>
-                    {/* <button onClick={() => {handleOrderDetail(order.orderId)}}>details</button> */}
-                    <button>Exchange/Return</button>
+                    <button onClick={() => {handleOrderDetail(order.orderId)}}>details</button>
+                    {/* <button onClick={handleOrderDetail}>Details</button> */}
                     {order.productModelList.map(product => {
                         return(
                             <div className="Orders__Products">
