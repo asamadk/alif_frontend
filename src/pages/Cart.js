@@ -66,9 +66,7 @@ function Cart() {
           if(res.data.responseCode == Constants.OK_200 && res.data.responseWrapper.length > 0){
             setUserDetails(res.data.responseWrapper[0]);
           }
-      }).catch(err => {
-
-      })
+      }).catch(err => {})
       
   },[])
 
@@ -174,7 +172,6 @@ function Cart() {
     <Collapse in={show}>
           <Alert severity="success" sx={{ mb: 1 }}>{errorMsg}</Alert>
     </Collapse>
-        {/* <CircularProgress /> : '' */}
     <Collapse in={cart.length > 0 && cart.productModelList.length === 0}>
           <Alert severity="info" sx={{ mb: 1 }}>{'Cart is empty'}</Alert>
     </Collapse> 
@@ -209,11 +206,7 @@ function Cart() {
         </div> */}
         <div className="cart__items">
           <h4>My Shopping Bag ({ cart.length !== 0 ? cart.productModelList.length : 0} Item)</h4>
-              
               {
-                // <Collapse in={ct.productModelList.length === 0}>
-                // <Alert severity="info" sx={{ mb: 1 }}>{'Cart is empty'}</Alert>
-                // </Collapse> 
                 cart.length !== 0 ? cart.productModelList.map(ct => {
                   return(
                     <div key={ct.product_id} className="cart__itemsContainer">
@@ -265,7 +258,7 @@ function Cart() {
             </Link>
           </div>
           }
-        <hr />
+        <div className="divider"></div>
         <div className="cart__productDetails">
           <h4>Product Details</h4>
           <div className="cart__totalMRP">
@@ -284,7 +277,7 @@ function Cart() {
             <h4>Convinience Fee</h4>
             <p>Free</p>
           </div>
-          <hr />
+          <div className="divider"></div>
           <div className="cart__totalAmount">
             <h4>Total Amount</h4>
             <p>Rs. {cart.total}</p>
