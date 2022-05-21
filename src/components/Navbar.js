@@ -1,21 +1,21 @@
 import "../styles/Navbar.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React, { useState } from "react";
 import logo from "../assests/images/AlifLogo.png";
 import Drawer from '@mui/material/Drawer';
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import * as Constants from '../Helper/Constants';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import HomeIcon from '@mui/icons-material/Home';
-import CategoryIcon from '@mui/icons-material/Category';
-import CallIcon from '@mui/icons-material/Call';
-import InfoIcon from '@mui/icons-material/Info';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import { useHistory } from "react-router-dom";
@@ -107,15 +107,15 @@ const Navbar = () => {
       <ListItemIcon></ListItemIcon>
         {['Home', 'Product', 'Contact Us', 'About','Wishlist', 'Cart', 'Profile', 'Orders', 'Address', 'Logout', 'Login'].map((text, index) => (
           <ListItem button onClick={() => handleDrawerNavigation(index)} key={text}>
-            {index === 0 && <><ListItemIcon><HomeIcon/></ListItemIcon> <ListItemText primary={text} /></>}
-            {index === 1 && <><ListItemIcon><CategoryIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 2 && <><ListItemIcon><CallIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 3 && <><ListItemIcon><InfoIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 0 && <><ListItemIcon><HomeOutlinedIcon/></ListItemIcon> <ListItemText primary={text} /></>}
+            {index === 1 && <><ListItemIcon><CategoryOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 2 && <><ListItemIcon><CallOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 3 && <><ListItemIcon><InfoOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 4 && logged && <><ListItemIcon><FavoriteBorderIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 5 && logged && <><ListItemIcon><ShoppingBasketIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 6 && logged && <><ListItemIcon><AccountCircleIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 7 && logged && <><ListItemIcon><CheckCircleIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 8 && logged && <><ListItemIcon><AddLocationAltIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 5 && logged && <><ListItemIcon><ShoppingCartOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 6 && logged && <><ListItemIcon><PersonOutlineIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 7 && logged && <><ListItemIcon><CheckCircleOutlineOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 8 && logged && <><ListItemIcon><AddLocationAltOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 9 && logged && <><ListItemIcon><LogoutIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 10 && !logged && <><ListItemIcon><LogoutIcon/></ListItemIcon><ListItemText primary={text} /></>}
           </ListItem>
@@ -142,15 +142,15 @@ const Navbar = () => {
 
       <div className="navbar__navOptions">
         {logged && windowDimensions.width > 705 &&  <Link to="/wishlist"><FavoriteBorderIcon /></Link>}
-        {logged && windowDimensions.width > 705 && <Link to="/cart"><ShoppingBasketIcon /></Link>}
-        {logged && windowDimensions.width > 705 && <div onClick={handleLoginStatus} className="navbar__user"><AccountCircleIcon /></div>}
+        {logged && windowDimensions.width > 705 && <Link to="/cart"><ShoppingCartOutlinedIcon /></Link>}
+        {logged && windowDimensions.width > 705 && <div onClick={handleLoginStatus} className="navbar__user"><PersonOutlineIcon /></div>}
           
         {open && logged &&
            <div className="user__dropdown">
-              <Link to="/profile" onClick={handleLoginStatus}>Profile</Link>
-              <Link to="/orders" onClick={handleLoginStatus}>Orders</Link>
-              <Link to="/address" onClick={handleLoginStatus}>Address</Link>
-              <Link to='' onClick={logoutHandler}>Logout</Link>
+              <Link to="/profile" onClick={handleLoginStatus}><ListItemIcon><PersonOutlineIcon/><ListItemText primary={'Profile'} /></ListItemIcon></Link>
+              <Link to="/orders" onClick={handleLoginStatus}><ListItemIcon><CheckCircleOutlineOutlinedIcon/><ListItemText primary={'Orders'} /></ListItemIcon></Link>
+              <Link to="/address" onClick={handleLoginStatus}><ListItemIcon><AddLocationAltOutlinedIcon/><ListItemText primary={'Address'} /></ListItemIcon></Link>
+              <Link to='' onClick={logoutHandler}><ListItemIcon><LogoutIcon/><ListItemText primary={'Logout'} /></ListItemIcon></Link>
             </div>}
           {open && !logged && <div><Link to="/login">Login</Link></div>}
         </div>
@@ -158,7 +158,7 @@ const Navbar = () => {
     
       {windowDimensions.width < 705 && ['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <MenuIcon style={{cursor: "pointer", left: 0, position : "absolute", marginLeft: "10px"}} onClick={handleMenuOpen}/>
+          <MenuIcon style={{cursor: "pointer", left: 15, position : "absolute", marginLeft: "10px", top : 103}} onClick={handleMenuOpen}/>
           <Drawer anchor={anchor} open={showDetails} onClose={() => handleMenuOpen(false)}>
             <div className="appDrawerLogo"><Link to="/"><img src={logo} alt="" srcset="" /></Link></div>
             {list(anchor)}
