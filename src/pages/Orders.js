@@ -52,51 +52,72 @@ function Orders(){
         history.push('/order/detail/'+orderId);
     }
 
+    const loadingCss = {
+        color: '#e60023',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: '-12px',
+        marginLeft: '-12px',
+    }
+
     return(
-        <div className="Orders">
-            {loading && (
-            <CircularProgress
-            size={34}
-                sx={{
-                    color: '#e60023',
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    marginTop: '-12px',
-                    marginLeft: '-12px',
-                }}
-            />
-            )}
-            <Collapse in={show}>
-                <Alert severity={customSeveiry} sx={{ mb: 1 }}>{Msg}</Alert>
-            </Collapse>
-            <h1>Orders</h1>
-            {
-                orders.map(order => {
-                    return(
-                <div key={order.orderId} className="Orders__SingleOrder">
-                    <CheckCircleIcon/> Delivered
-                    <p>On {new Date(order.orderDate).toDateString()}</p>
-                    <button onClick={() => {handleOrderDetail(order.orderId)}}>details</button>
-                    {/* <button onClick={handleOrderDetail}>Details</button> */}
-                    {order.productModelList.map(product => {
-                        return(
-                            <div className="Orders__Products">
-                            <img src="https://picsum.photos/200/200"></img>
-                            <div className="Orders__Products_name_size">
-                                <h3>{product.product_name} </h3>
-                                <p>Size: M</p>
-                                <p className="product_desc">{product.product_small_Desc}</p>
+        <>
+            {loading && (<CircularProgress size={34} sx={loadingCss}/>)}
+
+            <Collapse in={show}><Alert severity={customSeveiry} sx={{ mb: 1 }}>{Msg}</Alert></Collapse>
+        <div className="order_details_account">
+              <h3>Account</h3>
+              <p>Abdul Samad Kirmani</p>
+            <div className='divider'></div>
+            </div>
+            <div className="sidebar_and_orders">
+              <div className="sidebar">
+                <h1>Overview</h1>
+                <div className='divider_small'></div>
+                <h1>Orders</h1>
+                <h1>orders and return</h1>
+                <div className='divider_small'></div>
+                <h1>Credits</h1>
+                <h1>coupons</h1>
+                <h1>Alif Credit</h1>
+                <h1>Alif Cash</h1>
+                <div className='divider_small'></div>
+                <h1>ACCOUNT</h1>
+                <h1>Profile</h1>
+                <h1>Saved Cash</h1>
+                <h1>Addresses</h1>
+                <h1>Alif insider</h1>
+              </div>
+              <div className="all_orders_container_order">
+                {orders.map(order => {
+                return(
+                    <div className="all_orders_container_single">
+                        <h2>Delivered</h2>
+                        <p>On {new Date(order.orderDate).toDateString()}</p>
+                        <div onClick={() => {handleOrderDetail(order.orderId)}} className="all_orders_container_single_inner">
+                            <div>
+                                {order.productModelList.map(product => {
+                                return(
+                                    <div className="Orders__Products">
+                                        <div className="Orders__Products_image_container">
+                                            <img src="https://picsum.photos/70/75"></img>
+                                        </div>
+                                        <div className="Orders__Products_name_size">
+                                            <h3>{product.product_name} </h3>
+                                            <p>Size: M</p>
+                                            <p className="product_desc">{product.product_small_Desc}</p>
+                                        </div>
+                                    </div>
+                                )
+                                })}
                             </div>
-                                {/* <button>M</button> */}
-                            </div>
-                        )
-                    })}
-                </div>
-                    )
-                })
-            }
-        </div>
+                        </div>
+                    </div>
+                )})}
+              </div>
+            </div> 
+        </>
     )
 }
 

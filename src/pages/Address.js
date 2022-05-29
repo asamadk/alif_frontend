@@ -5,6 +5,12 @@ import * as URL from '../Helper/endpoints'
 import CircularProgress from '@mui/material/CircularProgress';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import TextField from '@mui/material/TextField';
 import "../styles/Address.css";
 
 const Address = () => {
@@ -81,6 +87,14 @@ const Address = () => {
         })
     }
 
+    const handleDropdownSelect = (event) => {
+        let state = event.target.value
+        if(state != null){
+            console.log('state :: ', state);
+            setState(state);
+        }
+    }
+
     return (
         <div className="Address">
             {loading && (
@@ -102,22 +116,45 @@ const Address = () => {
         {/* user.user_address1 */}
             <h1>Addresss</h1>
             <div className="Address__Container">
-                <h3>{`${user.user_Fname} ${user.user_Lname}`}</h3>
-                <label>Address 1</label>
-                <input value={address1} onChange={(e) => {setAddress1(e.target.value)}}></input>
-                <label>Address 2</label>
-                <input value={address2} onChange={(e) => {setAddress2(e.target.value)}}></input>
-                <label>City</label>
-                <input value={city} onChange={(e) => {setCity(e.target.value)}}></input>
-                <label>State</label>
-                <input value={state} onChange={(e) => {setState(e.target.value)}}></input>
-                <label>Country</label>
-                <input value={country} onChange={(e) => {setCountry(e.target.value)}} ></input>
-                <label>Pincode</label>
-                <input value={zip} onChange={(e) => {setZip(e.target.value)}} ></input>
-                {/* <input value={user.user_phone_number}></input> */}
-                <button onClick={handleChangeAddress}>save</button>
+                {/* <h3>{`${user.user_Fname} ${user.user_Lname}`}</h3> */}
+                
+                <InputLabel id="demo-simple-select-label">Address 1</InputLabel>
+                <TextField value={address1} onChange={(e) => {setAddress1(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" variant="outlined" />
+                
+                <InputLabel id="demo-simple-select-label">Address 2</InputLabel>
+                <TextField value={address2} onChange={(e) => {setAddress2(e.target.value)}} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 
+                <InputLabel id="demo-simple-select-label">City</InputLabel>
+                <Select value={city} onChange={(e) => {setCity(e.target.value)}} sx={{width : '295px'}} label="city" labelId="demo-simple-select-label" id="demo-simple-select">
+                    {Constants.GEOGRAPHY.states.map(st => {
+                        return(st.state === state && st.districts.map(district => {
+                            return(<MenuItem value={district}>{district}</MenuItem>)
+                        }))
+                    })}
+                </Select>
+
+                <InputLabel id="demo-simple-select-label">State</InputLabel>
+                <Select value={state} onChange={(e) => {setState(e.target.value)}} sx={{width : '295px'}} labelId="demo-simple-select-label" id="demo-simple-select">
+                    {Constants.GEOGRAPHY.states.map(state => {
+                        return(<MenuItem value={state.state}>{state.state}</MenuItem>)
+                    })}
+                </Select>
+
+                <InputLabel id="demo-simple-select-label">Country</InputLabel>
+                <TextField value={country} onChange={(e) => {setCountry(e.target.value)}} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+                <InputLabel id="demo-simple-select-label">Pincode</InputLabel>
+                <TextField value={zip} onChange={(e) => {setZip(e.target.value)}} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+                
+                <LoadingButton
+                onClick={handleChangeAddress}
+                style={{color : 'black', border : '1px #B8B8B8 solid', marginTop : '10px'}} 
+                loading = {loading} 
+                loadingPosition="start" 
+                startIcon={<SaveIcon />} 
+                variant="outlined">
+                    Save
+                </LoadingButton>
             </div>
         </div>
     )

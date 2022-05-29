@@ -18,12 +18,15 @@ function ProductDetails(){
     let { id } = useParams();    
     const history = useHistory();    
 
+
+    const [responseJSON,setresponseJSON] = useState({});
     const [product,setProductDetails] = useState(null);
     const [show,setShow] = useState(false);
     const [showDetails,setShowDetails] = useState(false);
     const [errorMsg,setErrorMsg] = useState('');
     const [logged,setLogged] = useState(false);
     const [token,setToken] = useState('');
+    const [rerender,setRerender] = useState(false);
     const [addedToCart,setAddedToCart] = useState(false);
     const [loading,setLoading] = React.useState(false);
     const [leftDrawer, setLeftDrawer] = React.useState({
@@ -37,7 +40,7 @@ function ProductDetails(){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
           }
-          
+          window.addEventListener('resize',setRerender(!rerender));
         axios.get(URL.GET_SINGLE_PRODUCT+id)
             .then(res => {
                 if(res.data.responseCode == Constants.OK_200 &&  res.data.responseWrapper != 0){
@@ -96,7 +99,91 @@ function ProductDetails(){
         }
     }
 
+    const handlePopulateResponse = (event,type,id) => {
+
+        if(type === 'bodyType'){
+            responseJSON.custom = true;
+            responseJSON.bodyType = event.target.id
+            if(id != null){
+                Constants.BODY_TYPE.forEach(type => {
+                    if(id === type.id){
+                        type.class = type.class + ' image_box-selected';
+                    }else{
+                        type.class = 'image_box';
+                    }
+                })
+            }
+        }else if(type === 'ncSize'){
+            responseJSON.size = event.target.value;
+            responseJSON.custom = false;
+        }else if(type === 'shirtSize'){
+            responseJSON.custom = true;
+            responseJSON.shirtSize = id;
+            if(id != null){
+                Constants.SHIRT_SIZE.forEach(shirtSize => {
+                    if(shirtSize.size == id){
+                        shirtSize.class = 'highlight-cirlce';
+                    }else{
+                        shirtSize.class = 'unhighlight-cirlce';
+                    }
+                })
+            }
+        }else if(type === 'shoulder'){
+            responseJSON.shoulder = event.target.id
+            responseJSON.custom = true;
+            if(id != null){
+                Constants.SHOULDER_TYPE.forEach(shoulder => {
+                    if(shoulder.id === id){
+                        shoulder.class = shoulder.class + ' image_box-selected';
+                    }else{
+                        shoulder.class = 'image_box';
+                    }
+                })
+            }
+        }else if(type === 'height'){
+            if(id === null)return;
+            responseJSON.custom = true;
+            responseJSON.height = id;
+            Constants.HEIGHT.forEach(height => {
+                if(height.value === id){
+                    height.class = 'highlight-cirlce';
+                }else{
+                    height.class = 'unhighlight-cirlce';
+                }
+            })
+        }else if(type === 'fit'){
+            if(id === null)return;
+            responseJSON.custom = true;
+            responseJSON.preferredFit = id;
+            Constants.PREFERRED_FIT.forEach(fit => {
+                if(fit.id === id){
+                    fit.class = fit.class + ' image_box-selected';
+                }else{
+                    fit.class = 'image_box';
+                }
+            })
+        }
+        console.log(responseJSON);
+    }
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+      }
+
     const handleMenuOpen = (value) => {
+        console.log('WINDOW DIMENTIONS',getWindowDimensions());
+        if(getWindowDimensions().width < 750){
+            setShow(true);
+            setErrorMsg('Please open the website in desktop or laptop to create custom size');
+            setTimeout(() => {
+                setShow(false);
+            },5000)
+            return;
+        }
         setShowDetails(value)
     }
 
@@ -107,7 +194,7 @@ function ProductDetails(){
         setLeftDrawer({ ...leftDrawer, [anchor]: open });
       };
 
-      //chutiya hiba
+
     const list = (anchor) => (
         <Box
           sx={{ width:  600 }}
@@ -116,93 +203,76 @@ function ProductDetails(){
           onKeyDown={toggleDrawer(anchor, false)}
         >
             <h1>Your size</h1>
-            <div className='custom_size_nav'>
-                <h3>I'm New</h3>
-                <h3>I've Shopped Before</h3>
-            </div>
-            <div className='divider'></div> 
             <div className='product_elm_name'>
                 <p>Select Body Type</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
-                <div className='image_box'>
-                    <img src='/Athletic.svg'></img>
-                    <p>Athletic</p>
-                </div>
-                <div className='image_box'>
-                    <img src='/Average.svg'></img>
-                    <p>Slight Belly</p>
-                </div>
-                <div className='image_box'>
-                    <img src='/Healthy.svg'></img>
-                    <p>Significant Belly</p>
-                </div>
+                {Constants.BODY_TYPE.map(body => {
+                    return(
+                        <div id={body.id} onClick={(event) => handlePopulateResponse(event,'bodyType',body.id)} className={body.class}>
+                            <img id={body.id} src={body.img} alt={body.name}></img>
+                            <p id={body.id}>{body.name}</p>
+                        </div>        
+                    )})
+                }
             </div>
             <div className='product_elm_name'>
                 <p>Select Shirt Size</p>
-                <p>guide</p>
+                
             </div>
             <div className="ProductDetails__Description_S_size_num">
-                        <button>36</button>
-                        <button>38</button>
-                        <button>40</button>
-                        <button>42</button>
-                        <button>44</button>
+                {Constants.SHIRT_SIZE.map(size => {
+                    return(
+                        // {size.class}
+                    <button className={size.class} value={size.size} onClick={(event) => handlePopulateResponse(event,'shirtSize',size.size)} >
+                        {size.size}
+                    </button>)
+                })}
             </div>
             <div className='product_elm_name'>
                 <p>Select Shoulder Type</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
-                <div className='image_box'>
-                    <img src='/not-sloping.svg'></img>
-                    <p>Average</p>
-                </div>
-                <div className='image_box'>
-                    <img src='/sloping.svg'></img>
-                    <p>Sloping</p>
-                </div>
+                {
+                    Constants.SHOULDER_TYPE.map(shoulder => {
+                        return(
+                        <div id={shoulder.id} className={shoulder.class} onClick={(event) => handlePopulateResponse(event,'shoulder',shoulder.id)} >
+                            <img id={shoulder.id} src={shoulder.img} alt={shoulder.name}></img>
+                            <p id={shoulder.id} >{shoulder.name}</p>
+                        </div>
+                        )
+                    })
+                }
             </div>
             <div className='product_elm_name'>
                 <p>Select Height</p>
-                <p>guide</p>
+                
             </div>
             <div className="ProductDetails__Description_S_size_num">
-                        <button>36</button>
-                        <button>38</button>
-                        <button>40</button>
-                        <button>42</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
-                        <button>44</button>
+                {Constants.HEIGHT.map(height => {
+                    return(
+                    <button onClick={(event) => handlePopulateResponse(event,'height',height.value)} className={height.class} >
+                        {height.value}
+                    </button>
+                    )
+                })}
             </div>
             <div className='product_elm_name'>
                 <p>Select Preferred Fit</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
-                <div className='image_box'>
-                    <img src='/super-slim.svg'></img>
-                    <p>Super Slim</p>
-                </div>
-                <div className='image_box'>
-                    <img src='/structured.svg'></img>
-                    <p>Structured</p>
-                </div>
-                <div className='image_box'>
-                    <img src='/relaxed.svg'></img>
-                    <p>Relaxed</p>
-                </div>
+                {Constants.PREFERRED_FIT.map(fit => {
+                    return(
+                        <div id={fit.id} className={fit.class} onClick={(event) => handlePopulateResponse(event,'fit',fit.id)} >
+                            <img id={fit.id} src={fit.img}></img>
+                            <p id={fit.id} >{fit.name}</p>
+                        </div>            
+                        )
+                    })
+                }
             </div>
           <List>
           </List>
@@ -232,12 +302,20 @@ function ProductDetails(){
             </Collapse>
             <div className="ProductDetails__Product">
                 <div className="image">
+                {window.innerWidth > 500 && 
                 <div className="ProductDetails__Image_Main">
                     <img src="https://picsum.photos/400/500" alt='' ></img>
-                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img src="https://picsum.photos/400/500" alt=''></img> 
                     <img src="https://picsum.photos/400/500" alt=''></img>
                     <img src="https://picsum.photos/400/500" alt=''></img>
                 </div>
+                }
+                {window.innerWidth < 500 && 
+                <div className="ProductDetails__Image_Main">
+                    <img src="https://picsum.photos/400/500" alt='' ></img>
+                    {/* create function to side image */}
+                </div>
+                }
                 </div>
                 <div className="desc">
                 <div className="ProductDetails__Description_S">
@@ -246,9 +324,9 @@ function ProductDetails(){
                     <h3>{'Rs '+product?.product_real_price}</h3>
                     <div className='divider'></div>
                     <div className="ProductDetails__Description_S_size">
-                        <button>S</button>
-                        <button>M</button>
-                        <button>L</button>
+                        <button value="S" onClick={(event) => handlePopulateResponse(event,'ncSize')}>S</button>
+                        <button value="M" onClick={(event) => handlePopulateResponse(event,'ncSize')}>M</button>
+                        <button value="L" onClick={(event) => handlePopulateResponse(event,'ncSize')}>L</button>
                     </div>
                     <div className='ProductDetails__size_container'>
                     <a href="">Create your size in just 30 seconds.</a>

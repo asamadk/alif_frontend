@@ -6,6 +6,8 @@ import * as URL from '../Helper/endpoints';
 import { useHistory } from "react-router-dom";
 import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 
 
@@ -108,7 +110,7 @@ function Login(){
             </Collapse>
             </div>
 
-            {loading && (
+            {/* {loading && (
             <CircularProgress
             size={34}
             sx={{
@@ -119,7 +121,7 @@ function Login(){
               marginTop: '-12px',
               marginLeft: '-12px',
             }}
-            />)}
+            />)} */}
 
             { changePassword ? 
             <>
@@ -135,7 +137,9 @@ function Login(){
             <div>
             <a href="/" onClick={(e) => showChangePassword(e)}>Forgot password</a>
             </div>
-            <button onClick={handleSubmit} type="submit">Login</button>
+            <LoadingButton onClick={handleSubmit} loading={loading} variant="outlined">
+                Login
+            </LoadingButton>
             </>
             }
             

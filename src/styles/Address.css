@@ -2,6 +2,7 @@
   /* border: 1px red solid; */
   text-align: start;
   margin: 20px 10px;
+  margin-left: 10%;
 }
 button{
   transition-duration: 0.5s;
@@ -13,11 +14,12 @@ label{
   
 }
 
-button:hover{
+
+/* button:hover{
   background-color: black;
   color: wheat;
   cursor: pointer;
-}
+} */
 
 .Address__Container h3 {
   margin: 10px 0px;
@@ -35,19 +37,19 @@ button:hover{
 
 .Address__Container input{
   padding: 10px;
-  width : 95%;
+  /* width : 95%; */
   margin: 5px;
-  border: .5px grey solid;
+  /* border: .5px grey solid; */
 }
 
-.Address__Container button {
+/* .Address__Container button {
   background-color: #e60023;
   color: white;
   border: 0px;
   margin: 20px 5px;
   padding: 10px 30px;
   border-radius: 20px;
-}
+} */
 
 @media screen and (min-width: 700px) {
   .Address {
