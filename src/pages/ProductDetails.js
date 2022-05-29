@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import * as URL from '../Helper/endpoints'
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
+import AddIcon from '@mui/icons-material/Add';
 import Product from '../components/Product';
 
 
@@ -19,6 +20,7 @@ function ProductDetails(){
     const history = useHistory();    
 
     const [product,setProductDetails] = useState(null);
+    const [collapse,setCollapse] = useState(false);
     const [show,setShow] = useState(false);
     const [showDetails,setShowDetails] = useState(false);
     const [errorMsg,setErrorMsg] = useState('');
@@ -78,6 +80,10 @@ function ProductDetails(){
         }
     }
 
+    const handleCollpaseUncollapse = () => {
+        setCollapse(!collapse);
+    }
+
     const handleWishlist = () => {
         if(logged){
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -116,14 +122,14 @@ function ProductDetails(){
           onKeyDown={toggleDrawer(anchor, false)}
         >
             <h1>Your size</h1>
-            <div className='custom_size_nav'>
+            {/* <div className='custom_size_nav'>
                 <h3>I'm New</h3>
                 <h3>I've Shopped Before</h3>
-            </div>
+            </div> */}
             <div className='divider'></div> 
             <div className='product_elm_name'>
                 <p>Select Body Type</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
                 <div className='image_box'>
@@ -141,7 +147,7 @@ function ProductDetails(){
             </div>
             <div className='product_elm_name'>
                 <p>Select Shirt Size</p>
-                <p>guide</p>
+                
             </div>
             <div className="ProductDetails__Description_S_size_num">
                         <button>36</button>
@@ -152,7 +158,7 @@ function ProductDetails(){
             </div>
             <div className='product_elm_name'>
                 <p>Select Shoulder Type</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
                 <div className='image_box'>
@@ -166,7 +172,7 @@ function ProductDetails(){
             </div>
             <div className='product_elm_name'>
                 <p>Select Height</p>
-                <p>guide</p>
+                
             </div>
             <div className="ProductDetails__Description_S_size_num">
                         <button>36</button>
@@ -188,7 +194,7 @@ function ProductDetails(){
             </div>
             <div className='product_elm_name'>
                 <p>Select Preferred Fit</p>
-                <p>guide</p>
+                
             </div>
             <div className='product_elm_images'>
                 <div className='image_box'>
@@ -204,6 +210,9 @@ function ProductDetails(){
                     <p>Relaxed</p>
                 </div>
             </div>
+                <div className='submit_Button_custom_size'>
+                    <button>Submit</button>
+                </div>
           <List>
           </List>
         </Box>
@@ -250,6 +259,10 @@ function ProductDetails(){
                         <button>M</button>
                         <button>L</button>
                     </div>
+                    <div className="ProductDetails__Description_S_add">
+                        <button onClick={handleCart}>Add to cart</button>
+                        <button onClick={handleWishlist}>Add to wishlist</button>
+                    </div>
                     <div className='ProductDetails__size_container'>
                     <a href="">Create your size in just 30 seconds.</a>
                     <button onClick={() => {handleMenuOpen(true)}} >Get size</button>
@@ -271,15 +284,80 @@ function ProductDetails(){
                 <div className='about_product'>
                     <h1>Nothing spells sophistication better than this luxurious white shirt.</h1>
                 </div>
-                <div className='divider'></div>
+                {/* <div className='divider'></div> */}
+                <div className='composition_all_container'>
+                    <div className='composition_sub_container'>
+                        <label>Composition</label>
+                        <p>100% Egyptian Cotton</p>
+                    </div>
+                    <div className='composition_sub_container'>
+                        <label>Weave</label>
+                        <p>oxford</p>
+                    </div>
+                    <div className='composition_sub_container'>
+                        <label>mill</label>
+                        <p>100% Egyptian Cotton</p>
+                    </div>
+                    <div className='composition_sub_container'>
+                        <label>Streach</label>
+                        <p>100% Egyptian Cotton</p>
+                    </div>
+                    <div className='composition_sub_container'>
+                        <label>Fabric Shine</label>
+                        <p>100% Egyptian Cotton</p>
+                    </div>
+                </div>
+                <div className='product-dropdown' onClick={handleCollpaseUncollapse}>
+                    <div className='product-dropdown-sub-container'>
+                        <h1>Product Description</h1>
+                        <div className='product-dropdown-icon-container'>
+                            <AddIcon/>
+                        </div>
+                    </div>
+                    { collapse && <div className='product-dropdown-collapsable-container'>
+                        <p>
+                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
+                        </p>
+                    </div>}
+                    <div className='product-dropdown-sub-container'>
+                        <h1>Size & Fit</h1>
+                        <div className='product-dropdown-icon-container'>
+                            <AddIcon/>
+                        </div>
+                    </div>
+                    { collapse && <div className='product-dropdown-collapsable-container'>
+                        <p>
+                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
+                        </p>
+                    </div>}
+                    <div className='product-dropdown-sub-container'>
+                        <h1>Alternates</h1>
+                        <div className='product-dropdown-icon-container'>
+                            <AddIcon/>
+                        </div>
+                    </div>
+                    { collapse && <div className='product-dropdown-collapsable-container'>
+                        <p>
+                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
+                        </p>
+                    </div>}
+                    <div className='product-dropdown-sub-container'>
+                        <h1>Wash Care</h1>
+                        <div className='product-dropdown-icon-container'>
+                            <AddIcon/>
+                        </div>
+                    </div>
+                    { collapse && <div className='product-dropdown-collapsable-container'>
+                        <p>
+                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
+                        </p>
+                    </div>}
+                </div>
                 <div className='product_garantee'>
                     <h1>We Guarantee A Great Fit</h1>
                     <p>94% of customers love their fit the first time. Enjoy shopping risk free with our lifetime alterations, remakes or refunds until you’re completely satisfied.</p>
                 </div>
-                <div className="ProductDetails__Description_S_add">
-                        <button onClick={handleCart}>Add to cart</button>
-                        <button onClick={handleWishlist}>Add to wishlist</button>
-                    </div>
+                
                 </div>
             </div>
             {['right'].map((anchor) => (

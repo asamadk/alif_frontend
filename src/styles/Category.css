@@ -29,9 +29,10 @@ button:hover{
   font-size: 30px;
   position: absolute;
   /* bottom: 40%; */
-  bottom: -5%;
-  left: 42%;
+  /* bottom: -5%; */
+  left: 40%;
   margin: 1px 0px;
+  align-items: center;
 
   /* background-color: white; */
   color: black;
@@ -41,20 +42,31 @@ button:hover{
 
 @media screen and (min-width: 700px) {
   .category {
+    margin-bottom: 50px;
+  }
+
+  /* .category {
     width: 30%;
     flex-grow: 1;
     padding: 0px 0px;
     max-width: 400px;
-  }
+  } */
 
   .category h2 {
+    font-weight: 300;
+    font-size: 30px;
+    position: absolute;
+    /* bottom: 40%; */
+    /* bottom: -5%; */
+    left: 40%;
+    /* margin: 1px 0px; */
     transition: 0.5s;
   }
 
   .category img {
     width: 400px;
     height: 500px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-radius: 15px;
   }
 
