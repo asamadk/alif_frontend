@@ -35,10 +35,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:prod": "docker build -t ianlancaster/zen-production .",
-    "start:prod": "docker run --rm -d -p 80:80 --name running-zen ianlancaster/zen-production",
-    "stop:prod": "docker stop running-zen"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
