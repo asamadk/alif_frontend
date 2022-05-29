@@ -5,7 +5,7 @@
 // const BASE_URL = 'http://localhost:8080/';
 
 //AWS 
-const BASE_URL = 'http://43.205.203.233:8080/'
+const BASE_URL = 'http://3.111.254.142:8080/'
 
 export const MAIL_ORDER = BASE_URL + 'mail/order/details/'
 export const GET_FOR_TAILOR = BASE_URL + 'tailor/details/'
