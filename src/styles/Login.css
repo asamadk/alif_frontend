@@ -41,7 +41,8 @@ a:hover {
   margin-top: 10px;
   color: black;
   border: 1px #B8B8B8 solid;
-  margin-left: 38%;
+  width: 250px;
+  /* margin-left: 38%; */
 }
 
 

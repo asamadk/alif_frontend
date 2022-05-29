@@ -142,12 +142,12 @@ button{
   transition-duration: 0.5s;
 }
 
-button:hover{
+/* button:hover{
   background-color: black;
   color: black;
   border: 1px black solid;
   cursor: pointer;
-}
+} */
 
 .cart__itemCenter,
 .cart__itemLeft {

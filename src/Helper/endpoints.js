@@ -1,11 +1,14 @@
+const keys = require("../Config/keys");
+
+
 //HEROKU
 // const BASE_URL = 'https://alif-ecommerce.herokuapp.com/';
 
 //LOCAL
-// const BASE_URL = 'http://localhost:8080/';
+const BASE_URL = 'http://localhost:8080/';
 
-//AWS 
-const BASE_URL = 'http://3.111.254.142:8080/'
+// AWS 
+// const BASE_URL = 'http://3.111.254.142:8080/'
 
 export const MAIL_ORDER = BASE_URL + 'mail/order/details/'
 export const GET_FOR_TAILOR = BASE_URL + 'tailor/details/'
@@ -62,3 +65,9 @@ export const GET_PAYMENT_OPTIONS = BASE_URL+'user/payment/options?token=';
 export const PROCESS_PAYMENT = BASE_URL+'user/payment/process?token=';
 
 export const CONTACT_US = BASE_URL+'contactUsMail';
+
+
+export const OAUTH2_REDIRECT_URI = keys.redirectUri;
+// export const OAUTH2_API_BASE_URL = keys.apiBaseUrl;
+export const GOOGLE_AUTH_URL = `${BASE_URL}oauth2/authorize/google?redirect_uri=${OAUTH2_REDIRECT_URI}`;
+

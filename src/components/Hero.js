@@ -4,7 +4,7 @@ import React from "react";
 
 function Hero(props) {
   return (
-    <div className="hero">
+    <div style={{width : '100%'}} className="hero">
       <img src={props.image} alt="" />
     </div>
   );

@@ -29,3 +29,7 @@ button:hover{
 .hero-image-next{
   text-align: center;
 }
+
+.home__hero{
+  display: flex;
+}
