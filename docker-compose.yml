@@ -4,8 +4,8 @@ services:
 
   frontend:
     container_name: frontend
-    build: ./
-    volumes:
+    build: ./frontend
+    volumes: 
       - './:/app'
       - '/app/node_modules'
     ports:
