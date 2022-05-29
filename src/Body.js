@@ -23,6 +23,7 @@ import Status from "./pages/status";
 import ResetPassword from "./pages/ResetPassword";
 import PaymentOptions from "./pages/PaymentOptions";
 import OrderDetails from "./pages/OrderDetail";
+import TailorDetails from "./components/TailorDetails";
 
 const Body = () => {
   return (
@@ -73,6 +74,9 @@ const Body = () => {
         </Route>
         <Route path="/admin/order/details/:orderid">
           <OrderMail/>
+        </Route>
+        <Route path="/admin/order/tailor/:orderid">
+          <TailorDetails/>
         </Route>
         <Route path="/register">
           <Register />

@@ -13,7 +13,6 @@ const OrderMail = () => {
     React.useEffect(() => {
         setLoading(true);
         axios.get(Endpoint.MAIL_ORDER+orderid).then(res => {
-            console.log(res.data.responseWrapper[0]);
             if(res.data.responseWrapper[0] != null){
                 setOrderJSON(res.data.responseWrapper[0]);
                 setLoading(false);

@@ -49,6 +49,32 @@ export const checkMarks = [
 
 ]
 
+export const COLLAR = [
+   {
+      id : 'CubanCollar',
+      img : '/cuban.jpg',
+      name : 'Cuban collar',
+      class : 'image_box'
+   },
+   {
+      id : 'MandarinCollar',
+      img : '/mandarin.jpeg',
+      name : 'Mandarin collar',
+      class : 'image_box'
+   }
+]
+
+export const SLEEVES = [
+   {
+      size : 'Half Sleeves',
+      class : 'unhighlight-cirlce'
+   },
+   {
+      size : 'Full Sleeves',
+      class : 'unhighlight-cirlce'
+   }
+]
+
 export const BODY_TYPE = [
    {
       id : 'athletic',
@@ -127,6 +153,14 @@ export const SHIRT_SIZE = [
       size : 44,
       class : 'unhighlight-cirlce'
    },
+   {
+      size : 46,
+      class : 'unhighlight-cirlce'
+   },
+   {
+      size : 48,
+      class : 'unhighlight-cirlce'
+   },
 ];
 
 export const GENERIC_SIZE = [
@@ -140,6 +174,10 @@ export const GENERIC_SIZE = [
    },
    {
       size : 'L',
+      class : 'unhighlight-cirlce'
+   },
+   {
+      size : 'XL',
       class : 'unhighlight-cirlce'
    },
 ]
@@ -1172,7 +1210,35 @@ export const GEOGRAPHY = {
             "Uttar Dinajpur (North Dinajpur)"
          ]
       }
-   ]
-
-   
+   ]   
 }
+export const sizeChart = [
+   {
+      id : 'S',
+      name : 'S',
+      chest : '39',
+      fLength : '25.0',
+      shoulder : '17'
+   },
+   {
+      id : 'M',
+      name : 'M',
+      chest : '43',
+      fLength : '25.5',
+      shoulder : '18.5'
+   },
+   {
+      id : 'L',
+      name : 'L',
+      chest : '45',
+      fLength : '26',
+      shoulder : '19.5'
+   },
+   {
+      id : 'XL',
+      name : 'XL',
+      chest : '47',
+      fLength : '26.5',
+      shoulder : '20'
+   },
+]

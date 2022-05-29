@@ -2,6 +2,7 @@ import React ,{useState,useEffect} from 'react';
 import "../styles/ProductDetails.css";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import * as Constants from '../Helper/Constants'
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -11,8 +12,10 @@ import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutl
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import * as URL from '../Helper/endpoints'
 import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -45,6 +48,7 @@ function ProductDetails(){
     const [zoomedImage, setZoomedImage] = React.useState('');
     const [showCustomSize, setShowCustomSize] = React.useState(true);
     const [changeImage , setChangeImage] = React.useState(0);
+    const [openSizeChart, setOpenSizeChart] = React.useState(false);
     const [leftDrawer, setLeftDrawer] = React.useState({
         left: false,
         right: false,
@@ -181,7 +185,34 @@ function ProductDetails(){
 
     const handlePopulateResponse = (event,type,id) => {
 
-        if(type === 'bodyType'){
+        if(type == 'sleeves'){
+            delete responseJSON.genericsize
+            responseJSON.custom = true;
+            responseJSON.sleeves = id;
+            if(id != null){
+                Constants.SLEEVES.forEach(sleeve => {
+                    if(sleeve.size == id){
+                        sleeve.class = 'highlight-cirlce';
+                    }else{
+                        sleeve.class = 'unhighlight-cirlce';
+                    }
+                })
+            }
+        }else if(type == 'collar'){
+            delete responseJSON.genericsize
+            responseJSON.custom = true;
+            responseJSON.collar = event.target.id
+            if(id != null){
+                Constants.COLLAR.forEach(type => {
+                    if(id === type.id){
+                        type.class = type.class + ' image_box-selected';
+                    }else{
+                        type.class = 'image_box';
+                    }
+                })
+            }
+
+        }else if(type === 'bodyType'){
             delete responseJSON.genericsize
             responseJSON.custom = true;
             responseJSON.bodyType = event.target.id
@@ -282,15 +313,22 @@ function ProductDetails(){
 
     const handleMenuOpen = (value) => {
         window.scrollTo(0, 0)
-        if(getWindowDimensions().width < 750){
-            setShow(true);
-            setErrorMsg('Please open the website in desktop or laptop to create custom size');
-            setTimeout(() => {
-                setShow(false);
-            },5000)
-            return;
-        }
+        // if(isWorkingOnPhone() == true){
+            // setShow(true);
+            // setErrorMsg('Please open the website in desktop or laptop to create custom size');
+            // setTimeout(() => {
+            //     setShow(false);
+            // },5000)
+        // } 
         setShowDetails(value)
+    }
+
+    const isWorkingOnPhone = () => {
+        if(getWindowDimensions().width < 750){ 
+            return true;
+        }else{
+            return false
+        }
     }
 
     const resetAllSizeUI = () => {
@@ -316,6 +354,11 @@ function ProductDetails(){
     }
 
     const handleCustomSize = () => {
+        setErrorMsg('Size selected')
+        setAddedToCart(true);
+        setTimeout( () => {
+            setAddedToCart(false);
+        },2000)
         setsizeSelected(true);
         setShowDetails(false);
         Constants.GENERIC_SIZE.forEach(genericSize => {
@@ -328,12 +371,11 @@ function ProductDetails(){
           return;
         }
         setLeftDrawer({ ...leftDrawer, [anchor]: open });
-      };
+    };
 
     const handleExpandCollapse = (event) => {
         let id = event.target.id;
         if(id != null){
-            console.log(id);
             Constants.PRODUCT_DROPDOWN.forEach(product => {
                 if(id === product.id){
                     product.collapse = !product.collapse;
@@ -351,9 +393,35 @@ function ProductDetails(){
           onKeyDown={toggleDrawer(anchor, false)}
         >
             <h1>Your size</h1>
+
+            <div className='product_elm_name'>
+                <p>Select collar</p>
+            </div>
+            <div className='product_elm_images'>
+                {Constants.COLLAR.map(body => {
+                    return(
+                        <div id={body.id} onClick={(event) => handlePopulateResponse(event,'collar',body.id)} className={body.class}>
+                            <img style={{width : '151px'}} id={body.id} src={body.img} alt={body.name}></img>
+                            <p id={body.id}>{body.name}</p>
+                        </div>        
+                    )})
+                }
+            </div>
+
+            <div className='product_elm_name'>
+                <p>Select sleeves</p>
+            </div>
+            <div className="ProductDetails__Description_Sleeves">
+                {Constants.SLEEVES.map(size => {
+                    return(
+                    <button className={size.class} value={size.size} onClick={(event) => handlePopulateResponse(event,'sleeves',size.size)} >
+                        {size.size}
+                    </button>)
+                })}
+            </div>
+
             <div className='product_elm_name'>
                 <p>Select Body Type</p>
-                
             </div>
             <div className='product_elm_images'>
                 {Constants.BODY_TYPE.map(body => {
@@ -366,7 +434,7 @@ function ProductDetails(){
                 }
             </div>
             <div className='product_elm_name'>
-                <p>Select Shirt Size</p>
+                <p>Select chest size (inches)</p>
                 
             </div>
             <div className="ProductDetails__Description_S_size_num">
@@ -446,6 +514,7 @@ function ProductDetails(){
 
 
     const handleModalOpen = (imageName) => {
+        if(isWorkingOnPhone() == true)return;
         setModalOpen(true);
         setZoomedImage(imageName);
     }
@@ -464,6 +533,42 @@ function ProductDetails(){
         }else{
             setChangeImage(changeImage - 1);
         }
+    }
+
+    const handleOpenSizeChart = () => {
+        console.log('Size cahrt')
+        setOpenSizeChart(!openSizeChart);
+    }
+
+    const SizeChartTable = () => {
+        return (
+            <>
+            <div className='size-chart-table' >
+                <p>The mesurements are in inches</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest</th>
+                        <th>Front Length</th>
+                        <th>Shoulder</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {Constants.sizeChart.map(chart => {
+                            return(
+                                <tr key={chart.id} >
+                                    <td>{chart.name}</td>
+                                    <td>{chart.chest}</td>
+                                    <td>{chart.fLength}</td>
+                                    <td>{chart.shoulder}</td>
+                                </tr>
+                        )})}
+                    </tbody>
+                </table>
+            </div>
+            </>
+        )
     }
 
     return (
@@ -505,7 +610,7 @@ function ProductDetails(){
                 }
                 {window.innerWidth < 500 && 
                 <div className="ProductDetails__Image_Main">
-                    <img onClick={() => {setModalOpen(true)}} src={productImages[changeImage]} alt='' ></img>
+                    <img src={productImages[changeImage]} alt='' ></img>
                     {/* create function to side image */}
                 </div>
                 }
@@ -539,8 +644,9 @@ function ProductDetails(){
                         </LoadingButton>
                     </div>
                     <div className='size-chart-container'>
-                        <a onClick={() => handleModalOpen(sizeChartImage)} >Size Chart</a>
+                        <p style={{color : '#06c', width : 'fit-content'}} onClick={handleOpenSizeChart} >Size Chart</p>
                     </div>
+                    { openSizeChart &&  <SizeChartTable/>}
                     {showCustomSize && <div className='ProductDetails__size_container'>
                     <a>Create your size in just 30 seconds.</a>
                     <LoadingButton onClick={() => {handleMenuOpen(true)}} variant="outlined">

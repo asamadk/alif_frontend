@@ -2,7 +2,7 @@
   /* margin-left: 10px; */
   text-align: center;
   padding-top: 20px;
-  width: 90%;
+  /* width: 90%; */
 }
 
 .size-chart-container{
@@ -262,6 +262,23 @@ button:hover{
   margin: 0% 5% ;
 }
 
+.ProductDetails__Description_Sleeves{
+  margin: 0% 5% ;
+}
+
+.ProductDetails__Description_Sleeves button{
+  color: gray;
+  border-radius: 10px;
+  border: 1.5px black solid;
+  /* border: solid 1px rgba(35,31,32,.1); */
+  padding: 5px 8px;
+  /* border-radius: 100%; */
+  margin: 5px;
+  height: 50px;
+  width: fit-content;
+  font-size: 18px;
+}
+
 .product_garantee{
   padding: 28px 68px 25px;
   background-color: #f5f5f5;
@@ -419,6 +436,28 @@ button:hover{
 .highlight-cirlce{
   background-color: #000000;
   color: white;
+}
+
+.size-chart-table{
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px;
+  background-color: #f5f5f5;
+}
+
+.size-chart-table th{
+  text-align: center;
+  padding: 10px;
+  font-weight: 500;
+}
+
+.size-chart-table thead{
+  font-weight: 100;
+  /* color: gray; */
+}
+
+.size-chart-table tbody{
+  color: gray;
 }
 
 @media only screen and (min-width: 700px) {
