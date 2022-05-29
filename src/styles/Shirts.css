@@ -20,6 +20,7 @@
   position: relative;
   border-radius: 20px;
   border: 1.5px solid #eaeaec;
+  background: white;
 }
 
 button{
@@ -54,7 +55,7 @@ button:hover{
     flex-wrap: wrap;
     width: 80%;
     position: relative;
-    left: 10%;
+    left: 15%;
     margin: 50px 80px;
   }
   .shirts_btn {

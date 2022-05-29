@@ -40,12 +40,17 @@
   padding-bottom: 10px;
 }
 
+.heart_icon:hover{
+  color: #e60023;
+}
+
 .product img {
   /* width: 300px; */
   /* height: auto; */
-  width: 320px;
+  width: 380px;
+  /* width: auto; */
   cursor: pointer;
-  height: 450px;
+  height: 570px;
   /* margin-right: 20px; */
 }
 
@@ -120,4 +125,16 @@ button:hover{
 a{
   text-decoration: none;
   color: black;
+}
+
+@media only screen and (min-width: 700px){
+  .product img {
+    /* width: 300px; */
+    /* height: auto; */
+    width: 380px;
+    /* width: auto; */
+    cursor: pointer;
+    height: 570px;
+    /* margin-right: 20px; */
+  }
 }
