@@ -353,8 +353,15 @@ button:hover{
 }
 
 .product_elm_images{
+  width: 190px;
   cursor: pointer;
-  display: flex;
+  display: block;
+  margin-left: 30px;
+  /* border: 1px red solid; */
+}
+
+.Drawer_container{
+  width: 300px;
 }
 
 .composition_all_container{
@@ -605,6 +612,17 @@ button:hover{
 .ProductDetails__Description_S .unhighlight-cirlce{
   background-color: white;
   color: #231f20cc;
+}
+
+.product_elm_images{
+  cursor: pointer;
+  display: flex;
+  /* border: 1px red solid; */
+  width: 400px;
+}
+
+.Drawer_container{
+  width: 700px;
 }
 
 
