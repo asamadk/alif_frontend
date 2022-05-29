@@ -6,6 +6,7 @@ import axios from 'axios';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import "../styles/Product.css"
 
 function Product(props){
@@ -93,11 +94,12 @@ function Product(props){
             <Collapse in={addedToCart}>
                 <Alert severity="success">{errorMsg}</Alert>
             </Collapse>
-            <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/400" alt=""></img>
+            <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/500" alt=""></img>
             <div className="product_price_and_icon">
                 <h2>{'₹ '+props.price}</h2>
-                <div onClick={() => handleWishlistProduct(props.unique)}>
-                    <FavoriteBorderIcon style={{cursor:'pointer'}} on/>
+                <div className="heart_icon" onClick={() => handleWishlistProduct(props.unique)}>
+                    {props.btn !== Constants.DELETE_FROM_WISHLIST && <FavoriteBorderIcon style={{cursor:'pointer'}} on/>}
+                    {props.btn === Constants.DELETE_FROM_WISHLIST && <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} on/>}
                 </div>
             </div>
             <p>{props.name}</p>

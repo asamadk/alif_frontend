@@ -42,9 +42,11 @@ button:hover{
   background-color: #e60023;
   color: white;
   border: 0px;
-  margin: 20px 15px;
+  /* margin: 20px 15px; */
   padding: 10px 30px;
   border-radius: 20px;
+  margin-left: -10px;
+  margin-right: 40px;
 }
 
 @media screen and (min-width: 700px) {
