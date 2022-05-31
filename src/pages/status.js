@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as Constants from '../Helper/Constants'
+import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import "../styles/Status.css";
@@ -9,6 +10,7 @@ const Status = () => {
     const history = useHistory();
     const [statusCode,setStatusCode] = useState('');
     const [statusDesc,setStatusDesc] = useState('Something went wrong');
+    const [buttonMssg, setButtonMssg] = useState('Home');
 
 
     React.useEffect(() => {
@@ -21,21 +23,29 @@ const Status = () => {
             setStatusDesc(Constants.SERVER_ERROR_500_WORD);
         }else if(errorCode == Constants.UNAUTHORIZED_401){
             setStatusDesc(Constants.UNAUTHORIZED_401_WORD);
+        }else if(errorCode === Constants.CART_EMPTY){
+            setStatusCode('Cart is empty');
+            setStatusDesc('There is nothing in your cart lets add some items');
+            setButtonMssg('Add items from wishlist');
         }
     },[])
 
     const handleHomeClick = () => {
-        history.push('/home');
+        if(buttonMssg === 'Home'){
+            history.push('/home');
+        }else if(buttonMssg === 'Add items from wishlist'){
+            history.push('/wishlist');
+        }
     }
     return(
         <div className="status-main-container">
             <div className="status-main-container-error-code">
-                <ErrorOutlineIcon/>
+                {/* <ErrorOutlineIcon/> */}
                 <h1>{statusCode}</h1>
             </div>        
-        <h1>{statusDesc}</h1>
+        <p>{statusDesc}</p>
         <div className="status-button-home">
-        <button onClick={handleHomeClick}>Home</button>
+        <LoadingButton onClick={handleHomeClick}>{buttonMssg}</LoadingButton>
         </div>
         </div>
     )

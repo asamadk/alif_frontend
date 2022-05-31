@@ -4,12 +4,19 @@ import * as URL from '../Helper/endpoints'
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import * as Constants from '../Helper/Constants'
+import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
 import { Link, useHistory } from "react-router-dom";
 import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import "../styles/Cart.css";
+
 function Cart() {
   const history = useHistory();
       
@@ -21,6 +28,7 @@ function Cart() {
   const [errorMsg,setErrorMsg] = React.useState('Something went wrong');
   const [userDetails,setUserDetails] = React.useState({});
   const [loading,setLoading] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
   const [rerender,setRerender] = React.useState(false);
 
   React.useEffect(() => {
@@ -42,6 +50,11 @@ function Cart() {
         }else{
           setError(false)
           setCart(res.data.responseWrapper[0])
+          console.log(res.data.responseWrapper[0]);
+          if(cart.productModelList != null && cart.productModelList.length <=0){
+            setLoading(false);
+            history.push('/status',{code : Constants.CART_EMPTY})
+          }
         }
       }).catch(err => {
         // setLoading(false);
@@ -49,7 +62,8 @@ function Cart() {
         // console.log(err.response.data)
         let responseStatus = err.response.data.responseCode;
         if(responseStatus != null && responseStatus == Constants.NOT_FOUND_404){
-            history.push('/status',{code : responseStatus})
+            history.push('/status',{code : Constants.CART_EMPTY})
+            setLoading(false);
         }else if(responseStatus != null && responseStatus == Constants.SERVER_ERROR_500){
           history.push('/status',{code : responseStatus})
         }else if(responseStatus != null && responseStatus == Constants.UNAUTHORIZED_401){
@@ -57,7 +71,7 @@ function Cart() {
         }
       })
 
-  }, [cart.couponUsed,rerender]);
+  }, [cart.couponUsed ,rerender]);
 
 
   React.useEffect(() => {
@@ -74,12 +88,17 @@ function Cart() {
     axios.delete(URL.DELETE_PRODUCT_FROM_CART+cart.shoppingCartId+'/'+product_id,{headers :{ Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` } })
     .then(res => {
       if(res.data.responseCode === Constants.OK_200){
-        setRerender(!rerender);
         setShow(true);
         setErrorMsg('Product Deleted')
         setTimeout(()=>{
           setShow(false);
         },1000);
+        console.log('HEEÈ');
+        if(cart.productModelList != null && cart.productModelList.length <= 0){
+          history.push('/status',{code : Constants.CART_EMPTY})
+        }else{
+          setRerender(!rerender);
+        }
       }
     }).catch(err => {
 
@@ -120,6 +139,7 @@ function Cart() {
             setShow(false);
           },1000);
           setErrorMsg('Product added to wishlist');
+          handleDeleteFromCart(product_id);
       }).catch(err => {
           console.log(err);
       })
@@ -136,8 +156,6 @@ function Cart() {
         setShow(true);
         if(res.data.errorMap == null && res.data.responseWrapper.length > 0){
           history.push('/paymentOptions',{orderModel : res.data.responseWrapper[0]});
-          // setErrorMsg(res.data.responseDesc);
-          // setRerender(!rerender);
         }
         setTimeout(() => {
           setShow(false);
@@ -150,9 +168,36 @@ function Cart() {
     }
   }
 
+  const style = {
+    position: 'absolute',
+    top: '30%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    display : 'flex',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    borderRadius : '3px'
+  };
+  
+
   
   return (
     <>
+    <Modal
+        open={modalOpen}
+        onClose={() => {setModalOpen(false)}}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+            <TextField label="Enter coupon code" sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            <LoadingButton style={{marginLeft : '10px', color: 'black',border: '1px #B8B8B8 solid'}} loading={loading} variant="outlined">
+              Apply
+            </LoadingButton>
+        </Box>
+    </Modal>
     {loading && (
           <CircularProgress
             size={34}
@@ -175,7 +220,7 @@ function Cart() {
     <Collapse in={cart.length > 0 && cart.productModelList.length === 0}>
           <Alert severity="info" sx={{ mb: 1 }}>{'Cart is empty'}</Alert>
     </Collapse> 
-    {
+    { cart.length !== 0 && 
     <div className="cart">
       
       <div className="cart__left">
@@ -194,7 +239,8 @@ function Cart() {
               {userDetails.user_address2 ? userDetails.user_address2.substring(0,66) : ''}
             </p>
           </h5>
-          <button className="cart__btnChangeAddr" onClick={handleChangeAddress}>Change Address</button>
+          {/* <button className="cart__btnChangeAddr" ></button> */}
+          <LoadingButton onClick={handleChangeAddress} variant="outlined">Change Address</LoadingButton>
         </div>
         {/* <div className="cart__offers">
           <h5>Available Offers</h5>
@@ -206,8 +252,7 @@ function Cart() {
         </div> */}
         <div className="cart__items">
           <h4>My Shopping Bag ({ cart.length !== 0 ? cart.productModelList.length : 0} Item)</h4>
-              {
-                cart.length !== 0 ? cart.productModelList.map(ct => {
+              {cart.length !== 0 && cart.productModelList.map(ct => {
                   return(
                     <div key={ct.product_id} className="cart__itemsContainer">
                     <div className="cart__item">
@@ -232,30 +277,30 @@ function Cart() {
                   </div>
                 </div>
                 <div className="cart__itemButtons">
-                  <button onClick={() => handleDeleteFromCart(ct.product_id)}>Remove</button>
-                  <button onClick={() => {handleAddToWishlist(ct.product_id)}}>Move to Wishlist</button>
+                <LoadingButton onClick={() => handleDeleteFromCart(ct.product_id)} loading={loading} variant="outlined">Remove</LoadingButton>
+                <LoadingButton onClick={() => {handleAddToWishlist(ct.product_id)}} variant="outlined">Move to wishlist</LoadingButton>
                 </div>
               </div>
             </div>
               </div>
               )})
-              : ''
-            }
+              }
         </div>
       </div>
       <div className="cart__right">
-          { cart.couponUsed ? 
+          { cart.couponUsed &&
           <div className="cart__couponDiscount">
             <p>{`Coupon ${cart.couponsModel ? cart.couponsModel.couponName : ''} with discount of ${cart.couponsModel ? cart.couponsModel.couponDiscount : ''}%`}</p>
             <a onClick={handleDeleteCoupon}><CancelIcon/></a>
           </div> 
-          :
-
+          }
+        {!cart.couponUsed &&
           <div className="cart__applyCoupan">
             <h4>Apply Coupons</h4>
-            <Link to={`/coupons/${cart.shoppingCartId}`}>
-              <button>Apply</button>
-            </Link>
+            {/* <Link to={`/coupons/${cart.shoppingCartId}`}> */}
+              {/* <button>Apply</button> */}
+              <LoadingButton onClick={()=>{setModalOpen(true)}} variant="outlined">Apply</LoadingButton>
+            {/* </Link> */}
           </div>
           }
         <div className="divider"></div>
@@ -282,7 +327,7 @@ function Cart() {
             <h4>Total Amount</h4>
             <p>Rs. {cart.total}</p>
           </div>
-          <button onClick={handleCreateOrder}>Place Order</button>
+          <LoadingButton onClick={handleCreateOrder} variant="outlined">Place Order</LoadingButton>
         </div>
       </div>
     </div>

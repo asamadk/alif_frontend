@@ -11,11 +11,10 @@
   margin: 15px;
   display: flex;
   justify-content: space-between;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
-  background-color: #e60023;
-  color: white;
+  color: black;
+  border: 1px #B8B8B8 solid;
   padding-bottom: 2px;
-  border-radius: 20px;
+  border-radius: 3px;
   font-size: small;
 }
 
@@ -25,11 +24,11 @@
 
 
 .cart__couponDiscount a{
-  color: white;
+  color: black;
 }
 
 .cart__couponDiscount a:hover{
-  color: white;
+  /* color: white; */
   cursor: pointer;
 }
 
@@ -79,16 +78,11 @@
   margin-top: 3px;
 }
 .cart__address > button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
   margin: 20px 5px;
-  padding: 10px 30px;
-  border-radius: 20px;
   margin-left: auto;
   font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 .cart__offers > h5 {
   font-size: 12px;
@@ -99,7 +93,7 @@
   color: gray;
   padding-top: 5px;
 }
-.cart__offers > button {
+/* .cart__offers > button {
   background: transparent;
   border: none;
   color: red;
@@ -107,7 +101,7 @@
   font-size: 14px;
     font-weight: 400;
     letter-spacing: 1px;
-}
+} */
 .cart__items {
   padding: 10px;
 }
@@ -142,28 +136,21 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: black;
+  border: 1px black solid;
   cursor: pointer;
 }
 
 .cart__itemCenter,
 .cart__itemLeft {
   margin: 0 auto;
-  /* padding-left: 30px; */
 }
-.cart__itemButtons {
-  text-align: right;
-}
+
 .cart__itemButtons > button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
   margin: 20px 5px;
-  padding: 10px 30px;
-  border-radius: 20px;
   font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 .cart__itemDescription > h4 {
   text-transform: uppercase;
@@ -197,6 +184,7 @@ button:hover{
   padding-top: 5px;
   font-size: 12px;
   color: red;
+  font-weight: 300;
 }
 .cart__itemPrice > p {
   font-size: 30px;
@@ -216,15 +204,10 @@ button:hover{
   font-weight: 600;
 }
 .cart__applyCoupan button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
   margin: 20px 5px;
-  padding: 10px 30px;
-  border-radius: 20px;
   font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 1px;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 .cart__totalMRP,
 .cart__coupanDiscount,
@@ -256,19 +239,14 @@ button:hover{
   padding: 20px;
 }
 .cart__productDetails > button {
-  background-color: #e60023;
-    color: white;
-    border: 0px;
-    margin: 20px 5px;
-    padding: 10px 30px;
-    border-radius: 20px;
+    margin: 20px 0px;
     float: right;
-    clear: both;
     margin-top: 15px;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
+    width: 100%;
+    color: black;
+  border: 1px #B8B8B8 solid;
 }
+
 @media only screen and (max-width: 768px) {
   .cart {
     flex-direction: column;
@@ -276,7 +254,9 @@ button:hover{
   .cart__left {
     display: initial;
   }
+
 }
+
 @media only screen and (max-width: 425px) {
   .cart__item {
     flex-direction: column;

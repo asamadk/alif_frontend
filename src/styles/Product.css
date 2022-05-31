@@ -38,6 +38,7 @@
   margin-top: 20px;
   border: 2px solid #eaeaec;
   padding-bottom: 10px;
+  width: 353px;
 }
 
 .heart_icon:hover{
@@ -45,13 +46,9 @@
 }
 
 .product img {
-  /* width: 300px; */
-  /* height: auto; */
-  width: 380px;
-  /* width: auto; */
-  cursor: pointer;
-  height: 570px;
-  /* margin-right: 20px; */
+  width: 350px;
+    cursor: pointer;
+    height: 500px;
 }
 
 .product p{
@@ -128,13 +125,9 @@ a{
 }
 
 @media only screen and (min-width: 700px){
-  .product img {
-    /* width: 300px; */
-    /* height: auto; */
-    width: 380px;
-    /* width: auto; */
+  .product img  {
+    width: 350px;
     cursor: pointer;
-    height: 570px;
-    /* margin-right: 20px; */
+    height: 500px;
   }
 }

@@ -34,12 +34,8 @@ button:hover{
 }
 
 .Contact button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
-  margin: 20px 5px;
-  padding: 10px 30px;
-  border-radius: 20px;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 
 .Contact__Mail_Body input {

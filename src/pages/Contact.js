@@ -1,4 +1,5 @@
 import React from "react"
+import LoadingButton from '@mui/lab/LoadingButton';
 import "../styles/Contact.css";
 
 function Contact(){
@@ -19,7 +20,8 @@ function Contact(){
                 <input type="text" placeholder="Body"></input>
 
                 </div>
-                <button>Send</button>
+                {/* <button>Send</button> */}
+                <LoadingButton variant="outlined">Send</LoadingButton>
             </div>
             
         </div>

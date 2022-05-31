@@ -5,8 +5,8 @@ import * as Constants from '../Helper/Constants';
 import * as URL from '../Helper/endpoints';
 import { useHistory } from "react-router-dom";
 import Collapse from '@mui/material/Collapse';
-import CircularProgress from '@mui/material/CircularProgress';
-import LogoutIcon from '@mui/icons-material/Logout';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 
@@ -34,6 +34,8 @@ function Login(){
             username : email.current?.value,
             password : password.current?.value
         }
+
+        console.log('REQUEST DATA',requestData)
         
         axios.post(URL.LOGIN,requestData)
             .then(res => {
@@ -63,8 +65,36 @@ function Login(){
         setChanegPassword(true);
     }
 
+    const ValidateEmail = (mail)  =>{
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+            return (true)
+        }
+    return (false)
+    }
+
     const handleChangePassword = () => {
         setLoading(true);
+        console.log(email.current?.value)
+        if(email.current?.value == null){
+            setMessage('Email cannot be empty')
+            setLoginError(true);
+            setLoading(false)
+            setTimeout(() => {
+                setLoginError(false);
+            },3000);
+            return;
+        }
+
+        if(ValidateEmail(email.current?.value) == false){
+            setMessage('You have entered an invalid email address!')
+            setLoginError(true);
+            setLoading(false)
+            setTimeout(() => {
+                setLoginError(false);
+            },3000);
+            return;
+        }
+
         axios.post(URL.RESET_PASSWORD+email.current?.value)
         .then(res => {
             console.log(res);
@@ -77,7 +107,7 @@ function Login(){
                 setMessage('A mail has been sent to your email id')
                 setLoading(false);
                 setTimeout(() => {
-                    setLoading(true);
+                    setLoading(false);
                     history.push('/reset');
                 },3000);
             }
@@ -86,6 +116,7 @@ function Login(){
                 setLoginError(true);
                 setcustomSeverity('error')
                 setTimeout(() => {
+                    setLoading(false);
                     setLoginError(false);
                 },3000);
                 setMessage('No account with this email address is present')
@@ -110,38 +141,29 @@ function Login(){
             </Collapse>
             </div>
 
-            {/* {loading && (
-            <CircularProgress
-            size={34}
-            sx={{
-              color: '#e60023',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: '-12px',
-              marginLeft: '-12px',
-            }}
-            />)} */}
+        {changePassword && <>
+            <TextField inputRef={email} sx={{width : '295px'}} label="email" id="outlined-basic"  variant="outlined" />
+                <LoadingButton onClick={handleChangePassword} loading={loading} variant="outlined">
+                Submit
+                </LoadingButton>
+                <LoadingButton onClick={() => {setChanegPassword(false)}} variant="outlined">
+                Cancel
+                </LoadingButton>
+        </>}
+        
+        { !changePassword && <>
+            <InputLabel id="demo-simple-select-label">Email</InputLabel>
+            <TextField inputRef={email} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 
-            { changePassword ? 
-            <>
-            <input ref={email} type='text' placeholder='email'></input>
-                <button onClick={handleChangePassword}>Submit</button>
-                <button onClick={() => {setChanegPassword(false)}}>Cancel</button>
-            </>
-            :
-            <>
-            <input type="text" placeholder="Email" ref={email}></input>
-            <input type="Password" placeholder="Password" ref={password}></input>
+            <InputLabel id="demo-simple-select-label">Password</InputLabel>
+            <TextField type='password' inputRef={password} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            <br/>
             <a href="/register">Dont have an account?<span> Register here</span></a>
-            <div>
-            <a href="/" onClick={(e) => showChangePassword(e)}>Forgot password</a>
-            </div>
+            <div><a href="/" onClick={(e) => showChangePassword(e)}>Forgot password</a></div>
             <LoadingButton onClick={handleSubmit} loading={loading} variant="outlined">
                 Login
             </LoadingButton>
-            </>
-            }
+        </>}
             
         </div>
     )

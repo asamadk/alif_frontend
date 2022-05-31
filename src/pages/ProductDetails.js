@@ -7,8 +7,12 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
 import * as URL from '../Helper/endpoints'
+import LoadingButton from '@mui/lab/LoadingButton';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import AddIcon from '@mui/icons-material/Add';
@@ -21,6 +25,8 @@ function ProductDetails(){
 
 
     const [responseJSON,setresponseJSON] = useState({});
+    const [cartButtonLoad, setcartButtonLoad] = useState(false);
+    const [wishlistButtonLoad,setwishlistButtonLoad] = useState(false);
     const [product,setProductDetails] = useState(null);
     const [collapse,setCollapse] = useState(false);
     const [show,setShow] = useState(false);
@@ -49,6 +55,7 @@ function ProductDetails(){
                     setProductDetails(res.data.responseWrapper[0]);
                     setShow(false);
                     setErrorMsg('');
+                    console.log('Single product',res.data.responseWrapper[0])
                 }else if(res.data.responseCode != Constants.OK_200){
                     setShow(true);
                     setErrorMsg(res.data.responseDesc);
@@ -65,17 +72,20 @@ function ProductDetails(){
 
     const handleCart = () => {
         if(logged){
+            setcartButtonLoad(true);
             console.log('Token','Bearer '+token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
             // { Headers: { Authorization: `Bearer ${token}`} 
             axios.post(URL.ADD_PRODUCT_TO_CART+id)
                 .then(res => {
                     setAddedToCart(true);
+                    setcartButtonLoad(false);
                     setTimeout(() => {
                         setAddedToCart(false);
                     },1500);
                     setErrorMsg('Product added to cart')
                 }).catch(err => {
+                    setcartButtonLoad(false);
                     console.log(err); 
                 })
         }else{
@@ -89,15 +99,18 @@ function ProductDetails(){
 
     const handleWishlist = () => {
         if(logged){
+            setwishlistButtonLoad(true);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
             axios.post(URL.ADD_USER_WISHLIST+id)
             .then(res => {
+                setwishlistButtonLoad(false);
                 setAddedToCart(true);
                 setTimeout(() => {
                     setAddedToCart(false);
                 },1500);
                 setErrorMsg('Product added to wishlist');
             }).catch(err => {
+                setwishlistButtonLoad(false);
                 console.log(err);
             })
         }else{
@@ -200,6 +213,18 @@ function ProductDetails(){
         setLeftDrawer({ ...leftDrawer, [anchor]: open });
       };
 
+    const handleExpandCollapse = (event) => {
+        let id = event.target.id;
+        if(id != null){
+            console.log(id);
+            Constants.PRODUCT_DROPDOWN.forEach(product => {
+                if(id === product.id){
+                    product.collapse = !product.collapse;
+                }
+            })
+        }
+    }
+
 
     const list = (anchor) => (
         <Box
@@ -281,7 +306,8 @@ function ProductDetails(){
                 }
             </div>
                 <div className='submit_Button_custom_size'>
-                    <button>Submit</button>
+                    {/* <button>Submit</button> */}
+                    <LoadingButton variant="outlined">Submit</LoadingButton>
                 </div>
           <List>
           </List>
@@ -325,11 +351,17 @@ function ProductDetails(){
                     {/* create function to side image */}
                 </div>
                 }
+                <IconButton aria-label="add to shopping cart">
+                        <ArrowBackIosNewOutlinedIcon/>
+                </IconButton>
+                <IconButton aria-label="add to shopping cart">
+                        <ArrowForwardIosOutlinedIcon/>
+                </IconButton>
+                
                 </div>
                 <div className="desc">
                 <div className="ProductDetails__Description_S">
                     <h1>{product?.product_name}</h1>
-                    {/* create get size options api */}
                     <h3>{'Rs '+product?.product_real_price}</h3>
                     <div className='divider'></div>
                     <div className="ProductDetails__Description_S_size">
@@ -338,24 +370,20 @@ function ProductDetails(){
                         <button value="L" onClick={(event) => handlePopulateResponse(event,'ncSize')}>L</button>
                     </div>
                     <div className="ProductDetails__Description_S_add">
-                        <button onClick={handleCart}>Add to cart</button>
-                        <button onClick={handleWishlist}>Add to wishlist</button>
+                        <LoadingButton onClick={handleCart} loading={cartButtonLoad} variant="outlined">
+                            Add to Cart
+                        </LoadingButton>
+                        <LoadingButton onClick={handleWishlist} loading={wishlistButtonLoad} variant="outlined">
+                            Add to wishlist
+                        </LoadingButton>
                     </div>
                     <div className='ProductDetails__size_container'>
-                    <a href="">Create your size in just 30 seconds.</a>
-                    <button onClick={() => {handleMenuOpen(true)}} >Get size</button>
+                    <a>Create your size in just 30 seconds.</a>
+                    <LoadingButton onClick={() => {handleMenuOpen(true)}} variant="outlined">
+                            Get size
+                    </LoadingButton>
                     </div>
-                    {/* <div className='divider'></div> */}
-
-                    {/* <div className="ProductDetails__Description_S_add">
-                        <button onClick={handleCart}>Add to cart</button>
-                        <button onClick={handleWishlist}>Add to wishlist</button>
-                    </div> */}
                 </div>  
-                {/* <div className="ProductDetails__Description_L">
-                    <h3>Product Details</h3>
-                    <p>{product?.product_long_Desc}</p>
-                </div> */}
                 <div className='checks'>
                     {Constants.checkMarks.map(checkMark => {return(<li>{checkMark.bullet}</li>)})}
                 </div>
@@ -386,50 +414,16 @@ function ProductDetails(){
                     </div>
                 </div>
                 <div className='product-dropdown' onClick={handleCollpaseUncollapse}>
-                    <div className='product-dropdown-sub-container'>
-                        <h1>Product Description</h1>
-                        <div className='product-dropdown-icon-container'>
-                            <AddIcon/>
-                        </div>
-                    </div>
-                    { collapse && <div className='product-dropdown-collapsable-container'>
-                        <p>
-                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
-                        </p>
-                    </div>}
-                    <div className='product-dropdown-sub-container'>
-                        <h1>Size & Fit</h1>
-                        <div className='product-dropdown-icon-container'>
-                            <AddIcon/>
-                        </div>
-                    </div>
-                    { collapse && <div className='product-dropdown-collapsable-container'>
-                        <p>
-                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
-                        </p>
-                    </div>}
-                    <div className='product-dropdown-sub-container'>
-                        <h1>Alternates</h1>
-                        <div className='product-dropdown-icon-container'>
-                            <AddIcon/>
-                        </div>
-                    </div>
-                    { collapse && <div className='product-dropdown-collapsable-container'>
-                        <p>
-                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
-                        </p>
-                    </div>}
-                    <div className='product-dropdown-sub-container'>
-                        <h1>Wash Care</h1>
-                        <div className='product-dropdown-icon-container'>
-                            <AddIcon/>
-                        </div>
-                    </div>
-                    { collapse && <div className='product-dropdown-collapsable-container'>
-                        <p>
-                        Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.
-                        </p>
-                    </div>}
+                    {Constants.PRODUCT_DROPDOWN.map(collapsePro => {
+                        return(
+                        <div onClick={handleExpandCollapse} id={collapsePro.id} key={collapsePro.id} className='product-dropdown-sub-container'>
+                            <h1 id={collapsePro.id} >{collapsePro.heading}</h1>
+                                <div id={collapsePro.id} className='product-dropdown-icon-container'>{collapsePro.collapse ?  '+' : 'x'}</div>
+                                {!collapsePro.collapse && 
+                                <div id={collapsePro.id} className='product-dropdown-collapsable-container'>
+                                <p id={collapsePro.id}>{collapsePro.details}</p>
+                                </div>}
+                        </div>)})}
                 </div>
                 <div className='product_garantee'>
                     <h1>We Guarantee A Great Fit</h1>

@@ -4,6 +4,11 @@ import axios from 'axios';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import * as Constants from '../Helper/Constants';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import LoadingButton from '@mui/lab/LoadingButton';
 import * as URL from '../Helper/endpoints';
 import "../styles/Register.css";
 
@@ -19,13 +24,13 @@ const Register = () => {
     const confrimPassword = useRef(null);
     const address1 = useRef(null);
     const address2 = useRef(null);
-    const state = useRef(null);
-    const city = useRef(null);
+    // const state = useRef(null);
     const mobile = useRef(null);
     const zipcode = useRef(null);
     const country = useRef(null);
 
-
+    const [city,setCity] = React.useState('');
+    const [state,setState] = React.useState('');
     const [user,setuser] = React.useState({});
     const [show,setShow] = React.useState(false);
     const [err,setErr] = React.useState(false);
@@ -33,7 +38,7 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        console.log('CRRR',state);
         if(password.current.value != confrimPassword.current.value){
             alert("Password do not match")
             return;
@@ -44,8 +49,8 @@ const Register = () => {
             user_Lname : lname.current?.value,
             email : email.current?.value,
             user_Password : password.current?.value, 
-            user_City : city.current?.value,
-            user_State : state.current?.value,
+            user_City : city,
+            user_State : state,
             user_zip : zipcode.current?.value,
             user_phone_number : mobile.current?.value,
             user_country : country.current?.value,
@@ -90,22 +95,58 @@ const Register = () => {
                 <Alert severity="error">{errDesc}</Alert>
             </Collapse>
             </div>
-            
-                <input type="text" placeholder="First Name" ref={fname}></input>
-                <input type="text" placeholder="Last Name" ref={lname} ></input>
-                <input type="text" placeholder="Email" ref={email} ></input>
-                <input type="password" placeholder="password" ref={password} ></input>
-                <input type="password" placeholder="Confirm Password" ref={confrimPassword} ></input>
-                <input type="text" placeholder="Address" ref={address1} ></input>
-                <input type="text" placeholder="State" ref={state} ></input>
-                <input type="text" placeholder="City" ref={city} ></input>
-                <input type="text" placeholder="Mobile no." ref={mobile} ></input>
-                <input type="text" placeholder="Country" ref={country} ></input>
-                <input type="text" placeholder="Zip Code" ref={zipcode} ></input>
-                <a href='/login'>Already a member ? signin</a>
+        
+        <div className='register-input-container'>
+            <InputLabel id="demo-simple-select-label">First Name</InputLabel>
+            <TextField inputRef={fname} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 
-                <button className='registerButtom' onClick={handleSubmit}>Register</button>
-                 
+            <InputLabel id="demo-simple-select-label">Last Name</InputLabel>
+            <TextField inputRef={lname} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Email</InputLabel>
+            <TextField inputRef={email} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Password</InputLabel>
+            <TextField type='password' inputRef={password} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Confirm Password</InputLabel>
+            <TextField type='password' inputRef={confrimPassword} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Address</InputLabel>
+            <TextField inputRef={address1} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">State</InputLabel>
+            <Select value={state} onChange={(e) => {setState(e.target.value)}}  sx={{width : '295px'}} labelId="demo-simple-select-label" id="demo-simple-select">
+                    {Constants.GEOGRAPHY.states.map(state => {
+                        return(<MenuItem value={state.state}>{state.state}</MenuItem>)
+                    })}
+            </Select>
+
+            <InputLabel id="demo-simple-select-label">City</InputLabel>
+            {/* <TextField inputRef={city} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" /> */}
+            <Select value={city} onChange={(e) => {setCity(e.target.value)}} sx={{width : '295px'}} label="city" labelId="demo-simple-select-label" id="demo-simple-select">
+                    {Constants.GEOGRAPHY.states.map(st => {
+                        return(st.state === state && st.districts.map(district => {
+                            return(<MenuItem value={district}>{district}</MenuItem>)
+                        }))
+                    })}
+            </Select>
+
+            <InputLabel id="demo-simple-select-label">Mobile no.</InputLabel>
+            <TextField inputRef={mobile} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Country</InputLabel>
+            <TextField inputRef={country} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+
+            <InputLabel id="demo-simple-select-label">Zip Code</InputLabel>
+            <TextField inputRef={zipcode} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+        </div>
+
+            <a href='/login'>Already a member ? signin</a>
+            <br/>
+            <div className='registerButtom'>
+                <LoadingButton  onClick={handleSubmit} variant="outlined">Register</LoadingButton>
+            </div>     
         </div>
     )
 }

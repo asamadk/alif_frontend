@@ -4,12 +4,24 @@
     text-align: center;
 }
 
-.status-button-home{
+/* .status-button-home{
     width: 40%;
     margin-left: 30%;
-}
+} */
 
 .status-button-home button{
     margin: 50px;
+    color: black;
+    border: 1px #B8B8B8 solid;
     position: relative;
+}
+
+.status-main-container p{
+    margin: 15px;
+    color: #B8B8B8;
+}
+
+button :hover{
+    color: black;
+    border: 1px #B8B8B8 solid;
 }

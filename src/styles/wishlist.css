@@ -16,7 +16,7 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: white;
   cursor: pointer;
 }
 
@@ -29,14 +29,14 @@ button:hover{
   margin: 5px;
 }
 
-.wishlistcart button {
+/* .wishlistcart button {
   background-color: #e60023;
   color: white;
   border: 0px;
   margin: 20px 5px;
   padding: 10px 30px;
   border-radius: 20px;
-}
+} */
 
 .wishlist_col img {
   padding: 10px 0px;

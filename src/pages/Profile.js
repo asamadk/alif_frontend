@@ -4,6 +4,9 @@ import * as Constants from '../Helper/Constants'
 import * as URL from '../Helper/endpoints'
 import CircularProgress from '@mui/material/CircularProgress';
 import Collapse from '@mui/material/Collapse';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import "../styles/Profile.css"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -167,44 +170,42 @@ function Profile(){
             <Collapse in={show}>
                 <Alert severity={severity}>{errMesg}</Alert>
             </Collapse>
-            { showchangePassword ? 
-                <>
+            { showchangePassword &&<>
+                <div className="profile-container">
                     <h1>Change Password</h1>
                     <br></br>
-                    <label>Current password</label>
-                    <input type="password" value={currentPassword} onChange={(e) => {setCurrentPassword(e.target.value)}}></input>
-                    <label>New password</label>
-                    <input type="password" value={newPassword} onChange={(e) => {setNewPassword(e.target.value)}}></input>
-                    <label>Confirm New password</label>
-                    <input type="password" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}}></input>
-                </>
-            :
-                <>
-                    <h1>Profile</h1>
-                    <label>First Name</label>
-                    <input value={name} onChange={(e)=>{setName(e.target.value)}} disabled={isDisabled}></input>
-                    <label>Last Name</label>
-                    <input value={lastName} onChange={(e)=>{setLastName(e.target.value)}} disabled={isDisabled}></input>
-                    <label>Contact</label>
-                    <input value={contact} onChange={(e)=>{setContact(e.target.value)}} disabled={isDisabled}></input>
-                    <label>Email</label>
-                    <input value={email} onChange={(e)=>{setEmail(e.target.value)}} disabled></input>
-                    <label>City</label>
-                    <input value={city} onChange={(e)=>{setCity(e.target.value)}} disabled={isDisabled}></input>
-                </>
-            }
-            {
-            showchangePassword ? 
-            <button onClick={() => {setShowChangePassword(false)}}>Cancel</button> 
-            : 
-            <button onClick={handleEditPRofile}>{isDisabled ? 'Edit profile' : 'Save'}</button>
-            }
-            {
-            isDisabled ? 
-            <button onClick={handleChangePassword}>Change password</button> 
-            : 
-            <button onClick={() => setIsDisabled(true)}>Cancel</button>
-            }
+                    <InputLabel id="demo-simple-select-label">Current password</InputLabel>
+                    <TextField type="password" value={currentPassword} onChange={(e) => {setCurrentPassword(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" variant="outlined" />
+                    
+                    <InputLabel id="demo-simple-select-label">New password</InputLabel>
+                    <TextField type="password" value={newPassword} onChange={(e) => {setNewPassword(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" variant="outlined" />
+
+                    <InputLabel id="demo-simple-select-label">Confirm New password</InputLabel>
+                    <TextField type="password" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" variant="outlined" />
+                </div>
+            </>}
+            {!showchangePassword &&<>
+                <div className="profile-container">
+                <h1>Profile</h1>
+                <InputLabel id="demo-simple-select-label">First Name</InputLabel>
+                <TextField value={name} onChange={(e) => {setName(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" disabled={isDisabled}  variant="outlined" />
+                
+                <InputLabel id="demo-simple-select-label">Last Name</InputLabel>
+                <TextField value={lastName} onChange={(e) => {setLastName(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" disabled={isDisabled}  variant="outlined" />
+                
+                <InputLabel id="demo-simple-select-label">Contact</InputLabel>
+                <TextField value={contact} onChange={(e) => {setContact(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" disabled={isDisabled}  variant="outlined" />
+
+                <InputLabel id="demo-simple-select-label">Email</InputLabel>
+                <TextField value={email} onChange={(e) => {setEmail(e.target.value)}} sx={{width : '295px'}} id="outlined-basic" disabled={true}  variant="outlined" />
+                
+                </div>
+            </>}
+
+            {showchangePassword && <LoadingButton onClick={() => {setShowChangePassword(false)}} variant="outlined">Cancel</LoadingButton>}
+            {!showchangePassword && <LoadingButton onClick={handleEditPRofile} variant="outlined">{isDisabled ? 'Edit profile' : 'Save'}</LoadingButton>}
+            {isDisabled && <LoadingButton onClick={handleChangePassword} variant="outlined">Change password</LoadingButton>}
+            {!isDisabled && <LoadingButton onClick={() => setIsDisabled(true)} variant="outlined">Cancel</LoadingButton>}
 
         </div>
     )

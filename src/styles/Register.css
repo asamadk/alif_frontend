@@ -5,7 +5,7 @@
 
 .Register {
   margin: 50px 10px;
-  max-width: 500px;
+  width: fit-content;
 }
 
 button{
@@ -14,7 +14,7 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: white;
   cursor: pointer;
 }
 
@@ -31,11 +31,11 @@ a:hover {
 }
 
 .Register input {
-  display: block;
+  /* display: block;
   margin: 10px 10px;
-  padding: 10px;
+  padding: 10px; */
   width: 90%;
-  border: 0.5px grey solid;
+  /* border: 0.5px grey solid; */
 }
 
 .alertRegister{
@@ -45,28 +45,26 @@ a:hover {
   width: 90%;
 }
 
-.registerButtom {
-  display: block;
-  /* background-image: linear-gradient(
-    to right,
-    #ec850f 0%,
-    #f07603 51%,
-    #f56200 100%
-  ); */
-  background-color: #e60023;
+.registerButtom{
+  margin-top: 20px;
+}
 
-  color: white;
-  margin: 5px 5px;
-  padding: 10px 50px;
-  border-radius: 15px;
+.registerButtom button{
+  display: block;
   border: 0px;
   width: auto;
   margin-left: 30%;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 
 .Register a {
   font-size: small;
   margin: 10px;
+}
+
+.register-input-container{
+  margin-left: 10%;
 }
 
 @media only screen and (min-width: 700px) {

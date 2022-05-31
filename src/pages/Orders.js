@@ -1,14 +1,15 @@
 import React from "react"
 import "../styles/Orders.css"
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import * as URL from '../Helper/endpoints'
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
+import { Link } from "react-router-dom";
 import * as Constants from '../Helper/Constants'
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
+import LeftSideBar from "../components/LeftSideBar";
 
 function Orders(){
 
@@ -20,6 +21,7 @@ function Orders(){
     const [customSeveiry,setCustomSeveiry] = React.useState('success');
     const [show,setShow] = React.useState(false);
     const [Msg, setMsg] = React.useState('');
+    const [userMail,setUserMail] = React.useState('Email');
     const [orders,setOrders] = React.useState([]);
 
     React.useEffect(() => {
@@ -27,6 +29,7 @@ function Orders(){
         if(localStorage.getItem(Constants.TOKEN) != null){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
+            setUserMail(jwt_decode(localStorage.getItem(Constants.TOKEN))?.sub);
         }else{
             history.push('/login');
         }
@@ -35,7 +38,6 @@ function Orders(){
         axios.get(URL.GET_ALL_ORDERS,{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
         .then(res => {
             setLoading(false);
-            console.log(res.data);
             if(res.data.responseCode == Constants.OK_200 && res.data.responseWrapper && res.data.responseWrapper.length > 0){
                 setOrders(res.data.responseWrapper);
                 console.log(res.data.responseWrapper);
@@ -68,31 +70,15 @@ function Orders(){
             <Collapse in={show}><Alert severity={customSeveiry} sx={{ mb: 1 }}>{Msg}</Alert></Collapse>
         <div className="order_details_account">
               <h3>Account</h3>
-              <p>Abdul Samad Kirmani</p>
+              <p>{userMail}</p>
             <div className='divider'></div>
             </div>
             <div className="sidebar_and_orders">
-              <div className="sidebar">
-                <h1>Overview</h1>
-                <div className='divider_small'></div>
-                <h1>Orders</h1>
-                <h1>orders and return</h1>
-                <div className='divider_small'></div>
-                <h1>Credits</h1>
-                <h1>coupons</h1>
-                <h1>Alif Credit</h1>
-                <h1>Alif Cash</h1>
-                <div className='divider_small'></div>
-                <h1>ACCOUNT</h1>
-                <h1>Profile</h1>
-                <h1>Saved Cash</h1>
-                <h1>Addresses</h1>
-                <h1>Alif insider</h1>
-              </div>
+            <LeftSideBar/>
               <div className="all_orders_container_order">
                 {orders.map(order => {
                 return(
-                    <div className="all_orders_container_single">
+                    <div key={order.orderId} className="all_orders_container_single">
                         <h2>Delivered</h2>
                         <p>On {new Date(order.orderDate).toDateString()}</p>
                         <div onClick={() => {handleOrderDetail(order.orderId)}} className="all_orders_container_single_inner">

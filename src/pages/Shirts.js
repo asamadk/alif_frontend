@@ -6,6 +6,7 @@ import * as URL from '../Helper/endpoints'
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useParams } from "react-router-dom";
 import "../styles/Shirts.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -158,9 +159,11 @@ const Men = () => {
         })
       }
       </div>
-      <div className="shirts_btn">
-        <button>Load More</button>
-      </div>
+      {/* <div className="shirts_btn">
+        <LoadingButton variant="outlined">
+                            Load More
+        </LoadingButton>
+      </div> */}
     </div>
   );
 };

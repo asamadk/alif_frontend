@@ -19,6 +19,7 @@ export const UPI_PAYMENT = "UPI";
 export const PAYTM_BALANCE = "BALANCE";
 export const NET_BANKING = "NET_BANKING";
 
+export const CART_EMPTY = 'cartEmpty';
 
 export const checkMarks = [
     {
@@ -193,6 +194,33 @@ export const HEIGHT = [
       class : 'unhighlight-cirlce'
    },
 ];
+
+export const PRODUCT_DROPDOWN = [
+   {
+      id : 'description',
+      heading : 'Product Description',
+      details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
+      collapse : true
+   },
+   {
+      id : 'size & fit',
+      heading : 'Size & Fit',
+      details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
+      collapse : true
+   },
+   {
+      id : 'Alternates',
+      heading : 'Alternates',
+      details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
+      collapse : true
+   },
+   {
+      id : 'Wash Care',
+      heading : 'Wash Care',
+      details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
+      collapse : true
+   },
+]
 
 export const GEOGRAPHY = {  
    "states":[  

@@ -1,4 +1,9 @@
 button:hover{
     background-color: black;
-    color: wheat;
+    color: white;
 }
+
+/* button{
+    color: black;
+  border: 1px #B8B8B8 solid;
+} */

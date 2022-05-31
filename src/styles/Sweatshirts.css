@@ -1,13 +1,11 @@
-.sweatshirt_btn button {
+/* .sweatshirt_btn button {
   background-color: #e60023;
   color: white;
   border: 0px;
   margin: 20px 5px;
   padding: 10px 30px;
   border-radius: 20px;
-  /* position: relative;
-    left: 30%; */
-}
+} */
 .sweatshirt_btn {
   max-width: 40%;
   margin: 0px auto;
@@ -19,7 +17,7 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: white;
   cursor: pointer;
 }
 

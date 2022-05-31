@@ -19,18 +19,18 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: white;
   cursor: pointer;
 }
 
-.Success button {
+/* .Success button {
   background-color: #e60023;
   color: white;
   border: 0px;
   margin: 20px 5px;
   padding: 10px 30px;
   border-radius: 20px;
-}
+} */
 
 @media screen and (min-width: 700px) {
   .Success {

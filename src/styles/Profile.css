@@ -10,17 +10,10 @@
   margin-top: 20px;
 }
 
-.Profile label{
-  margin-left: 25%;
-}
-
-.Profile input{
-  padding: 8px;
-  border: 0.5px gray solid;
-  display: block;
-  width: 50%;
-  margin-left: 25%;
-  margin-bottom: 10px;
+.profile-container{
+  width: fit-content;
+  position: relative;
+  left: 10%;
 }
 
 .Profile p {
@@ -34,22 +27,26 @@ button{
 
 button:hover{
   background-color: black;
-  color: wheat;
+  color: white;
   cursor: pointer;
 }
 
 .Profile button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
-  /* margin: 20px 15px; */
-  padding: 10px 30px;
-  border-radius: 20px;
   margin-left: -10px;
   margin-right: 40px;
+  margin-top: 30px;
+  color: black;
+  border: 1px #B8B8B8 solid;
 }
 
 @media screen and (min-width: 700px) {
+
+  .profile-container{
+    width: fit-content;
+    position: relative;
+    left: 25%;
+  }
+
   .Profile table {
     /* border: 1px red solid; */
     width: 40%;
