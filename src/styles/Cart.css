@@ -12,7 +12,8 @@
   display: flex;
   justify-content: space-between;
   color: black;
-  border: 1px #B8B8B8 solid;
+  /* border: 1px #B8B8B8 solid; */
+  border: 1px solid #eaeaec;
   padding-bottom: 2px;
   border-radius: 3px;
   font-size: small;

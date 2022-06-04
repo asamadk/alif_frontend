@@ -3,6 +3,9 @@ import "../styles/ProductSlider.css";
 import * as Constants from '../Helper/Constants'
 import Product from "./Product";
 import * as URL from '../Helper/endpoints'
+import IconButton from '@mui/material/IconButton';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import axios from "axios";
 
 function ProductSlider(props){
@@ -11,44 +14,41 @@ function ProductSlider(props){
     const [productList,setProductList] = React.useState([]);
     React.useEffect(() => {
         if(props.type === Constants.LATEST_PRODUCTS){
-            axios.get(URL.GET_PRODUCTS_LATEST)
-            .then((res) => {
-                if(res.data.responseWrapper != null && res.data.responseWrapper.length > 0){
-                console.log('PRODUCT ',res.data.responseWrapper);
-                setProductList(res.data.responseWrapper);
-            }}).catch(err => console.log(err));
+            populateLatestProducts();
         }else if(props.type === Constants.EXCLUSIVE_PRODUCTS){
-            axios.get(URL.GET_PRODUCTS_LIMIT_4)
-            .then((res) => {
-                if(res.data.responseWrapper != null && res.data.responseWrapper.length > 0){
-                console.log('PRODUCT ',res.data.responseWrapper);
-                setProductList(res.data.responseWrapper);
-            }}).catch(err => console.log(err));
+            populateExclusivePRoducts();
         }
     },[]);
-    console.log('HERE',productList)
+
+    const populateLatestProducts = async () => {
+        let productResponse = await axios.get(URL.GET_PRODUCTS_LATEST)
+        .catch(err => console.log(err));
+        if(productResponse.data.responseWrapper != null && productResponse.data.responseWrapper.length > 0){
+            setProductList(productResponse.data.responseWrapper);
+        }
+    }
+
+    const populateExclusivePRoducts = async () => {
+        let productResponse = await axios.get(URL.GET_PRODUCTS_LIMIT_4).
+        catch(err => console.log(err));
+        if(productResponse.data.responseWrapper != null && productResponse.data.responseWrapper.length > 0){
+            setProductList(productResponse.data.responseWrapper);
+        }
+    }
+
     return(
-        <div className="ProductSlider">
-            {
-                productList.map(product => {
-                    return(
-                        <Product 
-                        price = {product.product_real_price}
-                        name={product.product_name}
-                        unique={product.product_id}
-                        btn={Constants.VIEW_MORE}
-                        />
-                    )
-                })
-            }
-            {/* <Product btn={Constants.VIEW_MORE}/>
-            <Product btn="view more"/>
-            <Product btn="view more"/>
-            <Product btn="view more"/>
-            <Product btn="view more"/> */}
-
-
-        </div>
+        <>
+            <div className="ProductSlider">
+            {productList.map(product => {
+                return(<Product 
+                    price = {product.product_real_price}
+                    name={product.product_name}
+                    unique={product.product_id}
+                    btn={Constants.VIEW_MORE}
+                />
+            )})}
+            </div>
+        </>
     )
 }
 

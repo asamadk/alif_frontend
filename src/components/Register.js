@@ -123,7 +123,6 @@ const Register = () => {
             </Select>
 
             <InputLabel id="demo-simple-select-label">City</InputLabel>
-            {/* <TextField inputRef={city} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" /> */}
             <Select value={city} onChange={(e) => {setCity(e.target.value)}} sx={{width : '295px'}} label="city" labelId="demo-simple-select-label" id="demo-simple-select">
                     {Constants.GEOGRAPHY.states.map(st => {
                         return(st.state === state && st.districts.map(district => {

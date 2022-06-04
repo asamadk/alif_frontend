@@ -1,14 +1,13 @@
+
+
 .Coupons_container {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px #B8B8B8 solid;
   transition: 0.3s;
   text-align: center;
   font-family: sans-serif;
   margin: 20px;
   padding: 20px 0px;
-}
-
-.Coupons_container:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  width: 100px;
 }
 
 button{
@@ -58,12 +57,15 @@ button:hover{
   .Coupons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 5% 15%;
+    /* flex-grow: 1; */
+    /* justify-content: space-evenly; */
+    margin: 5% 5%;
   }
 
   .Coupons_container {
-    flex-grow: 1;
-    width: 20%;
+    /* flex-grow: 1; */
+    width: 30%;
+    max-width: 30%;
+    /* width: 0%; */
   }
 }

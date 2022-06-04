@@ -6,12 +6,10 @@ import * as URL from '../Helper/endpoints'
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { useParams } from "react-router-dom";
-import "../styles/Shirts.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-
+import "../styles/Shirts.css";
 
 const Men = () => {
   let { id } = useParams();
@@ -27,7 +25,14 @@ const Men = () => {
   const [searchTerm,setSearchTerm] = React.useState('');
   const [rerender,setRerender] = React.useState(false);
 
+  const productSearchData = history.location.state?.data;
+  const searchTearm = history.location.state?.searchTerm;
+  if(searchTearm != null){
+    // setRerender(rerender);
+  }
+
   useEffect(() => {
+    console.log('Inside use effect')
     setLoading(true);
     if(id != undefined || id != null){
       axios.get(URL.GET_PRODUCTS_BY_CATEGORY+id)
@@ -56,7 +61,6 @@ const Men = () => {
         setSearchTerm(searchTearm);
       }
       if(productSearchData != null){
-        // console.log('IN USE EFFECT',productSearchData);
         if(productSearchData.responseWrapper != null){
           setSearchedProduct(true);
           setLoading(false);
@@ -159,11 +163,6 @@ const Men = () => {
         })
       }
       </div>
-      {/* <div className="shirts_btn">
-        <LoadingButton variant="outlined">
-                            Load More
-        </LoadingButton>
-      </div> */}
     </div>
   );
 };

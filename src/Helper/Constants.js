@@ -12,6 +12,7 @@ export const DELETE_FROM_WISHLIST = 'Delete from wishlist';
 
 export const LATEST_PRODUCTS = 'Latest Products';
 export const EXCLUSIVE_PRODUCTS = 'Exclusive Products';
+export const SIMILLAR_PRODUCTS = 'Similar Products';
 
 export const CREDIT_CARD_PAYMENT = "CREDIT_CARD";
 export const DEBIT_CARD_PAYMENT = "DEBIT_CARD";

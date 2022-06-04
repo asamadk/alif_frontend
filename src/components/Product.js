@@ -47,7 +47,7 @@ function Product(props){
         }
     }
 
-    const handleButton = () => {
+    const handleDeleteButton = () => {
         if(props.btn === Constants.DELETE_FROM_WISHLIST && props.unique && props.wishlistId){
             axios.delete(`${URL.DELETE_FROM_WISHLIST}${props.unique}/${props.wishlistId}`,{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
             .then(res => {
@@ -56,6 +56,7 @@ function Product(props){
                     setAddedToCart(true);
                     setTimeout(() => {
                         setAddedToCart(false);
+                        props?.sendDataToWIshList(props.unique);
                         // window.location.reload();
                     },1500)
                     setErrorMsg('Product removed from wishlist')
@@ -66,23 +67,23 @@ function Product(props){
         }
     }
 
-    const handleWishlistProduct = (id) => {
+
+    const handleWishlistProduct = async (id) => {
         console.log('AHFS',id);
-        if(logged){
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            axios.post(URL.ADD_USER_WISHLIST+id)
-            .then(res => {
-                setAddedToCart(true);
-                setTimeout(() => {
-                    setAddedToCart(false);
-                },1500);
-                setErrorMsg('Product added to wishlist');
-            }).catch(err => {
-                console.log(err);
-            })
-        }else{
+        if(logged === false){
             history.push('/login');
         }
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        let addWishListResponse = await axios.post(URL.ADD_USER_WISHLIST+id).catch(err => {
+            console.log(err);
+            return;
+        })
+        console.log(addWishListResponse);
+        setAddedToCart(true);
+        setTimeout(() => {
+            setAddedToCart(false);
+        },1500);
+        setErrorMsg('Product added to wishlist');
     }
 
     const handleOpenProduct = (id) => {
@@ -97,30 +98,12 @@ function Product(props){
             <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/500" alt=""></img>
             <div className="product_price_and_icon">
                 <h2>{'₹ '+props.price}</h2>
-                <div className="heart_icon" onClick={() => handleWishlistProduct(props.unique)}>
-                    {props.btn !== Constants.DELETE_FROM_WISHLIST && <FavoriteBorderIcon style={{cursor:'pointer'}} on/>}
-                    {props.btn === Constants.DELETE_FROM_WISHLIST && <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} on/>}
+                <div className="heart_icon">
+                    {props.btn !== Constants.DELETE_FROM_WISHLIST && <FavoriteBorderIcon style={{cursor:'pointer'}} onClick={() => handleWishlistProduct(props.unique)} />}
+                    {props.btn === Constants.DELETE_FROM_WISHLIST && <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} onClick={handleDeleteButton}/>}
                 </div>
             </div>
             <p>{props.name}</p>
-            {/* <div className="product__size">
-            <button>M</button>
-            <button>S</button>
-            <button>L</button>
-            </div> */}
-            
-            {/* <div className="addtocart">
-                <button onClick={handleCart}>Add to Cart</button>
-                {
-                    Constants.VIEW_MORE === props.btn ? 
-                    <a key={props.unique} href={'/product/details/'+props.unique}>
-                        <button>{props.btn}</button>
-                    </a> : 
-                        <button onClick={handleButton}>{button}</button>
-                }
-                
-                
-            </div> */}
         </div>
     )
 }

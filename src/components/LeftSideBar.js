@@ -10,7 +10,7 @@ function LeftSideBar() {
                 <h1><Link to={'/orders'} >orders and return</Link></h1>
                 <div className='divider_small'></div>
                 <h1>CREDITS</h1>
-                <h1>coupons</h1>
+                <h1><Link to={'/coupons'}>coupons</Link></h1>
                 <div className='divider_small'></div>
                 <h1>ACCOUNT</h1>
                 <h1><Link to={'/profile'} >Profile</Link></h1>
