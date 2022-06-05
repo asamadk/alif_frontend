@@ -417,6 +417,18 @@ button:hover{
     left: 10%;
     margin-top: 10%;
   }
+
+  .ProductDetails__Description_S .highlight-cirlce{
+    background-color: #000000;
+    color: white;
+  }
+
+  .ProductDetails__Description_S .unhighlight-cirlce{
+    background-color: white;
+    color: #231f20cc;
+  }
+
+
   .image {
     /* margin: 10px; */
     /* padding: 10px; */

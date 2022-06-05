@@ -23,7 +23,7 @@ function ProductSlider(props){
     const populateLatestProducts = async () => {
         let productResponse = await axios.get(URL.GET_PRODUCTS_LATEST)
         .catch(err => console.log(err));
-        if(productResponse.data.responseWrapper != null && productResponse.data.responseWrapper.length > 0){
+        if(productResponse?.data?.responseWrapper != null && productResponse?.data?.responseWrapper?.length > 0){
             setProductList(productResponse.data.responseWrapper);
         }
     }
@@ -31,7 +31,7 @@ function ProductSlider(props){
     const populateExclusivePRoducts = async () => {
         let productResponse = await axios.get(URL.GET_PRODUCTS_LIMIT_4).
         catch(err => console.log(err));
-        if(productResponse.data.responseWrapper != null && productResponse.data.responseWrapper.length > 0){
+        if(productResponse?.data?.responseWrapper != null && productResponse?.data?.responseWrapper?.length > 0){
             setProductList(productResponse.data.responseWrapper);
         }
     }

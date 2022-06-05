@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import * as Constants from '../Helper/Constants'
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import LeftSideBar from "../components/LeftSideBar";
@@ -23,6 +25,8 @@ function Orders(){
     const [Msg, setMsg] = React.useState('');
     const [userMail,setUserMail] = React.useState('Email');
     const [orders,setOrders] = React.useState([]);
+    const [size,setSize] = React.useState(3);
+    const [page,setPage] = React.useState(0);
 
     React.useEffect(() => {
         setLoading(true);
@@ -35,7 +39,7 @@ function Orders(){
         }
 
 
-        axios.get(URL.GET_ALL_ORDERS,{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
+        axios.get(URL.GET_ALL_ORDERS(page,size),{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
         .then(res => {
             setLoading(false);
             if(res.data.responseCode == Constants.OK_200 && res.data.responseWrapper && res.data.responseWrapper.length > 0){
@@ -45,13 +49,19 @@ function Orders(){
                 //TODO : write for error managing
             }
         }).catch(err => {
+            console.log(err.body)
             setLoading(false);
         })
-    },[])
+    },[size,page])
 
 
     const handleOrderDetail = (orderId) => {
         history.push('/order/detail/'+orderId);
+    }
+
+    const handlePaginationChange = (value) => {
+        setLoading(true);
+        setPage(value);
     }
 
     const loadingCss = {
@@ -101,6 +111,9 @@ function Orders(){
                         </div>
                     </div>
                 )})}
+                {orders.length > 0 && <div className="pagination-order">
+                    <Pagination count={15} page={page+1} onChange={(e,val) => handlePaginationChange(val-1)} variant="outlined" shape="rounded" />
+                </div>}
               </div>
             </div> 
         </>

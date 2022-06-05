@@ -99,6 +99,10 @@ button:hover{
 /* *************** */
     
 
+.pagination-order{
+  padding: 10px;
+}
+
     .order_details_account{
         padding: 0% 20%;
     }

@@ -1,13 +1,17 @@
 const BASE_URL = 'https://alif-ecommerce.herokuapp.com/';
+// const BASE_URL = 'https://localhost:8080/';
 
 export const REGISTER = BASE_URL+'register';
 export const LOGIN = BASE_URL+'login';
 
 export const CATEGORIES = BASE_URL+'categories';
 
-export const GET_PRODUCTS = BASE_URL+'products?order=NORMAL&limit=0';
-export const GET_PRODUCTS_LIMIT_4 = BASE_URL+'products?order=NORMAL&limit=4';
-export const GET_PRODUCTS_LATEST = BASE_URL+'products?order=DESC&limit=4';
+export const GET_PRODUCTS = (page,limit) => {
+    return `${BASE_URL}products?order=NORMAL&limit=${limit}&page=${page}`;
+}
+
+export const GET_PRODUCTS_LIMIT_4 = BASE_URL+'products?order=NORMAL&limit=4&page=0';
+export const GET_PRODUCTS_LATEST = BASE_URL+'products?order=DESC&limit=4&page=0';
 export const GET_PRODUCTS_BY_CATEGORY = BASE_URL+'product/category/';
 export const GET_SINGLE_PRODUCT = BASE_URL+'product/';
 
@@ -19,7 +23,7 @@ export const GET_COUPONS = BASE_URL+'user/coupons/';
 export const DELETE_PRODUCT_FROM_CART = BASE_URL+'user/cart/';
 
 export const GET_USER = BASE_URL+'user/find/';
-export const GET_USER_WISHLIST = BASE_URL+'user/wishlist';
+export const GET_USER_WISHLIST = BASE_URL+'user/wishlist?size=5&page=0';
 export const ADD_USER_WISHLIST = BASE_URL+'user/wishlist/';
 
 
@@ -35,7 +39,10 @@ export const RESET_PASSWORD = BASE_URL+'resetPassword?email=';
 
 export const CHANGE_PASSWORD = BASE_URL+'changePassword?token=';
 
-export const GET_ALL_ORDERS = BASE_URL+'user/orders';
+export const GET_ALL_ORDERS = (page,size) => {
+    return `${BASE_URL}user/orders?page=${page}&size=${size}`;
+}
+
 export const GET_ORDER = BASE_URL+'user/order/';
 
 export const INIT_PAYMENT = BASE_URL+'user/payment';

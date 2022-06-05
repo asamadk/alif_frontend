@@ -61,7 +61,7 @@ function Cart() {
         // setLoading(false);
         // setError(true);
         // console.log(err.response.data)
-        let responseStatus = err.response.data.responseCode;
+        let responseStatus = err?.response?.data?.responseCode;
         if(responseStatus != null && responseStatus == Constants.NOT_FOUND_404){
             history.push('/status',{code : Constants.CART_EMPTY})
             setLoading(false);

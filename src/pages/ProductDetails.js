@@ -183,12 +183,11 @@ function ProductDetails(){
             })
             }
         else if(type === 'genericsize'){
-            console.log('hiba fatima phateechar hai')
             if(id === null)return;
             responseJSON.custom = true;
             responseJSON.genericsize = id;
             Constants.GENERIC_SIZE.forEach(size => {
-                if(size.id === id){
+                if(size.size === id){
                     size.class = 'highlight-cirlce';
                 }else{
                     size.class = 'unhighlight-cirlce';
@@ -378,8 +377,7 @@ function ProductDetails(){
                     <div className="ProductDetails__Description_S_size">
                     {Constants.GENERIC_SIZE.map(gsize => {
                     return(
-                        // {size.class}
-                    <button className={gsize.class} value={gsize.size} onClick={(event) => handlePopulateResponse(event,'genericsize',gsize.size)} >
+                    <button className={gsize.class} id={gsize.size} value={gsize.size} onClick={(event) => handlePopulateResponse(event,'genericsize',gsize.size)} >
                         {gsize.size}
                     </button>)
                     })}

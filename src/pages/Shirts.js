@@ -10,12 +10,15 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import "../styles/Shirts.css";
+import { LoadingButton } from "@mui/lab";
 
 const Men = () => {
   let { id } = useParams();
   const history = useHistory();
 
   const [categories,setCategories] = useState([]);
+  const[page,setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const [products,setProducts] = useState([]);
   const [show,setShow] = useState(false);
   const [errorMsg,setErrorMsg] = useState('');
@@ -68,7 +71,7 @@ const Men = () => {
           setRerender(!rerender);
         }
       }else{
-        axios.get(URL.GET_PRODUCTS)
+        axios.get(URL.GET_PRODUCTS(page,pageSize))
         .then(res => {
           setLoading(false);
           setProducts(res.data.responseWrapper);
@@ -101,7 +104,7 @@ const Men = () => {
   const handleReset = () => {
     setLoading(true);
     setSearchedProduct(false);
-      axios.get(URL.GET_PRODUCTS)
+      axios.get(URL.GET_PRODUCTS(page,pageSize))
         .then(res => {
           setLoading(false)
           setProducts(res.data.responseWrapper);
@@ -146,7 +149,7 @@ const Men = () => {
           )
           )}
       </select>
-      <button className="resetButton" onClick={handleReset}>reset</button>
+      <LoadingButton className="resetButton" onClick={handleReset}>reset</LoadingButton>
       <Collapse in={searchedProduct}>
           <Alert severity="success">{'Searched For '+searchTerm}</Alert>
         </Collapse>

@@ -16,8 +16,9 @@
   margin: 10px;
   left: 15%;
   position: relative;
-  border-radius: 20px;
-  border: 1.5px solid #eaeaec;
+  border-radius: 3px;
+  /* border: 1.5px solid #eaeaec; */
+  border: 1px #B8B8B8 solid;
   background: white;
 }
 
@@ -35,16 +36,21 @@ button:hover{
   padding: 10px 30px;
 } */
 
-/* .resetButton {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
-  padding: 10px 20px;
-  margin: 10px;
+.resetButton {
+  /* background-color: #e60023; */
+  /* color: white; */
+  /* border: 0px; */
+  /* padding: 10px 20px; */
+  /* margin: 10px; */
   left: 15%;
   position: relative;
-  border-radius: 20px;
-} */
+  /* border-radius: 20px; */
+}
+
+.Product_Shirts button{
+  color: black;
+  border: 1px #B8B8B8 solid;
+}
 
 @media screen and (min-width: 700px) {
   .Product__Shirts__Container {
@@ -68,14 +74,14 @@ button:hover{
     position: relative;
   }
 
-  /* .resetButton{
-    background-color: #e60023;
+  .resetButton{
+    /* background-color: #e60023;
   color: white;
   border: 0px;
   margin: 20px 5px;
   padding: 10px 30px;
-  border-radius: 20px;
+  border-radius: 20px; */
   left: 12%;
-    position: relative;
-  } */
+  position: relative;
+  }
 }
