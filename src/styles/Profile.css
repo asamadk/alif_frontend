@@ -32,11 +32,17 @@ button:hover{
 }
 
 .Profile button {
-  margin-left: -10px;
+  /* margin-left: -10px; */
   margin-right: 40px;
   margin-top: 30px;
   color: black;
   border: 1px #B8B8B8 solid;
+}
+
+.buttons_profile{
+  /* width: 50%; */
+  /* display: flex; */
+  margin-left: 40px;
 }
 
 @media screen and (min-width: 700px) {
@@ -70,5 +76,11 @@ button:hover{
 
   .Profile button:hover {
     cursor: pointer;
+  }
+
+  .buttons_profile{
+    /* width: 50%; */
+    /* display: flex; */
+    margin-left: -20px;
   }
 }

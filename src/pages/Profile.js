@@ -201,12 +201,12 @@ function Profile(){
                 
                 </div>
             </>}
-
+            <div className="buttons_profile">
             {showchangePassword && <LoadingButton onClick={() => {setShowChangePassword(false)}} variant="outlined">Cancel</LoadingButton>}
             {!showchangePassword && <LoadingButton onClick={handleEditPRofile} variant="outlined">{isDisabled ? 'Edit profile' : 'Save'}</LoadingButton>}
             {isDisabled && <LoadingButton onClick={handleChangePassword} variant="outlined">Change password</LoadingButton>}
             {!isDisabled && <LoadingButton onClick={() => setIsDisabled(true)} variant="outlined">Cancel</LoadingButton>}
-
+            </div>
         </div>
     )
 }

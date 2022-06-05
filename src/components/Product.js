@@ -97,10 +97,12 @@ function Product(props){
             <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/500" alt=""></img>
             <div className="product_price_and_icon">
                 <h2>{'₹ '+props.price}</h2>
-                <div className="heart_icon" onClick={() => handleWishlistProduct(props.unique)}>
-                    {props.btn !== Constants.DELETE_FROM_WISHLIST && <FavoriteBorderIcon style={{cursor:'pointer'}} on/>}
-                    {props.btn === Constants.DELETE_FROM_WISHLIST && <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} on/>}
-                </div>
+                {props.btn !== Constants.DELETE_FROM_WISHLIST &&  <div className="heart_icon" onClick={() => handleWishlistProduct(props.unique)}>
+                    <FavoriteBorderIcon style={{cursor:'pointer'}} on/>
+                </div>}
+                {props.btn === Constants.DELETE_FROM_WISHLIST && <div className="heart_icon" onClick={handleButton}>
+                    <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} on/>
+                </div>}
             </div>
             <p>{props.name}</p>
             {/* <div className="product__size">

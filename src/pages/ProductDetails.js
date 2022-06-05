@@ -181,6 +181,19 @@ function ProductDetails(){
                     fit.class = 'image_box';
                 }
             })
+            }
+        else if(type === 'genericsize'){
+            console.log('hiba fatima phateechar hai')
+            if(id === null)return;
+            responseJSON.custom = true;
+            responseJSON.genericsize = id;
+            Constants.GENERIC_SIZE.forEach(size => {
+                if(size.id === id){
+                    size.class = 'highlight-cirlce';
+                }else{
+                    size.class = 'unhighlight-cirlce';
+                }
+            })
         }
         console.log(responseJSON);
     }
@@ -365,9 +378,13 @@ function ProductDetails(){
                     <h3>{'Rs '+product?.product_real_price}</h3>
                     <div className='divider'></div>
                     <div className="ProductDetails__Description_S_size">
-                        <button value="S" onClick={(event) => handlePopulateResponse(event,'ncSize')}>S</button>
-                        <button value="M" onClick={(event) => handlePopulateResponse(event,'ncSize')}>M</button>
-                        <button value="L" onClick={(event) => handlePopulateResponse(event,'ncSize')}>L</button>
+                    {Constants.GENERIC_SIZE.map(gsize => {
+                    return(
+                        // {size.class}
+                    <button className={gsize.class} value={gsize.size} onClick={(event) => handlePopulateResponse(event,'genericsize',gsize.size)} >
+                        {gsize.size}
+                    </button>)
+                    })}
                     </div>
                     <div className="ProductDetails__Description_S_add">
                         <LoadingButton onClick={handleCart} loading={cartButtonLoad} variant="outlined">

@@ -116,6 +116,21 @@ export const SHIRT_SIZE = [
    },
 ];
 
+export const GENERIC_SIZE = [
+   {
+      size : 'S',
+      class : 'unhighlight-cirlce'
+   },
+   {
+      size : 'M',
+      class : 'unhighlight-cirlce'
+   },
+   {
+      size : 'L',
+      class : 'unhighlight-cirlce'
+   }
+]
+
 export const HEIGHT = [
    {
       value : '5\'0',
