@@ -63,7 +63,7 @@
     /* border-bottom: 0.5px #231f2099 solid; */
     border-top: 1.5px solid #eaeaec;
     margin: 20px 0px;
-    width: 95%;
+    width: 90%;
   }
 
 
@@ -198,7 +198,8 @@ button:hover{
     font-size: 15px;
     font-weight: 300;
     height: 80px;
-    width: 95%;
+    width: 90%;
+    margin-right: 0px;
 }
 
 .ProductDetails__size_container button{
@@ -262,7 +263,7 @@ button:hover{
   /* height: 150px; */
   width: 100%;
   font-weight: 300;
-  margin: 30px 10px;
+  margin: 30px 0;
 }
 
 .checks{
@@ -419,6 +420,7 @@ button:hover{
   .image {
     /* margin: 10px; */
     /* padding: 10px; */
+    width: 55%;
     position: relative;
     left: -2%;
   }
@@ -431,6 +433,7 @@ button:hover{
     /* right: 58%; */
     /* width: 120%; */
     flex-wrap: wrap;
+    max-width: 1122px;
   }
 
   .checks{
@@ -507,8 +510,8 @@ button:hover{
   .ProductDetails__Image_Main img {
     width: 400px;
     height: 500px;
-    margin-left: 5px;
-    margin-top: 3px;
+    /* margin-left: 5px;
+    margin-top: 3px; */
 
   }
 
@@ -516,6 +519,16 @@ button:hover{
     position: relative;
     display: block;
     margin-bottom: 46px;
+}
+
+.unhighlight-cirlce{
+  background-color: white;
+  color: #231f20cc;
+}
+
+.highlight-cirlce{
+  background-color: #000000;
+  color: white;
 }
 
   /* .ProductDetails__Description_S_add button {

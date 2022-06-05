@@ -98,6 +98,7 @@ function Product(props){
             <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/500" alt=""></img>
             <div className="product_price_and_icon">
                 <h2>{'₹ '+props.price}</h2>
+
                 <div className="heart_icon">
                     {props.btn !== Constants.DELETE_FROM_WISHLIST && <FavoriteBorderIcon style={{cursor:'pointer'}} onClick={() => handleWishlistProduct(props.unique)} />}
                     {props.btn === Constants.DELETE_FROM_WISHLIST && <DeleteOutlineOutlinedIcon style={{cursor:'pointer'}} onClick={handleDeleteButton}/>}
