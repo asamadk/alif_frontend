@@ -30,6 +30,7 @@ function Cart() {
   const [loading,setLoading] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [rerender,setRerender] = React.useState(false);
+  const [couponText, setcouponText] = React.useState('');
 
   React.useEffect(() => {
     setLoading(true);
@@ -168,6 +169,26 @@ function Cart() {
     }
   }
 
+  const handleAddCouponToCart = async () => {
+    setLoading(true);
+    if(logged === false){
+      history.push('/login');
+    }
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    let couponAddResponse = await axios.post(`${URL.ADD_COUPON_TO_CART}?couponName=${couponText}&cartId=${cart?.shoppingCartId}`)
+    .catch(err => console.log(err.data));
+    setModalOpen(false);
+    setLoading(false);
+    if(couponAddResponse?.data?.responseCode == Constants.OK_200){
+      setRerender(!rerender);
+      setShow(true);
+      setErrorMsg('Coupon added succesfully');
+      setTimeout(() => {
+        setShow(false);
+      },1000);
+    }
+  }
+
   const style = {
     position: 'absolute',
     top: '30%',
@@ -182,6 +203,11 @@ function Cart() {
   };
   
 
+  const buttonCss = {
+    marginLeft : '10px',
+    color: 'black',
+    border: '1px #B8B8B8 solid',
+  }
   
   return (
     <>
@@ -192,8 +218,8 @@ function Cart() {
         aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-            <TextField label="Enter coupon code" sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
-            <LoadingButton style={{marginLeft : '10px', color: 'black',border: '1px #B8B8B8 solid'}} loading={loading} variant="outlined">
+            <TextField value={couponText} onChange={(e) => {setcouponText(e.target.value)}} label="Enter coupon code" sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            <LoadingButton style={buttonCss} loading={loading} variant="outlined" onClick={handleAddCouponToCart}>
               Apply
             </LoadingButton>
         </Box>
@@ -239,17 +265,8 @@ function Cart() {
               {userDetails.user_address2 ? userDetails.user_address2.substring(0,66) : ''}
             </p>
           </h5>
-          {/* <button className="cart__btnChangeAddr" ></button> */}
           <LoadingButton onClick={handleChangeAddress} variant="outlined">Change Address</LoadingButton>
         </div>
-        {/* <div className="cart__offers">
-          <h5>Available Offers</h5>
-          <p>
-            10% Discount on RBL Bank Credit cards and Debit Cards on a minimum
-            spend of 2500 TCA
-          </p>
-          <button className="cart__btnShowMoreOffers">Show more</button>
-        </div> */}
         <div className="cart__items">
           <h4>My Shopping Bag ({ cart.length !== 0 ? cart.productModelList.length : 0} Item)</h4>
               {cart.length !== 0 && cart.productModelList.map(ct => {

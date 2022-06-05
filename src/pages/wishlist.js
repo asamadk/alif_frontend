@@ -46,11 +46,19 @@ const Wishlist = () => {
     })
   },[]);
 
+  const sendDataToWIshList = (data) => {
+    console.log('WIshlist Data',data);
+    console.log('Products',products);
+    setProducts(products.filter(product => {
+      return product.product_id !== data;
+    })); 
+    console.log('Products',products);
+  }
+
   return (
     <div className="wishlist">
-      {loading && (
-          <CircularProgress
-            size={34}
+      {sendDataToWIshList}
+      {loading && (<CircularProgress size={34}
             sx={{
               color: '#e60023',
               position: 'absolute',
@@ -58,12 +66,7 @@ const Wishlist = () => {
               left: '50%',
               marginTop: '-12px',
               marginLeft: '-12px',
-            }}
-          />
-        )}
-      {/* <Collapse in={show}>
-          <Alert severity="error">{errorMsg}</Alert>
-        </Collapse> */}
+      }}/>)}
       <h2>Wishlist</h2>
       <p>{products.length !== 0 ? products.length : 0} items</p>
       <div className="Product__Shirts__Container">
@@ -76,6 +79,7 @@ const Wishlist = () => {
             unique={product.product_id}
             price={product.product_real_price}
             wishlistId = {wishlistId}
+            sendDataToWIshList = {sendDataToWIshList}
             />
             )
           })

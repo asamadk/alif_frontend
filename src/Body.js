@@ -84,6 +84,9 @@ const Body = () => {
         <Route exact path="/coupons/:cartId">
           <Coupons />
         </Route>
+        <Route exact path="/coupons/">
+          <Coupons />
+        </Route>
         <Route exact path="/confirm">
           <Success />
         </Route>

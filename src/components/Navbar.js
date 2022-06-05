@@ -9,6 +9,7 @@ import * as Constants from '../Helper/Constants';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Co2OutlinedIcon from '@mui/icons-material/Co2Outlined';
 import Box from '@mui/material/Box';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
@@ -17,7 +18,13 @@ import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { styled } from '@mui/material/styles';
+
 import List from '@mui/material/List';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
+
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -96,6 +103,15 @@ const Navbar = () => {
     }
   }
 
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
+
   const list = (anchor) => (
     <Box
       sx={{ width:  250 }}
@@ -113,6 +129,13 @@ const Navbar = () => {
             {index === 3 && <><ListItemIcon><InfoOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 4 && logged && <><ListItemIcon><FavoriteBorderIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 5 && logged && <><ListItemIcon><ShoppingCartOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {/* {index === 5 && logged && <><ListItemIcon>
+                <IconButton aria-label="cart">
+                <StyledBadge badgeContent={4} color="secondary">
+                <ShoppingCartIcon />
+                </StyledBadge>
+                </IconButton>
+              </ListItemIcon><ListItemText primary={text} /></>} */}
             {index === 6 && logged && <><ListItemIcon><PersonOutlineIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 7 && logged && <><ListItemIcon><CheckCircleOutlineOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 8 && logged && <><ListItemIcon><AddLocationAltOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
@@ -150,6 +173,7 @@ const Navbar = () => {
               <Link to="/profile" onClick={handleLoginStatus}><ListItemIcon><PersonOutlineIcon/><ListItemText primary={'Profile'} /></ListItemIcon></Link>
               <Link to="/orders" onClick={handleLoginStatus}><ListItemIcon><CheckCircleOutlineOutlinedIcon/><ListItemText primary={'Orders'} /></ListItemIcon></Link>
               <Link to="/address" onClick={handleLoginStatus}><ListItemIcon><AddLocationAltOutlinedIcon/><ListItemText primary={'Address'} /></ListItemIcon></Link>
+              <Link to='/coupons' ><ListItemIcon><Co2OutlinedIcon/><ListItemText primary={'Coupons'} /></ListItemIcon></Link>
               <Link to='' onClick={logoutHandler}><ListItemIcon><LogoutIcon/><ListItemText primary={'Logout'} /></ListItemIcon></Link>
             </div>}
           {open && !logged && <div><Link to="/login">Login</Link></div>}

@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import * as Constants from '../Helper/Constants'
 import { useParams } from "react-router-dom";
 import Collapse from '@mui/material/Collapse';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import * as URL from '../Helper/endpoints'
 
@@ -52,27 +53,33 @@ function Coupons(){
         })
     }
 
+    const buttonCss = {
+        marginLeft : '10px',
+        color: 'black',
+        border: '1px #B8B8B8 solid',
+        marginTop : '10px'
+      }
+
     return(<>
         <Collapse in={couponAdd}>
           <Alert severity="success" sx={{ mb: 1 }}>{successMsg}</Alert>
         </Collapse>
         <div className="Coupons">
             {
-                coupons.length > 0 ? coupons.map(coupon => {
+                coupons.length > 0 && coupons.map(coupon => {
                 return(
                 <div className="Coupons_container">
                 <h1>{coupon.couponDiscount}% Off</h1>
                 <h3>{coupon.couponName}</h3>
-                <p>Expire by : 31 December 2021</p>
-                <p>On minimum purchase of 1000Rs </p>
+                <p>Expires on : {coupon.expireDate}</p>
+                <p>On minimum purchase of ₹ {coupon.minimumPurchasePrice}</p>
+                <p>Max discount of ₹ {coupon.maximumDiscount}</p>
                 <a href="">Terms and conditions</a><br/>
-                {logged ?
-                <button onClick={() => {handleApplyCoupons(coupon.couponName)}}>Apply</button> : ''
-                }
+                {/* {logged && <LoadingButton style={buttonCss}  variant="outlined">
+                    Apply
+                </LoadingButton>} */}
                 </div>
-                    )
-                }) : ''
-            }
+            )})}
         </div>
         </>
     )

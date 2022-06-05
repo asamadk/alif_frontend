@@ -17,6 +17,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import AddIcon from '@mui/icons-material/Add';
 import Product from '../components/Product';
+import ProductSlider from '../components/productsSlider';
 
 
 function ProductDetails(){
@@ -75,7 +76,6 @@ function ProductDetails(){
             setcartButtonLoad(true);
             console.log('Token','Bearer '+token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            // { Headers: { Authorization: `Bearer ${token}`} 
             axios.post(URL.ADD_PRODUCT_TO_CART+id)
                 .then(res => {
                     setAddedToCart(true);
@@ -268,7 +268,6 @@ function ProductDetails(){
             <div className="ProductDetails__Description_S_size_num">
                 {Constants.SHIRT_SIZE.map(size => {
                     return(
-                        // {size.class}
                     <button className={size.class} value={size.size} onClick={(event) => handlePopulateResponse(event,'shirtSize',size.size)} >
                         {size.size}
                     </button>)
@@ -319,7 +318,6 @@ function ProductDetails(){
                 }
             </div>
                 <div className='submit_Button_custom_size'>
-                    {/* <button>Submit</button> */}
                     <LoadingButton variant="outlined">Submit</LoadingButton>
                 </div>
           <List>
@@ -407,7 +405,6 @@ function ProductDetails(){
                 <div className='about_product'>
                     <h1>Nothing spells sophistication better than this luxurious white shirt.</h1>
                 </div>
-                {/* <div className='divider'></div> */}
                 <div className='composition_all_container'>
                     <div className='composition_sub_container'>
                         <label>Composition</label>
@@ -458,44 +455,7 @@ function ProductDetails(){
             ))}
 
             <h3>Similar products</h3>
-           <div className="ProductDetails__Similar">
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-                <Product
-                name={'Name'} 
-                btn={Constants.VIEW_MORE}
-                unique={'AFS'}
-                price={'PRice'}
-                />
-           </div>
+            <ProductSlider type = {Constants.LATEST_PRODUCTS}/>
         </div>
     )
 }
