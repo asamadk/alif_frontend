@@ -6,6 +6,7 @@
   padding: 10px 30px;
   border-radius: 20px;
 } */
+
 .shirts_btn {
   max-width: 40%;
   margin: 0px auto;
@@ -14,7 +15,7 @@
 .Product__Shirts__Select{
   padding: 10px 25px;
   margin: 10px;
-  left: 15%;
+  /* left: 15%; */
   position: relative;
   border-radius: 3px;
   /* border: 1.5px solid #eaeaec; */
@@ -52,14 +53,26 @@ button:hover{
   border: 1px #B8B8B8 solid;
 }
 
+.Product__Shirts__Container{
+  /* width: 80%; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
 @media screen and (min-width: 700px) {
   .Product__Shirts__Container {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    justify-content: center;
+    /* width: 80%; */
     position: relative;
-    left: 15%;
-    margin: 50px 80px;
+    left: 0%;
+    margin: 50px 0px;
+    /* min-width: 1394px; */
+    max-width: 1956px;
   }
   .shirts_btn {
     max-width: 20%;

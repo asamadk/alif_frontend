@@ -70,11 +70,13 @@ function OrderDetails(){
                   <p>size: M</p>
                 </div>
                 <div className="all_orders_container_single">
-                  <CancelOutlinedIcon/>
-                  <div>
+                  <div className="cross_icon">
+                    <CancelOutlinedIcon/>
+                  {/* <div> */}
                   <h3>Cancelled</h3>
-                  <p>On Sat, 10 Jul 2021 as per your request.</p>
                   </div>
+                  <p>On Sat, 10 Jul 2021 as per your request.</p>
+                  {/* </div> */}
                 </div>
                 <div className="Order_items_price">
                   <div className="oder_item_price_name">
@@ -89,8 +91,8 @@ function OrderDetails(){
                   <div className="order_payment_option">
                     <div className="payment_icon">
                       <CreditCardOutlinedIcon/>
-                    </div>
                     <p>Pay on delivery.</p>
+                    </div>
                   </div>
                   <div className="all_orders_container_single">
                     <h3>Updates sent to</h3>

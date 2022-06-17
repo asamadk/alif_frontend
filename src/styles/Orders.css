@@ -134,7 +134,7 @@ button:hover{
     .all_orders_container_order{
         background-color: #f5f5f5;
         width: 80%;
-        margin-right: 20%;
+        /* margin-right: 20%; */
     }
 
     .all_orders_container_single{
@@ -142,6 +142,10 @@ button:hover{
         width: 95%;
         /* height: 20vh; */
         margin: 20px ;
+    }
+
+    .all_orders_container_single p{
+      margin-left: 20px;
     }
 
     .sidebar_and_orders{
@@ -156,7 +160,7 @@ button:hover{
     }
     .all_orders_container_order p{
         font-weight: 200;
-        /* margin: 20px; */
+        /* margin-left:20px; */
         /* margin-top: -15px; */
     }
 
@@ -173,6 +177,10 @@ button:hover{
       margin-bottom: 20px;
     }
 
+    .Orders__Products p{
+      margin-left: 0;
+    }
+
     .Orders__Products_image_container{
       width : 70px;
       height : 70px;
@@ -184,4 +192,10 @@ button:hover{
     .Orders__Products_name_size{
       margin-top: 40px;
       margin-left: 10px;
+    }
+
+    @media only screen and (min-width: 700px){
+      .all_orders_container_order{
+        margin-right: 20%;
+      }
     }

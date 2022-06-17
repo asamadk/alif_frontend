@@ -21,7 +21,6 @@
     padding: 5px;
     /* display: flex; */
     margin-left: 2.5%;
-   
 }
 
 .sidebar_and_orders{
@@ -103,7 +102,15 @@ p{
     font-size: 13px;
 }
 
+/* icons...................... */
 
+.cross_icon{
+    display: flex;
+}
+
+.payment_icon{
+    display: flex;
+}
 
 @media screen and (min-width: 700px) {
     .order_details_account{
@@ -145,7 +152,7 @@ p{
         background-color: white;
         width: 95%;
         height: auto;
-        margin: 20px ;
+        margin: 2.5% ;
         /* box-shadow:  1px 4px 0 rgb(0 0 0 / 10%); */
         padding: 5px;
         /* display: flex; */
@@ -157,7 +164,7 @@ p{
     }
 
     .all_orders_container h3{
-        margin: 5px 15px;
+        margin: 5px 5px;
         height: 24px;
         /* font-family: Whitney; */
         font-size: 16px;
@@ -167,7 +174,7 @@ p{
     }
     .all_orders_container p{
         font-weight: 200;
-        margin: 20px;
+        margin: 10px 10px;
         /* margin-top: -15px; */
     }
 
