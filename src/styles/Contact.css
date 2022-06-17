@@ -167,6 +167,7 @@ button:hover{
     /* position: relative;
     left: 15%; */
     display: flex;
+    min-width: 700px;
   }
 
   .contact_left{
@@ -242,6 +243,7 @@ button:hover{
   }
   .contact_right{
     max-width: 90%;
+    /* max-width: 700px; */
     margin-left: 10%;
     margin-right: 15%; 
     /* display: block;
@@ -249,4 +251,11 @@ button:hover{
     margin-top: 5%;
   }
 
+  .Contact button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 8%;
+  }
 }

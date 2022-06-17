@@ -1,0 +1,40 @@
+.Faq_dropdown {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    flex-wrap: wrap;
+    margin: 0 20%;
+}
+  
+.Faq_dropdown h1{
+    font-size: 16px;
+    font-weight: 00;
+    line-height: 1;
+    letter-spacing: -.32px;
+    color: #231f2099;
+  }
+
+  .product-dropdown{
+    margin: 30px 0px;
+  }
+  
+  .Faq_collapsable{
+    width: 600px;
+    padding: 10px 20px;
+    text-align: start;
+  
+  }
+  
+  .Faq_icons{
+    margin-top: 15px;
+  }
+
+  .Faq_collapsable p{
+      width: 100%;
+  }
+
+  @media only screen and (min-width: 700px) {
+    .Faq_dropdown{
+        display: flex;
+    }
+  }
