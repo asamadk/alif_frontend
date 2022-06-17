@@ -31,6 +31,7 @@ const Wishlist = () => {
     axios.get(URL.GET_USER_WISHLIST, { headers: { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` } })
     .then(res => {
       setLoading(false);
+      console.log(res.data.responseWrapper[0]);
       if(res.data.responseWrapper != null){
         if(res.data.responseWrapper[0].productModelList){
           setWishlistId(res.data.responseWrapper[0].wishlistId);
