@@ -8,6 +8,7 @@ import * as Constants from '../Helper/Constants'
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Stack from '@mui/material/Stack';
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
@@ -56,12 +57,20 @@ function Orders(){
 
 
     const handleOrderDetail = (orderId) => {
-        history.push('/order/detail/'+orderId);
+        console.log(orders)
+        let singleORder = orders.filter(order => {
+            return order.orderId === orderId
+        })
+        console.log(singleORder);
+        if(singleORder.length > 0){
+            history.push('/order/detail/'+orderId, { order : singleORder[0]});
+        }
     }
 
     const handlePaginationChange = (value) => {
         setLoading(true);
         setPage(value);
+        window.scrollTo(0,0);
     }
 
     const loadingCss = {
@@ -89,7 +98,8 @@ function Orders(){
                 {orders.map(order => {
                 return(
                     <div key={order.orderId} className="all_orders_container_single">
-                        <h2>Delivered</h2>
+                        <CheckCircleOutlineIcon/>
+                        <h2>{order.orderStatusString}</h2>
                         <p>On {new Date(order.orderDate).toDateString()}</p>
                         <div onClick={() => {handleOrderDetail(order.orderId)}} className="all_orders_container_single_inner">
                             <div>
@@ -101,7 +111,7 @@ function Orders(){
                                         </div>
                                         <div className="Orders__Products_name_size">
                                             <h3>{product.product_name} </h3>
-                                            <p>Size: M</p>
+                                            {/* <p>Size: M</p> */}
                                             <p className="product_desc">{product.product_small_Desc}</p>
                                         </div>
                                     </div>

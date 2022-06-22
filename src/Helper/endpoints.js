@@ -1,5 +1,5 @@
 const BASE_URL = 'https://alif-ecommerce.herokuapp.com/';
-// const BASE_URL = 'https://localhost:8080/';
+// const BASE_URL = 'http://localhost:8080/';
 
 export const REGISTER = BASE_URL+'register';
 export const LOGIN = BASE_URL+'login';
@@ -44,7 +44,10 @@ export const GET_ALL_ORDERS = (page,size) => {
 }
 
 export const GET_ORDER = BASE_URL+'user/order/';
+export const ORDER_PLACE = BASE_URL+'user/order/success';
 
 export const INIT_PAYMENT = BASE_URL+'user/payment';
 export const GET_PAYMENT_OPTIONS = BASE_URL+'user/payment/options?token=';
 export const PROCESS_PAYMENT = BASE_URL+'user/payment/process?token=';
+
+export const CONTACT_US = BASE_URL+'contactUsMail';

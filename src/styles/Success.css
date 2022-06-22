@@ -11,6 +11,7 @@
 .Success p {
   padding: 5px;
   font-weight: 150;
+  margin: 10px;
 }
 
 button{
@@ -18,19 +19,15 @@ button{
 }
 
 button:hover{
-  background-color: black;
-  color: white;
+  /* background-color: black; */
+  /* color: white; */
   cursor: pointer;
 }
 
-/* .Success button {
-  background-color: #e60023;
-  color: white;
-  border: 0px;
-  margin: 20px 5px;
-  padding: 10px 30px;
-  border-radius: 20px;
-} */
+.Success button {
+  color: black;
+  border: 1px #B8B8B8 solid;
+}
 
 @media screen and (min-width: 700px) {
   .Success {

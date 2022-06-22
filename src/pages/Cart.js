@@ -31,6 +31,8 @@ function Cart() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [rerender,setRerender] = React.useState(false);
   const [couponText, setcouponText] = React.useState('');
+  const [productData, setProductData] = React.useState([]);
+  const [productIDInfoMap, setproductIDInfoMap] = React.useState(null);
 
   React.useEffect(() => {
     setLoading(true);
@@ -41,26 +43,21 @@ function Cart() {
     axios.get(URL.GET_CART, { headers: { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` } })
       .then(res => {
         setLoading(false);
-        // if(res.data.responseWrapper.productModelList.length < 0){
-        //   setError(true);
-        //   setErrorMsg('Your cart is empty');
-        // }
         if(res.data.errorMap !== null){
           // setErro);
           // setErrorMsg(res.data.errorMap.error)
         }else{
           setError(false)
-          setCart(res.data.responseWrapper[0])
-          console.log(res.data.responseWrapper[0]);
+          // setCart(res.data.responseWrapper[0]);
+          let clearedProductData = clearProductDataObject(res.data.responseWrapper);
+          setProductData(clearedProductData);
+          populateProductWithInformation(res.data.responseWrapper[0],clearedProductData);
           if(cart.productModelList != null && cart.productModelList.length <=0){
             setLoading(false);
             history.push('/status',{code : Constants.CART_EMPTY})
           }
         }
       }).catch(err => {
-        // setLoading(false);
-        // setError(true);
-        // console.log(err.response.data)
         let responseStatus = err?.response?.data?.responseCode;
         if(responseStatus != null && responseStatus == Constants.NOT_FOUND_404){
             history.push('/status',{code : Constants.CART_EMPTY})
@@ -85,16 +82,59 @@ function Cart() {
       
   },[])
 
-  const handleDeleteFromCart = (product_id) => {
-    axios.delete(URL.DELETE_PRODUCT_FROM_CART+cart.shoppingCartId+'/'+product_id,{headers :{ Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` } })
+  const clearProductDataObject = (data) => {
+    const result =  data.filter(prData => {
+      return prData.shoppingCartId === undefined
+    })
+    return result;
+  }
+
+  const populateProductWithInformation = (cart,info) => {
+    
+    let productsList = cart?.productModelList;
+    if(productsList == null || productsList.lenght < 1)return;
+    console.log('PRODUCT INFO : ',info);
+    const productIdVsInfoMap = new Map();
+    let count = 0;
+    info.forEach(inf => {
+      productIdVsInfoMap.set(inf.productModel?.product_id+''+count,inf);
+      count++;
+    });
+    setproductIDInfoMap(productIdVsInfoMap);
+    for(let i=0;i<productsList.length;i++){
+      let inf = productIdVsInfoMap.get(productsList[i]?.product_id+''+i);
+      if(inf == null){continue}
+      let sizeJSON = JSON.parse(inf.sizeJSON);
+      if(sizeJSON.custom == true){
+        productsList[i].size = 'Custom size'  
+      }else{
+        productsList[i].size = sizeJSON.genericsize;
+      }
+    }
+    cart.productModelList = productsList;
+    setCart(cart);
+  }
+
+  const handleDeleteFromCart = (product_id,index) => {
+    let productKeyInfo = productIDInfoMap.get(product_id+''+index);
+    if(productKeyInfo === null){
+      setError(true);
+      setErrorMsg('Something went wrong while deleting product.');
+      window.scrollTo(0,0);
+      setTimeout(() => {
+        setError(false);
+      });
+    }
+
+    axios.delete(URL.DELETE_PRODUCT_FROM_CART+cart.shoppingCartId+'/'+product_id+'/'+productKeyInfo.userProductInfoId,{headers :{ Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` } })
     .then(res => {
+      window.scrollTo(0, 0);
       if(res.data.responseCode === Constants.OK_200){
         setShow(true);
         setErrorMsg('Product Deleted')
         setTimeout(()=>{
           setShow(false);
         },1000);
-        console.log('HEEÈ');
         if(cart.productModelList != null && cart.productModelList.length <= 0){
           history.push('/status',{code : Constants.CART_EMPTY})
         }else{
@@ -269,20 +309,20 @@ function Cart() {
         </div>
         <div className="cart__items">
           <h4>My Shopping Bag ({ cart.length !== 0 ? cart.productModelList.length : 0} Item)</h4>
-              {cart.length !== 0 && cart.productModelList.map(ct => {
+              {cart.length !== 0 && cart.productModelList.map((ct,index) => {
                   return(
-                    <div key={ct.product_id} className="cart__itemsContainer">
+                    <div key={index} className="cart__itemsContainer">
                     <div className="cart__item">
                     <div className="cart__itemLeft">
                       <img src="https://picsum.photos/150/250" alt="" />
                     </div>
-                    <div key={ct.product_id} className="cart__itemCenter">
+                    <div key={index} className="cart__itemCenter">
                       <div className="cart__itemDescription">
                       <h3>{ct.product_name}</h3>
                   <p>
                     {ct.product_small_Desc.substring(0,50)}
                   </p>
-                  <span className="cart__itemSize">Size : S </span>
+                  <span className="cart__itemSize">Size : <b>{ct.size}</b> </span>
                   <span className="cart__itemQuantity">Quantity : 1</span>
                   <p>
                     Delivered by:{" "}
@@ -294,7 +334,7 @@ function Cart() {
                   </div>
                 </div>
                 <div className="cart__itemButtons">
-                <LoadingButton onClick={() => handleDeleteFromCart(ct.product_id)} loading={loading} variant="outlined">Remove</LoadingButton>
+                <LoadingButton onClick={() => handleDeleteFromCart(ct.product_id,index)} loading={loading} variant="outlined">Remove</LoadingButton>
                 <LoadingButton onClick={() => {handleAddToWishlist(ct.product_id)}} variant="outlined">Move to wishlist</LoadingButton>
                 </div>
               </div>

@@ -12,20 +12,19 @@ import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutl
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import * as URL from '../Helper/endpoints'
+import Modal from '@mui/material/Modal';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import AddIcon from '@mui/icons-material/Add';
-import Product from '../components/Product';
 import ProductSlider from '../components/productsSlider';
 
 
 function ProductDetails(){
     let { id } = useParams();    
     const history = useHistory();    
-
-
-    const [responseJSON,setresponseJSON] = useState({});
+    
+    const [sizeSelected, setsizeSelected] = useState(false);
+    const [responseJSON,setresponseJSON] = useState({});    
     const [cartButtonLoad, setcartButtonLoad] = useState(false);
     const [wishlistButtonLoad,setwishlistButtonLoad] = useState(false);
     const [product,setProductDetails] = useState(null);
@@ -38,12 +37,14 @@ function ProductDetails(){
     const [rerender,setRerender] = useState(false);
     const [addedToCart,setAddedToCart] = useState(false);
     const [loading,setLoading] = React.useState(false);
+    const [modalOpen,setModalOpen] = React.useState(false);
     const [leftDrawer, setLeftDrawer] = React.useState({
         left: false,
         right: false,
       });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setLoading(true);
         if(localStorage.getItem(Constants.TOKEN) != null){
             setLogged(true);
@@ -69,16 +70,27 @@ function ProductDetails(){
                 setShow(true);
                 setErrorMsg('No product found');
             })
-    },[]);
+    },[Constants.GENERIC_SIZE]);
 
     const handleCart = () => {
+        if(sizeSelected === false){
+            window.scrollTo(0, 0);
+            setShow(true)
+            setErrorMsg('Select a size before adding to cart');
+            setTimeout(() => {
+                setShow(false)
+            },1500);
+            return;
+        }
         if(logged){
-            setcartButtonLoad(true);
-            console.log('Token','Bearer '+token);
+            // setcartButtonLoad(true);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            axios.post(URL.ADD_PRODUCT_TO_CART+id)
+            console.log('URL = '+ URL.ADD_PRODUCT_TO_CART+id+'/'+JSON.stringify(responseJSON));
+            axios.post(URL.ADD_PRODUCT_TO_CART+id+'/'+JSON.stringify(responseJSON))
                 .then(res => {
+                    setShow(false)
                     setAddedToCart(true);
+                    window.scrollTo(0, 0);
                     setcartButtonLoad(false);
                     setTimeout(() => {
                         setAddedToCart(false);
@@ -103,6 +115,7 @@ function ProductDetails(){
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
             axios.post(URL.ADD_USER_WISHLIST+id)
             .then(res => {
+                window.scrollTo(0, 0);
                 setwishlistButtonLoad(false);
                 setAddedToCart(true);
                 setTimeout(() => {
@@ -121,6 +134,7 @@ function ProductDetails(){
     const handlePopulateResponse = (event,type,id) => {
 
         if(type === 'bodyType'){
+            delete responseJSON.genericsize
             responseJSON.custom = true;
             responseJSON.bodyType = event.target.id
             if(id != null){
@@ -133,9 +147,11 @@ function ProductDetails(){
                 })
             }
         }else if(type === 'ncSize'){
+            // delete responseJSON.genericsize
             responseJSON.size = event.target.value;
             responseJSON.custom = false;
         }else if(type === 'shirtSize'){
+            delete responseJSON.genericsize
             responseJSON.custom = true;
             responseJSON.shirtSize = id;
             if(id != null){
@@ -148,6 +164,7 @@ function ProductDetails(){
                 })
             }
         }else if(type === 'shoulder'){
+            delete responseJSON.genericsize
             responseJSON.shoulder = event.target.id
             responseJSON.custom = true;
             if(id != null){
@@ -160,6 +177,7 @@ function ProductDetails(){
                 })
             }
         }else if(type === 'height'){
+            delete responseJSON.genericsize
             if(id === null)return;
             responseJSON.custom = true;
             responseJSON.height = id;
@@ -172,6 +190,7 @@ function ProductDetails(){
             })
         }else if(type === 'fit'){
             if(id === null)return;
+            delete responseJSON.genericsize
             responseJSON.custom = true;
             responseJSON.preferredFit = id;
             Constants.PREFERRED_FIT.forEach(fit => {
@@ -183,8 +202,9 @@ function ProductDetails(){
             })
             }
         else if(type === 'genericsize'){
+            
             if(id === null)return;
-            responseJSON.custom = true;
+            responseJSON.custom = false;
             responseJSON.genericsize = id;
             Constants.GENERIC_SIZE.forEach(size => {
                 if(size.size === id){
@@ -193,8 +213,15 @@ function ProductDetails(){
                     size.class = 'unhighlight-cirlce';
                 }
             })
+            setAddedToCart(true)
+            setsizeSelected(true);
+            setErrorMsg('Size selected')
+            setTimeout(() => {
+                setAddedToCart(false)
+            },1000)
         }
         console.log(responseJSON);
+        console.log(JSON.stringify(responseJSON));
     }
 
     function getWindowDimensions() {
@@ -207,6 +234,7 @@ function ProductDetails(){
 
     const handleMenuOpen = (value) => {
         console.log('WINDOW DIMENTIONS',getWindowDimensions());
+        window.scrollTo(0, 0)
         if(getWindowDimensions().width < 750){
             setShow(true);
             setErrorMsg('Please open the website in desktop or laptop to create custom size');
@@ -216,6 +244,14 @@ function ProductDetails(){
             return;
         }
         setShowDetails(value)
+    }
+
+    const handleCustomSize = () => {
+        setsizeSelected(true);
+        setShowDetails(false);
+        Constants.GENERIC_SIZE.forEach(genericSize => {
+            genericSize.class = 'unhighlight-cirlce';
+        })
     }
 
     const toggleDrawer = (anchor, open) => (event) => {
@@ -317,15 +353,40 @@ function ProductDetails(){
                 }
             </div>
                 <div className='submit_Button_custom_size'>
-                    <LoadingButton variant="outlined">Submit</LoadingButton>
+                    <LoadingButton onClick={handleCustomSize} variant="outlined">Submit</LoadingButton>
                 </div>
           <List>
           </List>
         </Box>
       );
 
+      const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '450px',
+        height : '600px',
+        bgcolor: 'background.paper',
+        border: '2px solid #ffffff',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+      };
+
     return (
         <div className="ProductDetails">
+             <Modal
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                // aria-labelledby="modal-modal-title"
+                // aria-describedby="modal-modal-description"
+            >
+                <Box sx={{ ...modalStyle }}>
+                    <img src="https://picsum.photos/400/500" alt=''></img> 
+                </Box>
+            </Modal>
             {loading && (
           <CircularProgress
             size={34}
@@ -349,15 +410,15 @@ function ProductDetails(){
                 <div className="image">
                 {window.innerWidth > 500 && 
                 <div className="ProductDetails__Image_Main">
-                    <img src="https://picsum.photos/400/500" alt='' ></img>
-                    <img src="https://picsum.photos/400/500" alt=''></img> 
-                    <img src="https://picsum.photos/400/500" alt=''></img>
-                    <img src="https://picsum.photos/400/500" alt=''></img>
+                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt='' ></img>
+                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img> 
+                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img>
+                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img>
                 </div>
                 }
                 {window.innerWidth < 500 && 
                 <div className="ProductDetails__Image_Main">
-                    <img src="https://picsum.photos/400/500" alt='' ></img>
+                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt='' ></img>
                     {/* create function to side image */}
                 </div>
                 }

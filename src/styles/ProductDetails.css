@@ -10,6 +10,9 @@
   /* margin-left: 10px; */
   margin-left: 10px;
   margin-top: 3px;
+  cursor: -moz-zoom-in; 
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
 }
 .ProductDetails__Image_Sec {
   display: flex;
@@ -243,15 +246,7 @@ button:hover{
   font-size: 18px;
 }
 
-.unhighlight-cirlce{
-  background-color: white;
-  color: #231f20cc;
-}
 
-.highlight-cirlce{
-  background-color: #000000;
-  color: white;
-}
 
 .ProductDetails__Description_S_size_num{
   margin: 0% 5% ;
@@ -405,6 +400,16 @@ button:hover{
   color: #231f2099;
 }
 
+.unhighlight-cirlce{
+  background-color: white;
+  color: #231f20cc;
+}
+
+.highlight-cirlce{
+  background-color: #000000;
+  color: white;
+}
+
 @media only screen and (min-width: 700px) {
   body {
     padding: 0px;
@@ -425,17 +430,6 @@ button:hover{
     left: 10%;
     margin-top: 10%;
   }
-
-  .ProductDetails__Description_S .highlight-cirlce{
-    background-color: #000000;
-    color: white;
-  }
-
-  .ProductDetails__Description_S .unhighlight-cirlce{
-    background-color: white;
-    color: #231f20cc;
-  }
-
 
   .image {
     /* margin: 10px; */
@@ -551,6 +545,17 @@ button:hover{
   background-color: #000000;
   color: white;
 }
+
+.ProductDetails__Description_S .highlight-cirlce{
+  background-color: #000000;
+  color: white;
+}
+
+.ProductDetails__Description_S .unhighlight-cirlce{
+  background-color: white;
+  color: #231f20cc;
+}
+
 
   /* .ProductDetails__Description_S_add button {
     background-color: #e60023;

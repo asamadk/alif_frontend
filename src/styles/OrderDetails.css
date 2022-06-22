@@ -197,7 +197,7 @@ p{
 
     .all_orders_container_image h3{
         margin: 10px;
-        margin-left: 50px;
+        /* margin-left: 50px; */
     }
 
     .all_orders_container_image p{

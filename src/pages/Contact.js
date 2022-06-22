@@ -1,15 +1,74 @@
-import React from "react"
+import React, { useState } from "react"
 import LoadingButton from '@mui/lab/LoadingButton';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import CircularProgress from '@mui/material/CircularProgress';
 import InputLabel from '@mui/material/InputLabel';
+import Collapse from '@mui/material/Collapse';
+import * as URL from '../Helper/endpoints'
+import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import "../styles/Contact.css";
+import axios from "axios";
 
 function Contact(){
+
+    const[name,setName] = useState('');
+    const [loading,setLoading] = React.useState(false);
+    const [email,setEmail] = useState('');
+    const [subject,setSubject] = useState('');
+    const [body, setBody] = useState('');
+    const [show,setShow] = useState(false);
+    const [mssg,setMssg] = useState('');
+
+    const handleSubmitButton = () => {
+        const payLoadData = {
+            name : name,
+            email : email,
+            subject : subject,
+            body : body
+        }
+        setLoading(true);
+        axios.post(URL.CONTACT_US,payLoadData).then(() => {
+            setLoading(false)
+            cleanUIInput();
+            window.scrollTo(0,0)
+            setShow(true);
+            setMssg('Email sent succesfully')
+            setTimeout(() => {
+                setShow(false);
+            },5000);
+        })
+        console.log(payLoadData);
+    }
+
+    const cleanUIInput = () => {
+        setName('');
+        setEmail('');
+        setSubject('');
+        setBody('');
+    }
+
     return(
+        <>
+        {loading && (
+          <CircularProgress
+            size={34}
+            sx={{
+              color: '#e60023',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          />
+        )}
+            <Collapse in={show}>
+                <Alert severity="success">{mssg}</Alert>
+            </Collapse>
         <div className="Contact">
             <div className="contact_left">
                 <h2>Get in touch</h2>
@@ -36,68 +95,19 @@ function Contact(){
                 <div className="Contact__Mail">
                     <h2>Mail Us</h2>
                 <InputLabel id="demo-simple-select-label">Name</InputLabel>
-                <TextField className="input_box"  id="outlined-basic"  variant="outlined" />
+                <TextField value={name} onChange={(e) => {setName(e.target.value)}} className="input_box"  id="outlined-basic"  variant="outlined" />
                 <InputLabel id="demo-simple-select-label">Email</InputLabel>
-                <TextField className="input_box"  id="outlined-basic"  variant="outlined" />
+                <TextField value={email} onChange={(e) => {setEmail(e.target.value)}} className="input_box"  id="outlined-basic"  variant="outlined" />
                 <InputLabel id="demo-simple-select-label">Subject</InputLabel>
-                <TextField className="input_box" id="outlined-basic"  variant="outlined" />
+                <TextField value={subject} onChange={(e) => {setSubject(e.target.value)}} className="input_box" id="outlined-basic"  variant="outlined" />
                 <InputLabel id="demo-simple-select-label">Body</InputLabel>
-                <TextField className="input_box" id="outlined-basic"  variant="outlined" />
-                
-
-                    {/* <input type="text" placeholder="Name"></input>
-                    <input type="text" placeholder="Email"></input>
-                    <input type="text" placeholder="Subject"></input>
-                    <div className="Contact__Mail_Body">
-                        <input type="text" placeholder="Body"></input>
-                    </div> */}
-                    <LoadingButton className="contact_button" variant="outlined">Send</LoadingButton>
+                <TextField value={body} onChange={(e) => {setBody(e.target.value)}} className="input_box" id="outlined-basic"  variant="outlined" />
+                <LoadingButton onClick={handleSubmitButton} className="contact_button" variant="outlined">Send</LoadingButton>
                 </div>
             </div>
-            {/* <div className="Contact__Mail">
-                <h2>Contact Us</h2>
-                <p>alifclothing@alif.com</p>
-                <p>7007475550</p>
-                <p>@alifclothing</p>
-            </div> */}
-            {/* <div className="Contact__Mail">
-                <h2>Mail Us</h2>
-                <input type="text" placeholder="Name"></input>
-                <input type="text" placeholder="Email"></input>
-                <input type="text" placeholder="Subject"></input>
-                <div className="Contact__Mail_Body">
-                <input type="text" placeholder="Body"></input>
-
-                </div>
-                <LoadingButton variant="outlined">Send</LoadingButton>
-            </div> */}
-            
         </div>
+        </>
     )
 }
 
 export default Contact
-
-
-
-{/* <div className="Contact">
-<div className="Contact__Mail">
-    <h2>Contact Us</h2>
-    <p>alifclothing@alif.com</p>
-    <p>7007475550</p>
-    <p>@alifclothing</p>
-</div>
-<div className="Contact__Mail">
-    <h2>Mail Us</h2>
-    <input type="text" placeholder="Name"></input>
-    <input type="text" placeholder="Email"></input>
-    <input type="text" placeholder="Subject"></input>
-    <div className="Contact__Mail_Body">
-    <input type="text" placeholder="Body"></input>
-
-    </div>
-    {/* <button>Send</button> */}
-//     <LoadingButton variant="outlined">Send</LoadingButton>
-// </div>
-
-// </div> */}

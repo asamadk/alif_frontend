@@ -104,7 +104,7 @@ const Men = () => {
   const handleReset = () => {
     setLoading(true);
     setSearchedProduct(false);
-      axios.get(URL.GET_PRODUCTS(page,pageSize))
+      axios.get(URL.GET_PRODUCTS(0,10))
         .then(res => {
           setLoading(false)
           setProducts(res.data.responseWrapper);

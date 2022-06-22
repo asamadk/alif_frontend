@@ -6,6 +6,10 @@ import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import * as URL from '../Helper/endpoints'
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import jwt_decode from "jwt-decode";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
@@ -14,6 +18,7 @@ import LeftSideBar from "../components/LeftSideBar";
 
 function OrderDetails(){
     let { id } = useParams(); 
+    const history = useHistory();
 
     const [logged,setLogged] = useState(false);
     const [token,setToken] = useState('');
@@ -21,22 +26,26 @@ function OrderDetails(){
     const [errorMsg,setErrorMsg] = useState('');
     const [loading,setLoading] = React.useState(false);
     const [severity,setSeverity] = useState('error');
+    const [userMail,setUserMail] = React.useState('Email');
+    const [order, setOrder ] = React.useState(history.location.state?.order);
 
     useEffect(() => {
-        setLoading(true);
+        setLoading(false);
         if(localStorage.getItem(Constants.TOKEN) != null){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
+            setUserMail(jwt_decode(localStorage.getItem(Constants.TOKEN))?.sub);
           }
-
-          axios.get(URL.GET_ORDER+id,{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
-          .then(res => {
-            setLoading(false);
-            console.log(res.data);
-          }).catch(err => {
-            setLoading(false);
-                console.log(err)
-          })
+          console.log('Order',order)
+          console.log('Order String',JSON.stringify(order))
+          // axios.get(URL.GET_ORDER+id,{headers : { Authorization: `Bearer ${localStorage.getItem(Constants.TOKEN)}` }})
+          // .then(res => {
+          //   setLoading(false);
+          //   console.log(res.data);
+          // }).catch(err => {
+          //   setLoading(false);
+          //       console.log(err)
+          // })
     },[])
 
     return(
@@ -58,7 +67,7 @@ function OrderDetails(){
             <h1>Order Details</h1>
             <div className="order_details_account">
               <h3>Account</h3>
-              <p>Abdul Samad Kirmani</p>
+              <p>{userMail}</p>
             <div className='divider'></div>
             </div>
             <div className="sidebar_and_orders">
@@ -66,41 +75,39 @@ function OrderDetails(){
               <div className="all_orders_container">
                 <div className="all_orders_container_image">
                   <img src="https://picsum.photos/200/200" alt=''></img>
-                  <h3>Red Dress</h3>
-                  <p>size: M</p>
+                  <h3>Thank you for your order</h3>
+                  {/* <p>React out to us in </p> */}
                 </div>
                 <div className="all_orders_container_single">
                   <div className="cross_icon">
-                    <CancelOutlinedIcon/>
-                  {/* <div> */}
-                  <h3>Cancelled</h3>
+                    <CheckCircleOutlineIcon/>
+                  <h3>{order.orderStatusString}</h3>
                   </div>
-                  <p>On Sat, 10 Jul 2021 as per your request.</p>
-                  {/* </div> */}
+                  <p>On {new Date(order.orderDate).toDateString()}</p>
                 </div>
                 <div className="Order_items_price">
                   <div className="oder_item_price_name">
                     <h3>Total Order Price</h3>
-                    <p>You saved <span style={{color:'green'}}>₹ 599.00</span> on this order</p>
+                    {/* <p>You saved <span style={{color:'green'}}>₹ 599.00</span> on this order</p> */}
                   </div>
                   <div className="oder_item_price_price">
-                    <h3>₹ 1396.00</h3>
-                    <p><span style={{color:'red'}}>View Breakup</span></p>
+                    <h3>₹ {order.price}</h3>
+                    {/* <p><span style={{color:'red'}}>View Breakup</span></p> */}
                   </div>
                 </div>
                   <div className="order_payment_option">
                     <div className="payment_icon">
                       <CreditCardOutlinedIcon/>
-                    <p>Pay on delivery.</p>
+                    <p>{order.paymentMode}</p>
                     </div>
                   </div>
                   <div className="all_orders_container_single">
                     <h3>Updates sent to</h3>
-                    <p>7007475550</p>
-                    <p>abdul.samadkirmani.samad63@gmail.com</p>
+                    <p>{order?.userModel?.user_phone_number}</p>
+                    <p>{order?.userModel?.email}</p>
                 </div>
                 <div className="all_orders_container_single">
-                    <p>Order ID # 1177778 06966369084701</p>
+                    <p>Order ID # {order?.orderId}</p>
                 </div>
               </div>
             </div>

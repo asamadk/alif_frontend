@@ -8,9 +8,8 @@ import { Prompt } from 'react-router'
 import axios from "axios";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import List from '@mui/material/List';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { Link, useHistory } from "react-router-dom";
-import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import '../styles/PaymentOptions.css'
@@ -36,6 +35,7 @@ function PaymentOptions(){
     const [sevierity,setServierity] = React.useState('error');
     const [paymentOptionsList, setPaymentOptionsList] = React.useState([]);
     const [paymentOptionSelect , setpaymentOptionSelect ] = React.useState('');
+    const [pagePromt,setPagePromt] = React.useState(true);
 
     React.useEffect(() => {
         
@@ -88,12 +88,27 @@ function PaymentOptions(){
         },5000);
         setErrorMsg('Currently we are not supporting Net Banking services');
         setServierity("info")
-      }else if(paymentOptionSelect !== Constants.NET_BANKING && paymentOptionSelect !== Constants.PAYTM_BALANCE){
+      }else if(paymentOptionSelect !== Constants.NET_BANKING && paymentOptionSelect !== Constants.PAYTM_BALANCE && paymentOptionSelect !== 'COD'){
         setShow(true);
       }else if(paymentOptionSelect === Constants.PAYTM_BALANCE){
           handlePaymentProcessing();
+      }else if(paymentOptionSelect === 'COD'){
+        console.log('COD');
+        setPagePromt(false);
+        confirmCODOrder();
+        
       }
-        //gettin mode here work on this
+    }
+
+    const confirmCODOrder = async () => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(Constants.TOKEN)}`
+        orderModel.paymentMode = 'COD';
+        setLoading(true);
+        let orderPlaceResponse =  await axios.post(URL.ORDER_PLACE,orderModel).catch(err => console.log(err));
+        if(orderPlaceResponse?.data?.responseCode === Constants.OK_200){
+          history.push('/confirm');
+        }
+        setLoading(false);
     }
 
     const handlePaymentProcessing = () => {
@@ -131,7 +146,6 @@ function PaymentOptions(){
 
         }
       }).catch(err => {
-        // console.log('ERROR PROCESSING PAYMENT',err.response.data)
         setLoading(false);
       })
 
@@ -170,18 +184,21 @@ function PaymentOptions(){
           />
         )}
 
-      <Prompt
-        when={true}
+      {pagePromt && <Prompt
+        when={pagePromt}
         message='Payment under process, are you sure you want to leave?'
-      />
+      />}
 
         <Collapse in={error}>
             <Alert severity={sevierity} sx={{ mb: 1 }}>{errorMsg}</Alert>
         </Collapse>
 
         <h1>Select Payment Option</h1>
-        {
-          paymentOptionsList.map(payment => {
+        <div className="payment-mode-list">
+                <p>Cash on delivery</p>
+                <input type="radio" id="html" name="fav_language" value={'COD'} onClick = {(e) => {setpaymentOptionSelect(e.target.value)}}></input>
+          </div>
+        {/* {paymentOptionsList.map(payment => {
             return(
               <div className="payment-mode-list" key={payment.priority} >
                 <p>{payment.displayName}</p>
@@ -189,18 +206,12 @@ function PaymentOptions(){
               </div>
             )
           })
-        }
-          <div className="payment-mode-list">
-                <p>Cash on delivery</p>
-                <input type="radio" id="html" name="fav_language" value={'COD'} onClick = {(e) => {setpaymentOptionSelect(e.target.value)}}></input>
-              </div>
-        {
-          paymentOptionsList.length > 0 ?
+        } */}
+        {paymentOptionsList.length > 0 &&
         <div className="payment-detais-class">
           <p>Amount to be paid : Rs {orderModel.price}</p>
-          <button onClick={handlePaymentSelection}>Pay now</button> 
-        </div> : ''
-        }
+          <LoadingButton variant="outlined" onClick={handlePaymentSelection}>Proceed</LoadingButton> 
+        </div>}
         </div>
     );
 }

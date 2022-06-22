@@ -121,7 +121,7 @@ const Navbar = () => {
     >
       <List>
       <ListItemIcon></ListItemIcon>
-        {['Home', 'Product', 'Contact Us', 'About','Wishlist', 'Cart', 'Profile', 'Orders', 'Address', 'Logout', 'Login'].map((text, index) => (
+        {['Home', 'Product', 'Contact Us', 'About','Wishlist', 'Cart', 'Profile', 'Orders', 'Address', 'Logout', 'Login', 'Coupons'].map((text, index) => (
           <ListItem button onClick={() => handleDrawerNavigation(index)} key={text}>
             {index === 0 && <><ListItemIcon><HomeOutlinedIcon/></ListItemIcon> <ListItemText primary={text} /></>}
             {index === 1 && <><ListItemIcon><CategoryOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
@@ -141,6 +141,7 @@ const Navbar = () => {
             {index === 8 && logged && <><ListItemIcon><AddLocationAltOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 9 && logged && <><ListItemIcon><LogoutIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 10 && !logged && <><ListItemIcon><LogoutIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {index === 11 && logged && <><ListItemIcon><Co2OutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
           </ListItem>
         ))}
       </List>
@@ -166,17 +167,17 @@ const Navbar = () => {
       <div className="navbar__navOptions">
         {logged && windowDimensions.width > 705 &&  <Link to="/wishlist"><FavoriteBorderIcon /></Link>}
         {logged && windowDimensions.width > 705 && <Link to="/cart"><ShoppingCartOutlinedIcon /></Link>}
-        {logged && windowDimensions.width > 705 && <div onClick={handleLoginStatus} className="navbar__user"><PersonOutlineIcon /></div>}
+        {windowDimensions.width > 705 && <div onClick={handleLoginStatus} className="navbar__user"><PersonOutlineIcon /></div>}
           
-        {open && logged &&
+        {open && 
            <div className="user__dropdown">
-              <Link to="/profile" onClick={handleLoginStatus}><ListItemIcon><PersonOutlineIcon/><ListItemText primary={'Profile'} /></ListItemIcon></Link>
-              <Link to="/orders" onClick={handleLoginStatus}><ListItemIcon><CheckCircleOutlineOutlinedIcon/><ListItemText primary={'Orders'} /></ListItemIcon></Link>
-              <Link to="/address" onClick={handleLoginStatus}><ListItemIcon><AddLocationAltOutlinedIcon/><ListItemText primary={'Address'} /></ListItemIcon></Link>
-              <Link to='/coupons' ><ListItemIcon><Co2OutlinedIcon/><ListItemText primary={'Coupons'} /></ListItemIcon></Link>
-              <Link to='' onClick={logoutHandler}><ListItemIcon><LogoutIcon/><ListItemText primary={'Logout'} /></ListItemIcon></Link>
+              {logged && <Link to="/profile" onClick={handleLoginStatus}><ListItemIcon><PersonOutlineIcon/><ListItemText primary={'Profile'} /></ListItemIcon></Link>}
+              {logged && <Link to="/orders" onClick={handleLoginStatus}><ListItemIcon><CheckCircleOutlineOutlinedIcon/><ListItemText primary={'Orders'} /></ListItemIcon></Link>}
+              {logged && <Link to="/address" onClick={handleLoginStatus}><ListItemIcon><AddLocationAltOutlinedIcon/><ListItemText primary={'Address'} /></ListItemIcon></Link>}
+              {logged && <Link to='/coupons' ><ListItemIcon><Co2OutlinedIcon/><ListItemText primary={'Coupons'} /></ListItemIcon></Link>}
+              {logged && <Link to='' onClick={logoutHandler}><ListItemIcon><LogoutIcon/><ListItemText primary={'Logout'} /></ListItemIcon></Link>}
+              {!logged && <div><Link to="/login">Login</Link></div>}
             </div>}
-          {open && !logged && <div><Link to="/login">Login</Link></div>}
         </div>
       </div>
     
