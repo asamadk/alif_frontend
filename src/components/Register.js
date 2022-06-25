@@ -6,9 +6,13 @@ import Alert from '@mui/material/Alert';
 import * as Constants from '../Helper/Constants';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
+import CancelIcon from '@mui/icons-material/Cancel';
 import LoadingButton from '@mui/lab/LoadingButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 import * as URL from '../Helper/endpoints';
 import "../styles/Register.css";
 
@@ -24,7 +28,6 @@ const Register = () => {
     const confrimPassword = useRef(null);
     const address1 = useRef(null);
     const address2 = useRef(null);
-    // const state = useRef(null);
     const mobile = useRef(null);
     const zipcode = useRef(null);
     const country = useRef(null);
@@ -33,8 +36,11 @@ const Register = () => {
     const [state,setState] = React.useState('');
     const [user,setuser] = React.useState({});
     const [show,setShow] = React.useState(false);
+    const [loading,setLoading] = React.useState(true);
     const [err,setErr] = React.useState(false);
     const [errDesc,setErrDesc] = React.useState('');
+    const [verificationText, setVerificationText] = React.useState('verifiy');
+    const [verifyColor, setVerifyColor] = React.useState('red');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -62,6 +68,7 @@ const Register = () => {
         axios.post(URL.REGISTER,data).then(res => {
             if(res.data.responseCode == Constants.OK_200){
                 setShow(true);
+                setErrDesc('Registered');
                 fname.current?.value
             }else{
                 setShow(false);
@@ -84,12 +91,48 @@ const Register = () => {
 
     }
 
+    const handleEmailVerification = async() => {
+        setLoading(true);
+        if(verificationText === 'verified'){
+            return;
+        }
+        console.log('EMAIL VERIFICATION');
+        let mailId = email.current?.value;
+        if(mailId == null || mailId === ''){
+            return;
+        }
+        let result = await axios.get(URL.VALIDATE_MAIL+mailId).catch(err => {console.log(err)});
+        setLoading(false);
+        if(result?.data?.deliverability === 'DELIVERABLE'){
+            setVerifyColor('green');
+            setVerificationText('verified');
+        }
+        console.log(result);
+    }
+
+    const resetEmailVerification = () => {
+        setVerificationText('verify');
+        setVerifyColor('red');
+    }
+
     return(
         <div className="Register">
+            {loading && (
+                <CircularProgress size={34}
+                    sx={{
+                        color: '#e60023',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        marginTop: '-12px',
+                        marginLeft: '-12px',
+                    }}
+                />
+            )}
             <h1>Register</h1>
             <div className='alertRegister'>
             <Collapse in={show}>
-                <Alert severity="success">Successfully registered</Alert>
+                <Alert severity="success">{errDesc}</Alert>
             </Collapse>
             <Collapse in={err}>
                 <Alert severity="error">{errDesc}</Alert>
@@ -104,8 +147,19 @@ const Register = () => {
             <TextField inputRef={lname} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 
             <InputLabel id="demo-simple-select-label">Email</InputLabel>
-            <TextField inputRef={email} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
-
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={'text'}
+            sx={{width : '295px'}}
+            inputRef={email}
+            endAdornment={
+              <InputAdornment onClick={handleEmailVerification} style={{cursor:"pointer"}} position="end">
+                <div style={{color : verifyColor}}>{verificationText}</div>
+                {verificationText === 'verified' && <CancelIcon onClick={resetEmailVerification} />}
+              </InputAdornment>
+            }
+            label="Password"
+          />
             <InputLabel id="demo-simple-select-label">Password</InputLabel>
             <TextField type='password' inputRef={password} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 

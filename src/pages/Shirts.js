@@ -18,7 +18,7 @@ const Men = () => {
 
   const [categories,setCategories] = useState([]);
   const[page,setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20);
   const [products,setProducts] = useState([]);
   const [show,setShow] = useState(false);
   const [errorMsg,setErrorMsg] = useState('');
@@ -141,15 +141,15 @@ const Men = () => {
           <Alert severity="error">{errorMsg}</Alert>
         </Collapse>
       </div>
-      <select value={selectedOption} onChange={(e) => handleCategoryChange(e.target.value)} className="Product__Shirts__Select">
+      {/* <select value={selectedOption} onChange={(e) => handleCategoryChange(e.target.value)} className="Product__Shirts__Select">
         <option disabled>Select Category</option>
         {
           categories.map(cat => (
               <option key={cat.category_Id} value={cat.category_Id} >{cat.category_Name}</option>
           )
           )}
-      </select>
-      <LoadingButton className="resetButton" onClick={handleReset}>reset</LoadingButton>
+      </select> */}
+      {/* <LoadingButton className="resetButton" onClick={handleReset}>reset</LoadingButton> */}
       <Collapse in={searchedProduct}>
           <Alert severity="success">{'Searched For '+searchTerm}</Alert>
         </Collapse>

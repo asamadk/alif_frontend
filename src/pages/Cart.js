@@ -33,8 +33,12 @@ function Cart() {
   const [couponText, setcouponText] = React.useState('');
   const [productData, setProductData] = React.useState([]);
   const [productIDInfoMap, setproductIDInfoMap] = React.useState(null);
+  const [deliveredBy, setDeliveredBy] = React.useState('');
 
   React.useEffect(() => {
+    let date = new Date();
+    date.setDate(date.getDate() + 7);
+    setDeliveredBy(date.toDateString());
     setLoading(true);
     if(localStorage.getItem(Constants.TOKEN) != null){
       setLogged(true);
@@ -216,7 +220,18 @@ function Cart() {
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     let couponAddResponse = await axios.post(`${URL.ADD_COUPON_TO_CART}?couponName=${couponText}&cartId=${cart?.shoppingCartId}`)
-    .catch(err => console.log(err.data));
+    .catch(err => {
+      setLoading(false);
+      let error = JSON.parse(JSON.stringify(err));
+      if(error.status == Constants.NOT_FOUND_404){
+        // setShow(true);
+        setError(true);
+        setErrorMsg('Cannot find any coupon with that name');
+        setTimeout(() => {
+          setError(false);
+        },3000);
+      }
+    });
     setModalOpen(false);
     setLoading(false);
     if(couponAddResponse?.data?.responseCode == Constants.OK_200){
@@ -320,16 +335,16 @@ function Cart() {
                       <div className="cart__itemDescription">
                       <h3>{ct.product_name}</h3>
                   <p>
-                    {ct.product_small_Desc.substring(0,50)}
+                    {JSON.parse(ct.product_long_Desc).productQuote.substring(0,50)+'...'}
                   </p>
                   <span className="cart__itemSize">Size : <b>{ct.size}</b> </span>
                   <span className="cart__itemQuantity">Quantity : 1</span>
                   <p>
                     Delivered by:{" "}
-                    <span style={{ color: "black" }}>25 July</span>
+                    <span><b>{deliveredBy}</b></span>
                   </p>
                   <div className="cart__itemPrice">
-                    <h4> {ct.product_real_price}</h4>
+                    <h4> {'₹ '+ct.product_real_price}</h4>
                     <h6>49% off</h6>
                   </div>
                 </div>
@@ -365,24 +380,24 @@ function Cart() {
           <h4>Product Details</h4>
           <div className="cart__totalMRP">
             <h4>Total MRP</h4>
-            <p>Rs. {cart.totalAmountBeforeDiscount}</p>
+            <p>₹ {cart.totalAmountBeforeDiscount}</p>
           </div>
           <div className="cart__discountMRP">
             <h4>Discount on MRP</h4>
-            <p>Rs {cart.totalAmountBeforeDiscount - cart.total}</p>
+            <p>₹ {(cart.totalAmountBeforeDiscount - cart.total).toString().substring(0,5)}</p>
           </div>
           <div className="cart__coupanDiscount">
             <h4>Coupon Discount</h4>
-              <p> {cart.couponUsed ? cart.totalAmountBeforeDiscount - cart.total : 0}</p>
+              <p> ₹ {cart.couponUsed ? (cart.totalAmountBeforeDiscount - cart.total).toString().substring(0,5) : 0}</p>
           </div>
           <div className="cart__convinienceFee">
-            <h4>Convinience Fee</h4>
+            <h4>Delivery Fee</h4>
             <p>Free</p>
           </div>
           <div className="divider"></div>
           <div className="cart__totalAmount">
             <h4>Total Amount</h4>
-            <p>Rs. {cart.total}</p>
+            <p>₹ {cart.total}</p>
           </div>
           <LoadingButton onClick={handleCreateOrder} variant="outlined">Place Order</LoadingButton>
         </div>

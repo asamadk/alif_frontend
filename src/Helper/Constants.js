@@ -22,17 +22,22 @@ export const NET_BANKING = "NET_BANKING";
 
 export const CART_EMPTY = 'cartEmpty';
 
+
+let date = new Date();
+date.setDate(date.getDate() + 6);
+// date.toLocaleDateString();
+
 export const checkMarks = [
     {
-       bullet: 'Get 3 interest-free payments of ₹ 830 with'
+       bullet: 'COD available on this product'
        },
     {
-       bullet: 'Estimated Shipping by May 21, 2022'
+       bullet: 'Estimated Shipping by '+date.toDateString()
        }, 
     {
        bullet: 'Free Shipping within India.'
        }, 
-    {  bullet: 'Exchange or return within 45 days.'
+    {  bullet: 'Exchange or return within 15 days.'
        }
 
 ]
@@ -227,7 +232,7 @@ export const PRODUCT_DROPDOWN = [
    {
       id : 'Alternates',
       heading : 'Alternates',
-      details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
+      details : 'Some alternatives are suggested at the end of this page check them out !!',
       collapse : true
    },
    {

@@ -10,6 +10,8 @@ export const GET_PRODUCTS = (page,limit) => {
     return `${BASE_URL}products?order=NORMAL&limit=${limit}&page=${page}`;
 }
 
+export const VALIDATE_MAIL = 'https://emailvalidation.abstractapi.com/v1/?api_key=c27cae96468a4ae9ae8a1c82076ad9f8&email=';
+
 export const GET_PRODUCTS_LIMIT_4 = BASE_URL+'products?order=NORMAL&limit=4&page=0';
 export const GET_PRODUCTS_LATEST = BASE_URL+'products?order=DESC&limit=4&page=0';
 export const GET_PRODUCTS_BY_CATEGORY = BASE_URL+'product/category/';

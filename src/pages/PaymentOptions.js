@@ -71,6 +71,7 @@ function PaymentOptions(){
                         setLoading(false);
                       })
                   }
+                  setLoading(false);
                   console.log(paymentData);
               }
           }).catch(err => {
@@ -207,11 +208,10 @@ function PaymentOptions(){
             )
           })
         } */}
-        {paymentOptionsList.length > 0 &&
         <div className="payment-detais-class">
           <p>Amount to be paid : Rs {orderModel.price}</p>
           <LoadingButton variant="outlined" onClick={handlePaymentSelection}>Proceed</LoadingButton> 
-        </div>}
+        </div>
         </div>
     );
 }

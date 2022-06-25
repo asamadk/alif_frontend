@@ -38,6 +38,8 @@ function ProductDetails(){
     const [addedToCart,setAddedToCart] = useState(false);
     const [loading,setLoading] = React.useState(false);
     const [modalOpen,setModalOpen] = React.useState(false);
+    const [productSmallDesc, setProductSmallDesc] = React.useState({});
+    const [productLargeDesc, setproductLargeDesc] = React.useState({});
     const [leftDrawer, setLeftDrawer] = React.useState({
         left: false,
         right: false,
@@ -50,14 +52,21 @@ function ProductDetails(){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
           }
-          window.addEventListener('resize',setRerender(!rerender));
+        window.addEventListener('resize',setRerender(!rerender));
+        resetAllSizeUI();
         axios.get(URL.GET_SINGLE_PRODUCT+id)
             .then(res => {
                 if(res.data.responseCode == Constants.OK_200 &&  res.data.responseWrapper != 0){
                     setProductDetails(res.data.responseWrapper[0]);
                     setShow(false);
                     setErrorMsg('');
-                    console.log('Single product',res.data.responseWrapper[0])
+                    let singleProduct = res.data.responseWrapper[0];
+                    console.log('Single product',singleProduct);
+                    console.log('PRODUCT LONG DESC',JSON.parse(singleProduct.product_long_Desc));
+                    console.log('PRODUCT SMALL DESC',JSON.parse(singleProduct.product_small_Desc));
+                    setproductLargeDesc(JSON.parse(singleProduct.product_long_Desc));
+                    setProductSmallDesc(JSON.parse(singleProduct.product_small_Desc));
+                    populateProductDropdownInfo(JSON.parse(singleProduct.product_small_Desc),JSON.parse(singleProduct.product_long_Desc));
                 }else if(res.data.responseCode != Constants.OK_200){
                     setShow(true);
                     setErrorMsg(res.data.responseDesc);
@@ -71,6 +80,18 @@ function ProductDetails(){
                 setErrorMsg('No product found');
             })
     },[Constants.GENERIC_SIZE]);
+
+    const populateProductDropdownInfo = (small,large) => {
+        Constants.PRODUCT_DROPDOWN.forEach(pd => {
+            if(pd.heading === 'Product Description'){
+                pd.details = large.description;
+            }else if(pd.heading === 'Size & Fit'){
+                pd.details = small.sizefit
+            }else if(pd.heading === 'Wash Care'){
+                pd.details = small.washcare;
+            }
+        })
+    }
 
     const handleCart = () => {
         if(sizeSelected === false){
@@ -244,6 +265,28 @@ function ProductDetails(){
             return;
         }
         setShowDetails(value)
+    }
+
+    const resetAllSizeUI = () => {
+        Constants.GENERIC_SIZE.forEach(genericSize => {
+            genericSize.class = 'unhighlight-cirlce';
+        });
+
+        Constants.PREFERRED_FIT.forEach(fit => {
+                fit.class = 'image_box';
+        })
+        Constants.HEIGHT.forEach(height => {
+            height.class = 'unhighlight-cirlce';
+        })
+        Constants.SHOULDER_TYPE.forEach(shoulder => {
+            shoulder.class = 'image_box';
+        })
+        Constants.SHIRT_SIZE.forEach(shirtSize => {
+            shirtSize.class = 'unhighlight-cirlce';
+        })
+        Constants.BODY_TYPE.forEach(type => {
+            type.class = 'image_box';
+        })
     }
 
     const handleCustomSize = () => {
@@ -462,28 +505,28 @@ function ProductDetails(){
                     {Constants.checkMarks.map(checkMark => {return(<li>{checkMark.bullet}</li>)})}
                 </div>
                 <div className='about_product'>
-                    <h1>Nothing spells sophistication better than this luxurious white shirt.</h1>
+                    <h1>{productLargeDesc.productQuote}</h1>
                 </div>
                 <div className='composition_all_container'>
                     <div className='composition_sub_container'>
                         <label>Composition</label>
-                        <p>100% Egyptian Cotton</p>
+                        <p>{productLargeDesc.composition}</p>
                     </div>
                     <div className='composition_sub_container'>
                         <label>Weave</label>
-                        <p>oxford</p>
+                        <p>{productSmallDesc.weave}</p>
                     </div>
                     <div className='composition_sub_container'>
                         <label>mill</label>
-                        <p>100% Egyptian Cotton</p>
+                        <p>{productSmallDesc.mill}</p>
                     </div>
                     <div className='composition_sub_container'>
                         <label>Streach</label>
-                        <p>100% Egyptian Cotton</p>
+                        <p>Semi stretchable</p>
                     </div>
                     <div className='composition_sub_container'>
                         <label>Fabric Shine</label>
-                        <p>100% Egyptian Cotton</p>
+                        <p>{productSmallDesc['fabric shine']}</p>
                     </div>
                 </div>
                 <div className='product-dropdown' onClick={handleCollpaseUncollapse}>

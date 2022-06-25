@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import LeftSideBar from "../components/LeftSideBar";
+import { timelineClasses } from "@mui/lab";
 
 function Orders(){
 
@@ -35,6 +36,12 @@ function Orders(){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));
             setUserMail(jwt_decode(localStorage.getItem(Constants.TOKEN))?.sub);
+            console.log('TOKEN',jwt_decode(localStorage.getItem(Constants.TOKEN))?.exp)
+            let date = jwt_decode(localStorage.getItem(Constants.TOKEN))?.exp;
+            if(date > new Date()){
+                localStorage.removeItem(Constants.TOKEN);
+                window.location.replace('/login');
+            }
         }else{
             history.push('/login');
         }
@@ -112,7 +119,7 @@ function Orders(){
                                         <div className="Orders__Products_name_size">
                                             <h3>{product.product_name} </h3>
                                             {/* <p>Size: M</p> */}
-                                            <p className="product_desc">{product.product_small_Desc}</p>
+                                            <p className="product_desc">{JSON.parse(product.product_long_Desc).productQuote}</p>
                                         </div>
                                     </div>
                                 )
