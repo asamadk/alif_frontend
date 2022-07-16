@@ -80,7 +80,7 @@
 }
 .cart__address > button {
   margin: 20px 5px;
-  margin-left: auto;
+  /* margin-left: auto; */
   font-size: 14px;
   color: black;
   border: 1px #B8B8B8 solid;
@@ -119,7 +119,7 @@
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
 
   transition: 0.3s;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .cart__itemsContainer img{
