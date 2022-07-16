@@ -65,6 +65,7 @@
     border-top: 1.5px solid #eaeaec;
     margin: 20px 0px;
     width: 90%;
+    margin-right: 0;
   }
 
 
@@ -184,6 +185,7 @@ button:hover{
 .ProductDetails__Description_S {
   position: relative;
   left: 10%;
+  width: 380px;
 }
 
 .ProductDetails__size_container{
@@ -199,7 +201,7 @@ button:hover{
     font-size: 15px;
     font-weight: 300;
     height: 80px;
-    width: 90%;
+    width: 95%;
     margin-right: 0px;
 }
 
@@ -376,7 +378,6 @@ button:hover{
   width: 500px;
   padding: 10px 20px;
   text-align: start;
-
 }
 
 .product-dropdown-icon-container{
