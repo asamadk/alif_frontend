@@ -1,9 +1,10 @@
 .Address__Container {
   /* border: 1px red solid; */
-  text-align: start;
-  margin: 20px 10px;
-  margin-left: 10%;
+  max-width: 300px;
+  margin: auto;
+  margin-top: 30px;
 }
+
 button{
   transition-duration: 0.5s;
 }
@@ -59,10 +60,9 @@ label{
     left: 10%;
   }
 
-  .Address__Container {
-    /* border: 1px red solid; */
+  /* .Address__Container {
     max-width: 300px;
     margin: auto;
     margin-top: 30px;
-  }
+  } */
 }

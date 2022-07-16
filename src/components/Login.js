@@ -153,10 +153,10 @@ function Login(){
         
         { !changePassword && <>
             <InputLabel id="demo-simple-select-label">Email</InputLabel>
-            <TextField inputRef={email} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            <TextField inputRef={email} sx={{width : '250px'}} id="outlined-basic"  variant="outlined" />
 
             <InputLabel id="demo-simple-select-label">Password</InputLabel>
-            <TextField type='password' inputRef={password} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            <TextField type='password' inputRef={password} sx={{width : '250px'}} id="outlined-basic"  variant="outlined" />
             <br/>
             <a href="/register">Dont have an account?<span> Register here</span></a>
             <div><a href="/" onClick={(e) => showChangePassword(e)}>Forgot password</a></div>
