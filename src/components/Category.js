@@ -5,10 +5,10 @@ import React from "react";
 function Category({ title, imageUrl, visitingUrl,unique }) {
   return (
     <div key = {unique} className="category">
-      <a href={visitingUrl}>
+      {/* <a href={visitingUrl}> */}
         <img src={imageUrl} alt=""></img>
         <h2>{title}</h2>
-      </a>
+      {/* </a> */}
     </div>
   );
 }

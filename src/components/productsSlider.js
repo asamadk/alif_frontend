@@ -41,6 +41,7 @@ function ProductSlider(props){
             <div className="ProductSlider">
             {productList.map(product => {
                 return(<Product 
+                    image = {product.product_img1}
                     price = {product.product_real_price}
                     name={product.product_name}
                     unique={product.product_id}

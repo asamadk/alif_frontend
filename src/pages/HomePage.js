@@ -5,6 +5,8 @@ import ProductSlider from "../components/productsSlider";
 import Category from "../components/Category";
 import CircularProgress from '@mui/material/CircularProgress';
 import * as Constants from '../Helper/Constants'
+import { styled } from '@mui/material/styles';
+import { keyframes } from '@mui/system';
 import * as URL from '../Helper/endpoints'
 import axios from "axios";
 
@@ -41,6 +43,7 @@ React.useEffect(() => {
 },[])
 
 
+
   return (
     <div className="home">
       {loading && (
@@ -57,7 +60,7 @@ React.useEffect(() => {
           />
         )}
       <div className="home__hero">
-        <Hero image="https://picsum.photos/1800/1000"/>
+        <Hero image="https://lh3.googleusercontent.com/d/1A5LlbnMhHf4FCVUJ450cfpNMI3qNiGls=s1800?authuser=0"/>
       </div>
       <h1>Categories</h1>
 
@@ -69,7 +72,7 @@ React.useEffect(() => {
               key={category.category_Id}
               unique={category.category_Id}
               title={category.category_Name}
-              imageUrl="https://picsum.photos/250/250"
+              imageUrl={category.category_image}
               visitingUrl={"/category/products/"+category.category_Id}
             />
             
@@ -85,7 +88,7 @@ React.useEffect(() => {
       </div>
 
       <div className="home__hero">
-        <Hero image="https://picsum.photos/800/300"/>
+        <Hero image="https://lh3.googleusercontent.com/d/1EGLiv9bQmFEvk1gMxYqLlSm6Z643tTgL=s1500?authuser=0"/>
       </div>
 
       <div className="home__products">

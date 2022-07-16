@@ -114,7 +114,7 @@ function Orders(){
                                 return(
                                     <div className="Orders__Products">
                                         <div className="Orders__Products_image_container">
-                                            <img src="https://picsum.photos/70/75"></img>
+                                            <img src={product.product_img1}></img>
                                         </div>
                                         <div className="Orders__Products_name_size">
                                             <h3>{product.product_name} </h3>

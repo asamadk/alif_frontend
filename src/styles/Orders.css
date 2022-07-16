@@ -88,6 +88,11 @@
       /* border: 1px black solid; */
     }
 
+    .Orders__Products_image_container img{
+      width : 70px;
+      height : 80px;
+    }
+
     .Orders__Products_name_size{
       margin-top: 40px;
       margin-left: 10px;

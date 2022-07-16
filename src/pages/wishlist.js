@@ -75,6 +75,7 @@ const Wishlist = () => {
           products.map(product => {
           return(
             <Product
+            image = {product.product_img1}
             name={product.product_name} 
             btn={Constants.DELETE_FROM_WISHLIST}
             unique={product.product_id}

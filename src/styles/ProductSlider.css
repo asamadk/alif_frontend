@@ -7,11 +7,11 @@
 }
 
 @media screen and (min-width: 700px) {
-  .ProductSlider {
+  /* .ProductSlider {
     width: 80%;
     position: relative;
     left: 10%;
-  }
+  } */
 }
 
 

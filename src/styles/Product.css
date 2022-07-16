@@ -57,7 +57,7 @@
     /* width: 350px; */
     width: 100%;
     cursor: pointer;
-    height: 500px;
+    height: 450px;
 }
 
 .product p{
@@ -135,12 +135,14 @@ a{
 
 @media only screen and (min-width: 700px){
     .product img  {
-    width: 350px;
+    width: 100%;
     cursor: pointer;
     height: 500px;
+    min-width: 399px;
   }
 
   .product{
-    width: 353px;
+    width: 403px;
+    min-width: 402px;
   }
 }

@@ -121,6 +121,12 @@
   transition: 0.3s;
   margin-right: 20px;
 }
+
+.cart__itemsContainer img{
+  width: 150px;
+  height: 250px;
+}
+
 .cart__item {
   display: flex;
   justify-content: space-between;

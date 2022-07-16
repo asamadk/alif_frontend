@@ -16,6 +16,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import "../styles/Cart.css";
+import { CommitSharp } from "@mui/icons-material";
 
 function Cart() {
   const history = useHistory();
@@ -139,7 +140,9 @@ function Cart() {
         setTimeout(()=>{
           setShow(false);
         },1000);
+        console.log('PRODU',cart.productModelList);
         if(cart.productModelList != null && cart.productModelList.length <= 0){
+          console.log('HERE');
           history.push('/status',{code : Constants.CART_EMPTY})
         }else{
           setRerender(!rerender);
@@ -176,6 +179,7 @@ function Cart() {
 
   const handleAddToWishlist = (product_id) => {
     if(logged){
+      handleDeleteFromCart(product_id);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       axios.post(URL.ADD_USER_WISHLIST+product_id)
       .then(res => {
@@ -184,7 +188,6 @@ function Cart() {
             setShow(false);
           },1000);
           setErrorMsg('Product added to wishlist');
-          handleDeleteFromCart(product_id);
       }).catch(err => {
           console.log(err);
       })
@@ -329,7 +332,7 @@ function Cart() {
                     <div key={index} className="cart__itemsContainer">
                     <div className="cart__item">
                     <div className="cart__itemLeft">
-                      <img src="https://picsum.photos/150/250" alt="" />
+                      <img src={ct.product_img1} alt="" />
                     </div>
                     <div key={index} className="cart__itemCenter">
                       <div className="cart__itemDescription">

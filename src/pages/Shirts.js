@@ -75,6 +75,7 @@ const Men = () => {
         .then(res => {
           setLoading(false);
           setProducts(res.data.responseWrapper);
+          console.log(res.data.responseWrapper)
         }).catch(err => {
           console.log(err);
         })
@@ -157,6 +158,7 @@ const Men = () => {
         { products.map(product => {
           return(
               <Products 
+              image = {product.product_img1}
               name={product.product_name} 
               btn={Constants.VIEW_MORE}
               unique={product.product_id}

@@ -40,6 +40,9 @@ function ProductDetails(){
     const [modalOpen,setModalOpen] = React.useState(false);
     const [productSmallDesc, setProductSmallDesc] = React.useState({});
     const [productLargeDesc, setproductLargeDesc] = React.useState({});
+    const [productImages, setProductImages] = React.useState([]);
+    const [zoomedImage, setZoomedImage] = React.useState('');
+    const [changeImage , setChangeImage] = React.useState(0);
     const [leftDrawer, setLeftDrawer] = React.useState({
         left: false,
         right: false,
@@ -64,6 +67,7 @@ function ProductDetails(){
                     console.log('Single product',singleProduct);
                     console.log('PRODUCT LONG DESC',JSON.parse(singleProduct.product_long_Desc));
                     console.log('PRODUCT SMALL DESC',JSON.parse(singleProduct.product_small_Desc));
+                    populateProductImages(singleProduct);
                     setproductLargeDesc(JSON.parse(singleProduct.product_long_Desc));
                     setProductSmallDesc(JSON.parse(singleProduct.product_small_Desc));
                     populateProductDropdownInfo(JSON.parse(singleProduct.product_small_Desc),JSON.parse(singleProduct.product_long_Desc));
@@ -80,6 +84,16 @@ function ProductDetails(){
                 setErrorMsg('No product found');
             })
     },[Constants.GENERIC_SIZE]);
+
+    const populateProductImages = (singleProduct) => {
+        let images = [];
+        images.push(singleProduct?.product_img1);
+        images.push(singleProduct?.product_img2);
+        images.push(singleProduct?.product_img3);
+        images.push(singleProduct?.product_img4);
+        setProductImages(images);
+        console.log('Images',images);
+    }
 
     const populateProductDropdownInfo = (small,large) => {
         Constants.PRODUCT_DROPDOWN.forEach(pd => {
@@ -141,8 +155,10 @@ function ProductDetails(){
                 setAddedToCart(true);
                 setTimeout(() => {
                     setAddedToCart(false);
-                },1500);
-                setErrorMsg('Product added to wishlist');
+                },3000);
+                console.log(res.data?.responseWrapper[0]);
+                let displayMessage = res.data?.responseWrapper[0];
+                setErrorMsg(displayMessage);
             }).catch(err => {
                 setwishlistButtonLoad(false);
                 console.log(err);
@@ -408,8 +424,8 @@ function ProductDetails(){
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '450px',
-        height : '600px',
+        width: '600px',
+        height : '700px',
         bgcolor: 'background.paper',
         border: '2px solid #ffffff',
         boxShadow: 24,
@@ -418,16 +434,33 @@ function ProductDetails(){
         pb: 3,
       };
 
+
+    const handleModalOpen = (imageName) => {
+        setModalOpen(true);
+        setZoomedImage(imageName);
+    }
+
+    const handleForwardImage = () => {
+        if(changeImage + 1 === productImages.length){
+            setChangeImage(0);
+        }else{
+            setChangeImage(changeImage + 1);
+        }
+    }
+
+    const handleBackwardImage = () => {
+        if(changeImage - 1 === 0){
+            setChangeImage(productImages.length - 1);
+        }else{
+            setChangeImage(changeImage - 1);
+        }
+    }
+
     return (
         <div className="ProductDetails">
-             <Modal
-                open={modalOpen}
-                onClose={() => setModalOpen(false)}
-                // aria-labelledby="modal-modal-title"
-                // aria-describedby="modal-modal-description"
-            >
+             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                 <Box sx={{ ...modalStyle }}>
-                    <img src="https://picsum.photos/400/500" alt=''></img> 
+                    <img src={zoomedImage} alt=''></img> 
                 </Box>
             </Modal>
             {loading && (
@@ -453,22 +486,23 @@ function ProductDetails(){
                 <div className="image">
                 {window.innerWidth > 500 && 
                 <div className="ProductDetails__Image_Main">
-                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt='' ></img>
-                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img> 
-                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img>
-                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt=''></img>
+                    {
+                        productImages.map(image => {
+                            return(<img onClick={() => {handleModalOpen(image)}} src={image} alt='Clothes' ></img>)
+                        })
+                    }
                 </div>
                 }
                 {window.innerWidth < 500 && 
                 <div className="ProductDetails__Image_Main">
-                    <img onClick={() => {setModalOpen(true)}} src="https://picsum.photos/400/500" alt='' ></img>
+                    <img onClick={() => {setModalOpen(true)}} src={productImages[changeImage]} alt='' ></img>
                     {/* create function to side image */}
                 </div>
                 }
-                <IconButton aria-label="add to shopping cart">
+                <IconButton onClick={handleBackwardImage} aria-label="add to shopping cart">
                         <ArrowBackIosNewOutlinedIcon/>
                 </IconButton>
-                <IconButton aria-label="add to shopping cart">
+                <IconButton onClick={handleForwardImage} aria-label="add to shopping cart">
                         <ArrowForwardIosOutlinedIcon/>
                 </IconButton>
                 

@@ -18,6 +18,7 @@ function Coupons(){
     const [couponAdd,setCouponAdd] = React.useState(false);
     const [successMsg,setSuccessMsg] = React.useState('Something went wrong');
     const [token,setToken] = useState('');
+    const [copyText, setCopyText] = useState('copy');
 
     React.useEffect(() => {
 
@@ -53,6 +54,14 @@ function Coupons(){
         })
     }
 
+    const handleCopyCoupons = (couponName) => {
+        navigator.clipboard.writeText(couponName);
+        setCopyText('copied');
+        setTimeout(() => {
+            setCopyText('copy');
+        },4000)
+    }
+
     const buttonCss = {
         marginLeft : '10px',
         color: 'black',
@@ -75,9 +84,9 @@ function Coupons(){
                 <p>On minimum purchase of ₹ {coupon.minimumPurchasePrice}</p>
                 <p>Max discount of ₹ {coupon.maximumDiscount}</p>
                 <a href="">Terms and conditions</a><br/>
-                {/* {logged && <LoadingButton style={buttonCss}  variant="outlined">
-                    Apply
-                </LoadingButton>} */}
+                <LoadingButton style={buttonCss} onClick={() => handleCopyCoupons(coupon.couponName)} variant="outlined">
+                    {copyText}
+                </LoadingButton>
                 </div>
             )})}
         </div>

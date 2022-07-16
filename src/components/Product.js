@@ -19,6 +19,7 @@ function Product(props){
     const [errorMsg,setErrorMsg] = React.useState('');
     const [button,setButton] = React.useState('');
     const [rerender,setRerender] = React.useState(false);
+    const [productImage , setProductImage ] = React.useState(props?.image);
 
     React.useEffect(() => {
         if(localStorage.getItem(Constants.TOKEN) != null){
@@ -29,6 +30,7 @@ function Product(props){
             setButton('Delete');
         }
     },[]);
+
     const handleCart = () => {
         if(logged){
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -88,6 +90,11 @@ function Product(props){
 
     const handleOpenProduct = (id) => {
         history.push('/product/details/'+props.unique);
+        // if(window.location.pathname.includes('/product/details')){
+        //     console.log(window.location.pathname)
+        //     window.scrollTo(0,0);
+        //     window.location.reload();
+        // }
     }
 
     return(
@@ -95,7 +102,7 @@ function Product(props){
             <Collapse in={addedToCart}>
                 <Alert severity="success">{errorMsg}</Alert>
             </Collapse>
-            <img onClick={() => handleOpenProduct(props.unique)} src="https://picsum.photos/300/500" alt=""></img>
+            <img onClick={() => handleOpenProduct(props.unique)} src={productImage != null ? productImage : "https://picsum.photos/300/500"} alt=""></img>
             <div className="product_price_and_icon">
                 <h2>{'₹ '+props.price}</h2>
 
