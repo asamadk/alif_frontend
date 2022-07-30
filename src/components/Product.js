@@ -89,12 +89,14 @@ function Product(props){
     }
 
     const handleOpenProduct = (id) => {
+        console.log('PathName = ',window.location.pathname.includes('/product/details/')); 
+        let shouldReload = window.location.pathname.includes('/product/details/') === true;
         history.push('/product/details/'+props.unique);
-        // if(window.location.pathname.includes('/product/details')){
-        //     console.log(window.location.pathname)
-        //     window.scrollTo(0,0);
-        //     window.location.reload();
-        // }
+        if(shouldReload === true){
+            console.log('INSIDE PATHNAME INCLUDES',window.location.pathname)
+            window.scrollTo(0,0);
+            window.location.reload();
+        }
     }
 
     return(

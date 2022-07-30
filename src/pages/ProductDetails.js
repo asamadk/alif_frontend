@@ -529,9 +529,10 @@ function ProductDetails(){
                         </LoadingButton>
                     </div>
                     <div className='ProductDetails__size_container'>
-                    <a>Create your size in just 30 seconds.</a>
+                    {/* <a>Create your size in just 30 seconds.</a> */}
+                    <a>Get your unstiched cloth from here.</a>
                     <LoadingButton onClick={() => {handleMenuOpen(true)}} variant="outlined">
-                            Get size
+                            Get cloth
                     </LoadingButton>
                     </div>
                 </div>  

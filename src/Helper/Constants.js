@@ -134,7 +134,7 @@ export const GENERIC_SIZE = [
    {
       size : 'L',
       class : 'unhighlight-cirlce'
-   }
+   },
 ]
 
 export const HEIGHT = [
