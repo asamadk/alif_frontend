@@ -126,7 +126,7 @@ const Navbar = () => {
             {index === 0 && <><ListItemIcon><HomeOutlinedIcon/></ListItemIcon> <ListItemText primary={text} /></>}
             {index === 1 && <><ListItemIcon><CategoryOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 2 && <><ListItemIcon><CallOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
-            {index === 3 && <><ListItemIcon><InfoOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
+            {/* {index === 3 && <><ListItemIcon><InfoOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>} */}
             {index === 4 && logged && <><ListItemIcon><FavoriteBorderIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {index === 5 && logged && <><ListItemIcon><ShoppingCartOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
             {/* {index === 5 && logged && <><ListItemIcon>
@@ -160,7 +160,7 @@ const Navbar = () => {
           <li><Link to="/home" >Home</Link></li>
           <li><Link to="/products">products</Link></li>
           <li><Link to="/contact">contact us</Link></li>
-          <li><Link to="/about">About</Link></li>
+          {/* <li><Link to="/about">About</Link></li> */}
         </ul>}
       </div>
 
