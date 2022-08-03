@@ -22,6 +22,7 @@ function Product(props){
     const [productImage , setProductImage ] = React.useState(props?.image);
 
     React.useEffect(() => {
+        console.log('PRODUCT USE EFFECT')
         if(localStorage.getItem(Constants.TOKEN) != null){
             setLogged(true);
             setToken(localStorage.getItem(Constants.TOKEN));

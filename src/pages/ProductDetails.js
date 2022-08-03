@@ -528,11 +528,13 @@ function ProductDetails(){
                             Add to wishlist
                         </LoadingButton>
                     </div>
+                    <div className='size-chart-container'>
+                        <a onClick={() => handleModalOpen(null)} >Size Chart</a>
+                    </div>
                     <div className='ProductDetails__size_container'>
-                    {/* <a>Create your size in just 30 seconds.</a> */}
-                    <a>Get your unstiched cloth from here.</a>
+                    <a>Create your size in just 30 seconds.</a>
                     <LoadingButton onClick={() => {handleMenuOpen(true)}} variant="outlined">
-                            Get cloth
+                            Get size
                     </LoadingButton>
                     </div>
                 </div>  

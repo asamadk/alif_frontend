@@ -7,8 +7,8 @@ function Footer(){
             <div className="Footer__col1">
                 <h3>Reach Us</h3>
                 <ul>
-                    <li>alif@alifclothing.com</li>
-                    <li>timing 11am-4am</li>
+                    <li>bettermenbyalif@gmail.com</li>
+                    <li>timing 9:00- 17:00</li>
                     <li>Social Media</li>
                     <li>click here</li>
 

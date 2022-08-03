@@ -4,6 +4,13 @@
   padding-top: 20px;
 }
 
+.size-chart-container{
+  text-align: start;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 300;
+}
+
 .ProductDetails__Image_Main img {
   width: 350px;
   height: 430px;

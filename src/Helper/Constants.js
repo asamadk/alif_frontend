@@ -24,7 +24,7 @@ export const CART_EMPTY = 'cartEmpty';
 
 
 let date = new Date();
-date.setDate(date.getDate() + 6);
+date.setDate(date.getDate() + 7);
 // date.toLocaleDateString();
 
 export const checkMarks = [
@@ -37,7 +37,7 @@ export const checkMarks = [
     {
        bullet: 'Free Shipping within India.'
        }, 
-    {  bullet: 'Exchange or return within 15 days.'
+    {  bullet: 'Exchange or return within 7 days.'
        }
 
 ]
@@ -241,6 +241,29 @@ export const PRODUCT_DROPDOWN = [
       details : 'Sourced from a mill known for its finesse and craftsmanship, this oxford fabric is strong and sturdy with a soft and rich feel. This customisable shirt is designed with a Spread collar, single convertible cuff and a French placket.',
       collapse : true
    },
+]
+
+export const FAQs = [
+   {
+     question : 'How will I detect fraudulent emails/calls seeking sensitive personal and confidential information?',
+     answer : 'If you receive an e-mail, a call from a person/association claiming to be from Alif seeking sensitive confidential information like debit/credit card PIN, net-banking or mobile banking password, we request you to never provide such confidential and personal data. We at Alif or our affiliate logistics partner never ask for such confidential and personal data. If you have already revealed such information, report it immediately to an appropriate law enforcement agency. Here are a couple of baits fraudsters often use to cheat consumers: Congratulations! You have been nominated as a ‘Top Alif customer’ and are now eligible for a luxury gift item. Please share your proof of address and your debit/credit card details to avail this great offer.Hi, I’m calling from Alif. We are happy to let you know that you have won an exclusive lucky draw coupon of Rs. 5000 on your latest purchase. Please share your credit/debit card number so we can credit the money directly into your bank account.'
+   },
+   {
+     question : 'How will I identify a genuine appointment letter?',
+     answer : 'Please beware of the fraudulent individuals/agencies that are enticing job seekers by promising them career opportunities at Alif in lieu of 1.) recruitment fee 2.) processing fee 3.) security deposit 4.) software or equipment charges 5.) on-boarding charges etc. Please be cautious that, Alif and its recruitment partners never ask for any fee in exchange for an offer letter or interview calls. All offer related communications are sent from an official Alif email id only.'
+   },
+   {
+     question : 'How do I cancel the order, I have placed?',
+     answer : 'Order can be canceled till the same is out for delivery. Note: This may not be applicable for certain logistics partner. You would see an option to cancel within \'My Orders\' section under the main menu of your App/Website/M-site then select the item or order you want to cancel. In case you are unable to cancel the order from \'My Orders\' section, you can refuse it at the time of delivery and refund will be processed into the source account, if order amount was paid online.'
+   },
+   {
+     question : 'How do I create a Return Request?',
+     answer : 'You can create a Return in three simple steps \n Tap on MyOrder\s \n Choose the item to be Returne\d \n Enter details requested and create a return request'
+   },
+   {
+     question : 'I have created a Return request. When will the product be picked up?',
+     answer : 'Number of days to pickup a product may vary as per the Logistics team that will be assigned to pickup your product. The product will be picked anywhere between 4 – 7 days.     '
+   }
 ]
 
 export const GEOGRAPHY = {  
@@ -1143,4 +1166,6 @@ export const GEOGRAPHY = {
          ]
       }
    ]
+
+   
 }

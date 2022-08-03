@@ -28,7 +28,8 @@ const Body = () => {
     <div class="body">
       <Switch>
         <Route exact path="/">
-          {localStorage.getItem(Constants.TOKEN) != null ? <HomePage /> : <Login/>}
+          {/* {localStorage.getItem(Constants.TOKEN) != null ? <HomePage /> : <Login/>} */}
+          <HomePage/>
         </Route>
         <Route exact path="/alif_frontend">
           <HomePage/>
