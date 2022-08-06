@@ -15,11 +15,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import * as URL from '../Helper/endpoints';
 import "../styles/Register.css";
+import { useHistory } from "react-router-dom";
 
 
 const Register = () => {
 
-    // const navigate = useNavigate();
+    const history = useHistory();
 
     const fname = useRef(null);
     const lname = useRef(null);
@@ -36,20 +37,58 @@ const Register = () => {
     const [state,setState] = React.useState('');
     const [user,setuser] = React.useState({});
     const [show,setShow] = React.useState(false);
-    const [loading,setLoading] = React.useState(true);
+    const [loading,setLoading] = React.useState(false);
     const [err,setErr] = React.useState(false);
     const [errDesc,setErrDesc] = React.useState('');
     const [verificationText, setVerificationText] = React.useState('verifiy');
     const [verifyColor, setVerifyColor] = React.useState('red');
 
+    const clearAllInputBox = () => {
+        setVerifyColor('red');
+        setVerificationText('verifiy');
+        fname.current.value = null;
+        lname.current.value = null;
+        email.current.value = null;
+        password.current.value = null;
+        setCity('');
+        setState('');
+        zipcode.current.value = null;
+        mobile.current.value = null;
+        country.current.value = null;
+        address1.current.value = null;
+    }
+
+    const verifyFieldBeforeSaving = () => {
+        setLoading(false);
+        if(fname == null || fname.current?.value == null) return false;
+        if(lname == null || lname.current?.value == null) return false;
+        if(email == null || email.current?.value == null) return false;
+        if(password == null || password.current?.value == null) return false;
+        if(city == null || city === '') return false;
+        if(state == null || state === '') return false;
+        if(zipcode == null || zipcode.current?.value == null) return false;
+        if(mobile == null || mobile.current?.value == null) return false;
+        if(address1 == null || address1.current?.value == null) return false;
+        return true;
+    }
+
     const handleSubmit = (e) => {
+        setLoading(true);
+        window.scrollTo(0,0)
         e.preventDefault();
-        console.log('CRRR',state);
         if(password.current.value != confrimPassword.current.value){
             alert("Password do not match")
             return;
         }
-
+        if(verifyFieldBeforeSaving() === false){
+            setErr(true);
+            setTimeout(() => {
+                setErr(false);
+            },2000);
+            setErrDesc('Please check all the fields before proceeding')
+            return;
+        }
+        setLoading(true);
         const data = {
             user_Fname : fname.current.value,
             user_Lname : lname.current?.value,
@@ -59,15 +98,22 @@ const Register = () => {
             user_State : state,
             user_zip : zipcode.current?.value,
             user_phone_number : mobile.current?.value,
-            user_country : country.current?.value,
-            user_address1 : address1.current?.value
-    
+            user_country : 'India',
+            user_address1 : address1.current?.value,
+            user_email_verified : true
         }
+        console.log('User Data ',data)
         setuser(data);
 
         axios.post(URL.REGISTER,data).then(res => {
+            setLoading(false);
             if(res.data.responseCode == Constants.OK_200){
+                // clearAllInputBox();
                 setShow(true);
+                setTimeout(() => {
+                    setShow(false);
+                },2000);
+                history.push('/login')
                 setErrDesc('Registered');
                 fname.current?.value
             }else{
@@ -79,14 +125,15 @@ const Register = () => {
                 setErrDesc(res.data.errorMap.error);
             }
         }).catch(err => {
+            setLoading(false);
             if(err.response && err.response.data.errorMap){
+                console.log('Error response',err.response);
                 setErrDesc(err.response.data.errorMap.Error);
                 setErr(true);
                 setTimeout(() => {
                     setErr(false);
                 },2000);
             }
-            console.log(err.response)
         });
 
     }
@@ -101,13 +148,13 @@ const Register = () => {
         if(mailId == null || mailId === ''){
             return;
         }
-        let result = await axios.get(URL.VALIDATE_MAIL+mailId).catch(err => {console.log(err)});
+        let result = await axios.get(URL.VALIDATE_MAIL+mailId).catch(err => {console.log('EMAIL VERIFICATION ERROR :: ',err)});
         setLoading(false);
         if(result?.data?.deliverability === 'DELIVERABLE'){
             setVerifyColor('green');
             setVerificationText('verified');
         }
-        console.log(result);
+        console.log('handleEmailVerification',result);
     }
 
     const resetEmailVerification = () => {
@@ -188,8 +235,8 @@ const Register = () => {
             <InputLabel id="demo-simple-select-label">Mobile no.</InputLabel>
             <TextField inputRef={mobile} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
 
-            <InputLabel id="demo-simple-select-label">Country</InputLabel>
-            <TextField inputRef={country} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />
+            {/* <InputLabel id="demo-simple-select-label">Country</InputLabel>
+            <TextField inputRef={country} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" /> */}
 
             <InputLabel id="demo-simple-select-label">Zip Code</InputLabel>
             <TextField inputRef={zipcode} sx={{width : '295px'}} id="outlined-basic"  variant="outlined" />

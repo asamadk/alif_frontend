@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React from "react";
 import * as URL from '../Helper/endpoints'
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
@@ -8,15 +8,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import CancelIcon from '@mui/icons-material/Cancel';
 
-
 import "../styles/Cart.css";
-import { CommitSharp } from "@mui/icons-material";
 
 function Cart() {
   const history = useHistory();
@@ -98,7 +94,6 @@ function Cart() {
     
     let productsList = cart?.productModelList;
     if(productsList == null || productsList.lenght < 1)return;
-    console.log('PRODUCT INFO : ',info);
     const productIdVsInfoMap = new Map();
     let count = 0;
     info.forEach(inf => {
@@ -114,6 +109,15 @@ function Cart() {
         productsList[i].size = 'Custom size'  
       }else{
         productsList[i].size = sizeJSON.genericsize;
+        // let productName = productsList[i].product_name;
+        // if(productName != null && productName.toLowerCase().includes('cloth')){
+        //   let price = productsList[i].product_real_price;
+        //   productsList[i].product_real_price = productsList[i].product_real_price * 2.5
+        //   cart.totalAmountBeforeDiscount = cart.totalAmountBeforeDiscount + productsList[i].product_real_price;
+        //   cart.totalAmountBeforeDiscount = cart.totalAmountBeforeDiscount - price;
+        //   cart.total = cart.total + productsList[i].product_real_price;
+        //   cart.total = cart.total - price;
+        // }
       }
     }
     cart.productModelList = productsList;
@@ -140,9 +144,7 @@ function Cart() {
         setTimeout(()=>{
           setShow(false);
         },1000);
-        console.log('PRODU',cart.productModelList);
         if(cart.productModelList != null && cart.productModelList.length <= 0){
-          console.log('HERE');
           history.push('/status',{code : Constants.CART_EMPTY})
         }else{
           setRerender(!rerender);

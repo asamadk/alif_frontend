@@ -22,6 +22,7 @@ import ProductSlider from '../components/productsSlider';
 function ProductDetails(){
     let { id } = useParams();    
     const history = useHistory();    
+    const sizeChartImage = 'https://i.postimg.cc/6TJRFK3p/20220803-220953-0000.png';
     
     const [sizeSelected, setsizeSelected] = useState(false);
     const [responseJSON,setresponseJSON] = useState({});    
@@ -42,6 +43,7 @@ function ProductDetails(){
     const [productLargeDesc, setproductLargeDesc] = React.useState({});
     const [productImages, setProductImages] = React.useState([]);
     const [zoomedImage, setZoomedImage] = React.useState('');
+    const [showCustomSize, setShowCustomSize] = React.useState(true);
     const [changeImage , setChangeImage] = React.useState(0);
     const [leftDrawer, setLeftDrawer] = React.useState({
         left: false,
@@ -64,9 +66,10 @@ function ProductDetails(){
                     setShow(false);
                     setErrorMsg('');
                     let singleProduct = res.data.responseWrapper[0];
-                    console.log('Single product',singleProduct);
-                    console.log('PRODUCT LONG DESC',JSON.parse(singleProduct.product_long_Desc));
-                    console.log('PRODUCT SMALL DESC',JSON.parse(singleProduct.product_small_Desc));
+                    handleSHowHideCutomSize(singleProduct);
+                    // console.log('Single product',singleProduct);
+                    // console.log('PRODUCT LONG DESC',JSON.parse(singleProduct.product_long_Desc));
+                    // console.log('PRODUCT SMALL DESC',JSON.parse(singleProduct.product_small_Desc));
                     populateProductImages(singleProduct);
                     setproductLargeDesc(JSON.parse(singleProduct.product_long_Desc));
                     setProductSmallDesc(JSON.parse(singleProduct.product_small_Desc));
@@ -84,6 +87,14 @@ function ProductDetails(){
                 setErrorMsg('No product found');
             })
     },[Constants.GENERIC_SIZE]);
+
+    const handleSHowHideCutomSize = (singleProduct) => {
+        console.log('handleSHowHideCutomSize ',singleProduct);
+        let productName = singleProduct.product_name;
+        if(productName != null && productName.toLowerCase().includes('cloth')){
+            setShowCustomSize(false);
+        }
+    }
 
     const populateProductImages = (singleProduct) => {
         let images = [];
@@ -270,7 +281,6 @@ function ProductDetails(){
       }
 
     const handleMenuOpen = (value) => {
-        console.log('WINDOW DIMENTIONS',getWindowDimensions());
         window.scrollTo(0, 0)
         if(getWindowDimensions().width < 750){
             setShow(true);
@@ -529,14 +539,14 @@ function ProductDetails(){
                         </LoadingButton>
                     </div>
                     <div className='size-chart-container'>
-                        <a onClick={() => handleModalOpen(null)} >Size Chart</a>
+                        <a onClick={() => handleModalOpen(sizeChartImage)} >Size Chart</a>
                     </div>
-                    <div className='ProductDetails__size_container'>
+                    {showCustomSize && <div className='ProductDetails__size_container'>
                     <a>Create your size in just 30 seconds.</a>
                     <LoadingButton onClick={() => {handleMenuOpen(true)}} variant="outlined">
                             Get size
                     </LoadingButton>
-                    </div>
+                    </div>}
                 </div>  
                 <div className='checks'>
                     {Constants.checkMarks.map(checkMark => {return(<li>{checkMark.bullet}</li>)})}
