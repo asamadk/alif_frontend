@@ -266,7 +266,7 @@ button:hover{
   background-color: #f5f5f5;
   border-radius: 5px;
   /* height: 150px; */
-  width: 100%;
+  width: 95%;
   font-weight: 300;
   margin: 30px 0;
 }
@@ -346,6 +346,7 @@ button:hover{
   grid-column-gap: 42px;
   grid-row-gap: 12px;
   margin-top: 25px;
+  width: 95%;
 }
 
 .composition_sub_container{
@@ -391,6 +392,7 @@ button:hover{
   justify-content: space-between;
   cursor: pointer;
   flex-wrap: wrap;
+  width: 95%;
 }
 
 .desc {
