@@ -27,6 +27,12 @@ let date = new Date();
 date.setDate(date.getDate() + 7);
 // date.toLocaleDateString();
 
+export const BANNER_IMAGES = [
+   'https://i.postimg.cc/mkYTLNTz/20220813-133334-0000.png',
+   'https://i.postimg.cc/Z5745qzc/20220813-132018-0000.png',
+   'https://i.postimg.cc/J0XY9MbM/20220813-134040-0000.png'
+]
+
 export const checkMarks = [
     {
        bullet: 'COD available on this product'

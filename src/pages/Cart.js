@@ -200,8 +200,12 @@ function Cart() {
 
   const handleCreateOrder = () => {
     if(logged){
+      let couponName = 'null'
+      if(cart.couponsModel && cart.couponsModel.couponName){
+        couponName = cart.couponsModel.couponName;
+      }
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        axios.post(URL.CREATE_ORDER_FROM_CART)
+        axios.post(URL.CREATE_ORDER_FROM_CART + '/'+couponName)
         .then(res => {
         setShow(true);
         if(res.data.errorMap == null && res.data.responseWrapper.length > 0){
@@ -242,7 +246,7 @@ function Cart() {
     if(couponAddResponse?.data?.responseCode == Constants.OK_200){
       setRerender(!rerender);
       setShow(true);
-      setErrorMsg('Coupon added succesfully');
+      setErrorMsg(couponAddResponse?.data?.responseDesc);
       setTimeout(() => {
         setShow(false);
       },1000);

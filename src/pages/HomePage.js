@@ -5,8 +5,9 @@ import ProductSlider from "../components/productsSlider";
 import Category from "../components/Category";
 import CircularProgress from '@mui/material/CircularProgress';
 import * as Constants from '../Helper/Constants'
-import { styled } from '@mui/material/styles';
-import { keyframes } from '@mui/system';
+import IconButton from '@mui/material/IconButton';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import * as URL from '../Helper/endpoints'
 import axios from "axios";
 
@@ -17,6 +18,7 @@ function HomePage() {
   const [catMessage,setCatMessage] = useState('');
   const [latestProductList,setlatestProductList] = useState([]);
   const [loading,setLoading] = React.useState(false);
+  const [bannerImageIndex, setBannerImageIndex] = React.useState(0);
 
 React.useEffect(() => {
   setLoading(true);
@@ -43,6 +45,15 @@ React.useEffect(() => {
 },[])
 
 
+const handleBannerImageChangeNext = () => {
+  if(bannerImageIndex === Constants.BANNER_IMAGES.length - 1){
+    setBannerImageIndex(0)
+  }else{
+    setBannerImageIndex(bannerImageIndex+1);
+  }
+}
+
+
 
   return (
     <div className="home">
@@ -60,7 +71,15 @@ React.useEffect(() => {
           />
         )}
       <div className="home__hero">
-        <Hero image="https://lh3.googleusercontent.com/d/1A5LlbnMhHf4FCVUJ450cfpNMI3qNiGls=s1800?authuser=0"/>
+        <Hero image={Constants.BANNER_IMAGES[bannerImageIndex]}/>
+      </div>
+      <div className="hero-image-next">
+      <IconButton color="primary" aria-label="upload picture" component="label">
+        <ArrowBackIosIcon/>
+      </IconButton>
+      <IconButton onClick={handleBannerImageChangeNext} color="primary" aria-label="upload picture" component="label">
+        <ArrowForwardIosRoundedIcon />
+      </IconButton>
       </div>
       <h1>Categories</h1>
 
