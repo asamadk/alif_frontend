@@ -109,15 +109,6 @@ function Cart() {
         productsList[i].size = 'Custom size'  
       }else{
         productsList[i].size = sizeJSON.genericsize;
-        // let productName = productsList[i].product_name;
-        // if(productName != null && productName.toLowerCase().includes('cloth')){
-        //   let price = productsList[i].product_real_price;
-        //   productsList[i].product_real_price = productsList[i].product_real_price * 2.5
-        //   cart.totalAmountBeforeDiscount = cart.totalAmountBeforeDiscount + productsList[i].product_real_price;
-        //   cart.totalAmountBeforeDiscount = cart.totalAmountBeforeDiscount - price;
-        //   cart.total = cart.total + productsList[i].product_real_price;
-        //   cart.total = cart.total - price;
-        // }
       }
     }
     cart.productModelList = productsList;
@@ -233,7 +224,6 @@ function Cart() {
       setLoading(false);
       let error = JSON.parse(JSON.stringify(err));
       if(error.status == Constants.NOT_FOUND_404){
-        // setShow(true);
         setError(true);
         setErrorMsg('Cannot find any coupon with that name');
         setTimeout(() => {
@@ -244,12 +234,21 @@ function Cart() {
     setModalOpen(false);
     setLoading(false);
     if(couponAddResponse?.data?.responseCode == Constants.OK_200){
-      setRerender(!rerender);
-      setShow(true);
+      // console.log('Coupon res',couponAddResponse?.data);
+      // setShow(true);
+      window.scrollTo(0,0)
+      if(couponAddResponse?.data?.responseDesc === 'You have already used this coupon'){
+        setError(true);
+        console.log('IN IF')
+      }else{
+        setRerender(!rerender);
+        setShow(true);
+      }
       setErrorMsg(couponAddResponse?.data?.responseDesc);
       setTimeout(() => {
         setShow(false);
-      },1000);
+        setError(false)
+      },3000);
     }
   }
 

@@ -30,7 +30,8 @@ date.setDate(date.getDate() + 7);
 export const BANNER_IMAGES = [
    'https://i.postimg.cc/mkYTLNTz/20220813-133334-0000.png',
    'https://i.postimg.cc/Z5745qzc/20220813-132018-0000.png',
-   'https://i.postimg.cc/J0XY9MbM/20220813-134040-0000.png'
+   'https://i.postimg.cc/J0XY9MbM/20220813-134040-0000.png',
+   'https://i.postimg.cc/GhVpC16V/20220813-140740-0000.png'
 ]
 
 export const checkMarks = [
