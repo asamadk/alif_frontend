@@ -1,5 +1,7 @@
-const BASE_URL = 'https://alif-ecommerce.herokuapp.com/';
-// const BASE_URL = 'http://localhost:8080/';
+// const BASE_URL = 'https://alif-ecommerce.herokuapp.com/';
+const BASE_URL = 'http://localhost:8080/';
+
+export const MAIL_ORDER = BASE_URL + 'mail/order/details/'
 
 export const REGISTER = BASE_URL+'register';
 export const LOGIN = BASE_URL+'login';

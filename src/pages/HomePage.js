@@ -81,7 +81,7 @@ const handleBannerImageChangeNext = () => {
         <ArrowForwardIosRoundedIcon />
       </IconButton>
       </div>
-      <h1>Categories</h1>
+      {/* <h1>Categories</h1>
 
       <div className="categories">{
         categoryList.map(category => {
@@ -98,9 +98,9 @@ const handleBannerImageChangeNext = () => {
           )
         })
       }
-      </div>
+      </div> */}
       <div className="home__products">
-        <h1>Latest Products</h1>
+        <h1>New Arrivals</h1>
         <ProductSlider 
         type = {Constants.LATEST_PRODUCTS}
         />

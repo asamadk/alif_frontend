@@ -1,7 +1,8 @@
 .ProductDetails {
-  margin-left: 10px;
+  /* margin-left: 10px; */
   text-align: center;
   padding-top: 20px;
+  width: 90%;
 }
 
 .size-chart-container{
@@ -74,7 +75,7 @@
     /* border-bottom: 0.5px #231f2099 solid; */
     border-top: 1.5px solid #eaeaec;
     margin: 20px 0px;
-    width: 90%;
+    /* width: 90%; */
     margin-right: 0;
   }
 
@@ -125,7 +126,7 @@ button:hover{
 }
 
 .ProductDetails__Similar {
-  width: 90%;
+  /* width: 90%; */
   display: flex;
   overflow-x: scroll;
   margin-left: 5%;
@@ -211,7 +212,7 @@ button:hover{
     font-size: 15px;
     font-weight: 300;
     height: 80px;
-    width: 95%;
+    /* width: 95%; */
     margin-right: 0px;
 }
 
@@ -266,7 +267,7 @@ button:hover{
   background-color: #f5f5f5;
   border-radius: 5px;
   /* height: 150px; */
-  width: 95%;
+  /* width: 95%; */
   font-weight: 300;
   margin: 30px 0;
 }
@@ -346,7 +347,7 @@ button:hover{
   grid-column-gap: 42px;
   grid-row-gap: 12px;
   margin-top: 25px;
-  width: 95%;
+  /* width: 95%; */
 }
 
 .composition_sub_container{
@@ -392,7 +393,7 @@ button:hover{
   justify-content: space-between;
   cursor: pointer;
   flex-wrap: wrap;
-  width: 95%;
+  /* width: 95%; */
 }
 
 .desc {

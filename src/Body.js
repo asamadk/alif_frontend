@@ -15,6 +15,7 @@ import Success from "./pages/Success";
 import Contact from "./pages/Contact";
 import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
+import OrderMail from "./components/OrderMail";
 import Address from "./pages/Address";
 import * as Constants from './Helper/Constants';
 import Logout from "./components/Logout";
@@ -69,6 +70,9 @@ const Body = () => {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/admin/order/details/:orderid">
+          <OrderMail/>
         </Route>
         <Route path="/register">
           <Register />
