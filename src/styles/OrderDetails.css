@@ -39,7 +39,7 @@
 }
 .all_orders_container p{
     font-weight: 200;
-    margin: 20px;
+    margin: 10px;
     /* margin-top: -15px; */
 }
 
@@ -62,7 +62,7 @@
 
 .all_orders_container_image h3{
     margin: 10px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
 .all_orders_container_image p{

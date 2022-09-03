@@ -105,8 +105,10 @@ function Orders(){
                 {orders.map(order => {
                 return(
                     <div key={order.orderId} className="all_orders_container_single">
-                        <CheckCircleOutlineIcon/>
-                        <h2>{order.orderStatusString}</h2>
+                        <div className='check_flex'>
+                            <CheckCircleOutlineIcon/>
+                            <h2>{order.orderStatusString}</h2>
+                        </div>
                         <p>On {new Date(order.orderDate).toDateString()}</p>
                         <div onClick={() => {handleOrderDetail(order.orderId)}} className="all_orders_container_single_inner">
                             <div>
