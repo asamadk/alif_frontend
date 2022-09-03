@@ -1,5 +1,5 @@
 .ProductDetails {
-  margin-left: 10px;
+  /* margin-left: 10px; */
   text-align: center;
   padding-top: 20px;
 }
@@ -8,7 +8,7 @@
   width: 350px;
   height: 430px;
   /* margin-left: 10px; */
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-top: 3px;
   cursor: -moz-zoom-in; 
   cursor: -webkit-zoom-in;
@@ -27,7 +27,7 @@
 }
 
 .ProductDetails__Description_S{
-  margin-left: -10%;
+  /* margin-left: -10%; */
 }
 
 .ProductDetails__Description_S h1 {
@@ -67,7 +67,7 @@
     /* border-bottom: 0.5px #231f2099 solid; */
     border-top: 1.5px solid #eaeaec;
     margin: 20px 0px;
-    width: 90%;
+    width: 93%;
     margin-right: 0;
   }
 
@@ -187,8 +187,8 @@ button:hover{
 
 .ProductDetails__Description_S {
   position: relative;
-  left: 10%;
-  width: 380px;
+  left: 4%;
+  width: 350px;
 }
 
 .ProductDetails__size_container{
@@ -204,8 +204,8 @@ button:hover{
     font-size: 15px;
     font-weight: 300;
     height: 80px;
-    width: 95%;
-    margin-right: 0px;
+    width: 100%;
+    /* margin-right: -5%; */
 }
 
 .ProductDetails__size_container button{
@@ -259,9 +259,9 @@ button:hover{
   background-color: #f5f5f5;
   border-radius: 5px;
   /* height: 150px; */
-  width: 100%;
+  width: 95%;
   font-weight: 300;
-  margin: 30px 0;
+  margin: 30px 2.5%;
 }
 
 .checks{
@@ -339,6 +339,8 @@ button:hover{
   grid-column-gap: 42px;
   grid-row-gap: 12px;
   margin-top: 25px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .composition_sub_container{
@@ -384,11 +386,12 @@ button:hover{
   justify-content: space-between;
   cursor: pointer;
   flex-wrap: wrap;
+  margin: 0 10px;
 }
 
 .desc {
   position: relative;
-  left: 2%;
+  /* left: 2%; */
   max-width: 500px;
 }
 
@@ -428,7 +431,7 @@ button:hover{
   .ProductDetails__Description_S {
     width: 500px;
     position: relative;
-    left: 10%;
+    /* left: 10%; */
     margin-top: 10%;
   }
 
@@ -526,6 +529,7 @@ button:hover{
   .ProductDetails__Image_Main img {
     width: 400px;
     height: 500px;
+    margin-left: 5px;
     /* margin-left: 5px;
     margin-top: 3px; */
 

@@ -30,7 +30,7 @@ button:hover{
   position: absolute;
   /* bottom: 40%; */
   /* bottom: -5%; */
-  left: 40%;
+  left: 15%;
   margin: 1px 0px;
   align-items: center;
 
@@ -58,7 +58,7 @@ button:hover{
     position: absolute;
     /* bottom: 40%; */
     /* bottom: -5%; */
-    left: 40%;
+    left: 20%;
     /* margin: 1px 0px; */
     transition: 0.5s;
   }
