@@ -121,7 +121,7 @@ const Navbar = () => {
     >
       <List>
       <ListItemIcon></ListItemIcon>
-        {['Home', 'Product', 'Contact Us', 'About','Wishlist', 'Cart', 'Profile', 'Orders', 'Address', 'Logout', 'Login', 'Coupons'].map((text, index) => (
+        {['Home', 'Product', 'Contact Us', 'FAQs','Wishlist', 'Cart', 'Profile', 'Orders', 'Address', 'Logout', 'Login', 'Coupons'].map((text, index) => (
           <ListItem button onClick={() => handleDrawerNavigation(index)} key={text}>
             {index === 0 && <><ListItemIcon><HomeOutlinedIcon/></ListItemIcon> <ListItemText primary={text} /></>}
             {index === 1 && <><ListItemIcon><CategoryOutlinedIcon/></ListItemIcon><ListItemText primary={text} /></>}
@@ -160,7 +160,7 @@ const Navbar = () => {
           <li><Link to="/home" >Home</Link></li>
           <li><Link to="/products">products</Link></li>
           <li><Link to="/contact">contact us</Link></li>
-          <li><Link to="/about">About</Link></li>
+          <li><Link to="/about">FAQs</Link></li>
         </ul>}
       </div>
 

@@ -1,40 +1,24 @@
-.Faq_dropdown {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    flex-wrap: wrap;
-    margin: 0 20%;
+.faq-main-container h1{
+  font-weight: 600;
+  /* color: white; */
 }
-  
-.Faq_dropdown h1{
-    font-size: 16px;
-    font-weight: 00;
-    line-height: 1;
-    letter-spacing: -.32px;
-    color: #231f2099;
+
+.faq-main-container{
+  /* background-color: gainsboro; */
+  margin: 20px 0px;
+  padding-bottom: 30px;
+}
+
+.faq-sub-container{
+  margin-left: 22%;
+}
+
+@media screen and (max-width: 600px){
+  .faq-main-container h1{
+      padding: 0% 10%;
   }
 
-  .product-dropdown{
-    margin: 30px 0px;
+  .faq-sub-container{
+      margin-left: 0%;
   }
-  
-  .Faq_collapsable{
-    width: 600px;
-    padding: 10px 20px;
-    text-align: start;
-  
-  }
-  
-  .Faq_icons{
-    margin-top: 15px;
-  }
-
-  .Faq_collapsable p{
-      width: 100%;
-  }
-
-  @media only screen and (min-width: 700px) {
-    .Faq_dropdown{
-        display: flex;
-    }
-  }
+}

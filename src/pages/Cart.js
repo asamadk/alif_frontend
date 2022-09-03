@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React from "react";
 import * as URL from '../Helper/endpoints'
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
@@ -8,15 +8,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import CancelIcon from '@mui/icons-material/Cancel';
 
-
 import "../styles/Cart.css";
-import { CommitSharp } from "@mui/icons-material";
 
 function Cart() {
   const history = useHistory();
@@ -98,7 +94,6 @@ function Cart() {
     
     let productsList = cart?.productModelList;
     if(productsList == null || productsList.lenght < 1)return;
-    console.log('PRODUCT INFO : ',info);
     const productIdVsInfoMap = new Map();
     let count = 0;
     info.forEach(inf => {
@@ -140,9 +135,7 @@ function Cart() {
         setTimeout(()=>{
           setShow(false);
         },1000);
-        console.log('PRODU',cart.productModelList);
         if(cart.productModelList != null && cart.productModelList.length <= 0){
-          console.log('HERE');
           history.push('/status',{code : Constants.CART_EMPTY})
         }else{
           setRerender(!rerender);
@@ -198,8 +191,12 @@ function Cart() {
 
   const handleCreateOrder = () => {
     if(logged){
+      let couponName = 'null'
+      if(cart.couponsModel && cart.couponsModel.couponName){
+        couponName = cart.couponsModel.couponName;
+      }
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        axios.post(URL.CREATE_ORDER_FROM_CART)
+        axios.post(URL.CREATE_ORDER_FROM_CART + '/'+couponName)
         .then(res => {
         setShow(true);
         if(res.data.errorMap == null && res.data.responseWrapper.length > 0){
@@ -227,7 +224,6 @@ function Cart() {
       setLoading(false);
       let error = JSON.parse(JSON.stringify(err));
       if(error.status == Constants.NOT_FOUND_404){
-        // setShow(true);
         setError(true);
         setErrorMsg('Cannot find any coupon with that name');
         setTimeout(() => {
@@ -238,12 +234,21 @@ function Cart() {
     setModalOpen(false);
     setLoading(false);
     if(couponAddResponse?.data?.responseCode == Constants.OK_200){
-      setRerender(!rerender);
-      setShow(true);
-      setErrorMsg('Coupon added succesfully');
+      // console.log('Coupon res',couponAddResponse?.data);
+      // setShow(true);
+      window.scrollTo(0,0)
+      if(couponAddResponse?.data?.responseDesc === 'You have already used this coupon'){
+        setError(true);
+        console.log('IN IF')
+      }else{
+        setRerender(!rerender);
+        setShow(true);
+      }
+      setErrorMsg(couponAddResponse?.data?.responseDesc);
       setTimeout(() => {
         setShow(false);
-      },1000);
+        setError(false)
+      },3000);
     }
   }
 

@@ -3,6 +3,8 @@ import React, { useState,useEffect } from "react";
 import Products from "../components/Product";
 import * as Constants from '../Helper/Constants'
 import * as URL from '../Helper/endpoints'
+import Pagination from '@mui/material/Pagination';
+
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,7 +20,7 @@ const Men = () => {
 
   const [categories,setCategories] = useState([]);
   const[page,setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(40);
   const [products,setProducts] = useState([]);
   const [show,setShow] = useState(false);
   const [errorMsg,setErrorMsg] = useState('');
@@ -75,12 +77,12 @@ const Men = () => {
         .then(res => {
           setLoading(false);
           setProducts(res.data.responseWrapper);
-          console.log(res.data.responseWrapper)
+          console.log('CLOTHES',res.data.responseWrapper)
         }).catch(err => {
           console.log(err);
         })
       }
-  },[rerender])
+  },[rerender,pageSize,page])
   
 
   const handleCategoryChange = (id) => {
@@ -102,10 +104,17 @@ const Men = () => {
     setSelectedOption(id)
   }
 
+  const handlePaginationChange = (value) => {
+    setLoading(true);
+    setPage(value);
+    setRerender(!rerender);
+    window.scrollTo(0,0);
+}
+
   const handleReset = () => {
     setLoading(true);
     setSearchedProduct(false);
-      axios.get(URL.GET_PRODUCTS(0,10))
+      axios.get(URL.GET_PRODUCTS(0,30))
         .then(res => {
           setLoading(false)
           setProducts(res.data.responseWrapper);
@@ -163,10 +172,12 @@ const Men = () => {
               btn={Constants.VIEW_MORE}
               unique={product.product_id}
               price={product.product_real_price}
+              rerender = {rerender}
             />
           )
         })
       }
+      {/* <Pagination page={page + 1} onChange={(e,val) => handlePaginationChange(val-1)} count={4} /> */}
       </div>
     </div>
   );

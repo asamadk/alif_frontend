@@ -51,6 +51,10 @@ function Contact(){
         setBody('');
     }
 
+    const handleOpenInstagram = () => {
+        window.open('https://www.instagram.com/houseofalif.official/?hl=en','_blank')
+    }
+
     return(
         <>
         {loading && (
@@ -80,10 +84,9 @@ function Contact(){
                 <p>+91 7007475550</p>
                 <div className="list_items">
                     <ul>
-                        <li><FacebookIcon/></li>
-                        <li><InstagramIcon/></li>
-                        <li><InstagramIcon/></li>
-                        <li><FacebookIcon/></li>
+                        <li style={{cursor : 'pointer'}} >
+                            <InstagramIcon onClick={handleOpenInstagram}/>
+                        </li>
                     </ul>
                 </div>
             </div>

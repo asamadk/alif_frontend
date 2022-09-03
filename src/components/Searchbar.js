@@ -28,7 +28,7 @@ console.log('Location',history.location)
   return (
     <div className="searchbar">
       <input
-        type="text"
+        type="search"
         placeholder="What are you looking for?"
         value={input}
         onChange={(e) => {setInput(e.target.value)}}
