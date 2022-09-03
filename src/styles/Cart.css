@@ -66,7 +66,7 @@
 .cart__address {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .cart__address > h5 {
   font-size: 12px;

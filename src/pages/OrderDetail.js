@@ -98,7 +98,7 @@ function OrderDetails(){
                   <div className="order_payment_option">
                     <div className="payment_icon">
                       <CreditCardOutlinedIcon/>
-                    <p>{order.paymentMode}</p>
+                      <p>{order.paymentMode}</p>
                     </div>
                   </div>
                   <div className="all_orders_container_single">

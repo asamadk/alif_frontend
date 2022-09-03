@@ -44,7 +44,7 @@
     }
 
     .all_orders_container_single p{
-      margin-left: 20px;
+      margin-left: 10px;
     }
 
     .sidebar_and_orders{
@@ -55,8 +55,14 @@
     .all_orders_container_order h2{
         font-weight: 300;
         font-size: 20px;
-        margin: 25px 15px;
+        margin: 0px 15px;
+        margin-bottom: 10px;
     }
+
+    .check_flex{
+      display: flex;
+    }
+
     .all_orders_container_order p{
         font-weight: 200;
         /* margin-left:20px; */
