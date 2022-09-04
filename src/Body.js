@@ -24,6 +24,7 @@ import ResetPassword from "./pages/ResetPassword";
 import PaymentOptions from "./pages/PaymentOptions";
 import OrderDetails from "./pages/OrderDetail";
 import TailorDetails from "./components/TailorDetails";
+import BillGenerator from "./components/BillGenerator";
 
 const Body = () => {
   return (
@@ -53,6 +54,9 @@ const Body = () => {
         </Route>
         <Route exact path="/order/detail/:id">
           <OrderDetails/>
+        </Route>
+        <Route exact path="/admin/bill/:orderid">
+          <BillGenerator/>
         </Route>
         <Route exact path="/products">
           <Products />
