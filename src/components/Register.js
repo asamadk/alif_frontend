@@ -115,7 +115,7 @@ const Register = () => {
                 },2000);
                 history.push('/login')
                 setErrDesc('Registered');
-                fname.current?.value
+                // fname.current?.value
             }else{
                 setShow(false);
                 setErr(true);
