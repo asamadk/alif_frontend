@@ -387,7 +387,8 @@ function ProductDetails(){
 
     const list = (anchor) => (
         <Box
-          sx={{ width:  600 }}
+        className='Drawer_container'
+        //   sx={{ width:  600 }}
           role="presentation"
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
