@@ -28,10 +28,15 @@ date.setDate(date.getDate() + 7);
 // date.toLocaleDateString();
 
 export const BANNER_IMAGES = [
-   'https://i.postimg.cc/mkYTLNTz/20220813-133334-0000.png',
-   'https://i.postimg.cc/Z5745qzc/20220813-132018-0000.png',
-   'https://i.postimg.cc/J0XY9MbM/20220813-134040-0000.png',
-   'https://i.postimg.cc/GhVpC16V/20220813-140740-0000.png'
+   // 'https://i.postimg.cc/mkYTLNTz/20220813-133334-0000.png',
+   // 'https://i.postimg.cc/Z5745qzc/20220813-132018-0000.png',
+   // 'https://i.postimg.cc/J0XY9MbM/20220813-134040-0000.png',
+   // 'https://i.postimg.cc/GhVpC16V/20220813-140740-0000.png'
+   'https://i.postimg.cc/cLryv4W2/png-20221008-230042-0000.png',
+   'https://i.postimg.cc/pXmq899f/png-20221008-231743-0000.png',
+   'https://i.postimg.cc/02ZJCv39/1-20221008-231156-0000.png',
+   'https://i.postimg.cc/HkBRHrhF/png-20221008-223944-0000.png',
+   'https://i.postimg.cc/x8NnNKWk/1-20221008-231233-0000.png'
 ]
 
 export const checkMarks = [
